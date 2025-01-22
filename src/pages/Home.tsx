@@ -87,7 +87,7 @@ function Home() {
                                 <Trophy className="w-6 h-6 text-blue-600" />
                             </div>
                             <h3 className="text-xl font-semibold mb-2">Competitions</h3>
-                            <p className="text-gray-600">Participating in international underwater robotics competitions.</p>
+                            <p className="text-gray-600">Participating in RoboSub, an international student underwater robotics competition.</p>
                         </div>
                             <div className="bg-white p-6 rounded-xl shadow-md">
                                 <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
