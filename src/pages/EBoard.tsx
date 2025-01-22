@@ -4,44 +4,53 @@ import { Mail, Linkedin } from 'lucide-react';
 function EBoard() {
   const leaders = [
     {
-      name: "Sarah Chen",
+      name: "Lauryn Hills",
       role: "President",
-      major: "Computer Science",
-      year: "Senior",
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=300&h=300",
-      bio: "Sarah leads the team with her extensive experience in robotics and software development. She previously interned at SpaceX and is passionate about underwater exploration.",
+      major: "Electrical and Computer Engineering",
+      year: "Sophomore",
+      image: "/lauryn_headshot.jpg",
+      bio: "Lauryn is passionate about robotics. She leads the team in setting goals and strategies for the year.",
       email: "sarah.chen@example.com",
       linkedin: "#"
     },
     {
-      name: "Michael Rodriguez",
-      role: "Vice President",
-      major: "Mechanical Engineering",
-      year: "Junior",
-      image: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&fit=crop&w=300&h=300",
-      bio: "Michael specializes in mechanical design and has led multiple successful projects. His focus is on improving the submarine's hydrodynamics and efficiency.",
-      email: "michael.r@example.com",
-      linkedin: "#"
-    },
-    {
-      name: "Emily Taylor",
-      role: "Technical Lead",
-      major: "Electrical Engineering",
+      name: "Matthew Jiang",
+      role: "Vice President and Software Lead",
+      major: "Computer Engineering and Computer Science",
       year: "Senior",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&h=300",
-      bio: "Emily oversees all technical aspects of the submarine. She has extensive experience in embedded systems and sensor integration.",
-      email: "emily.t@example.com",
+      image: "/matt.jpeg",
+      bio: "Matt is experienced in robotics. He heads the software team, responsible for designing the software architecture and and overseeing softwrae development.",
+      email: "jiangmy@usc.edu",
       linkedin: "#"
     },
     {
-      name: "David Park",
-      role: "Software Lead",
-      major: "Computer Engineering",
+      name: "Ekamresh Vasuvedan",
+      role: "Treasurer and Electrical Lead",
+      major: "Electrical and Computer Engineering",
       year: "Junior",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&h=300",
+      bio: "Ekamresh is a talented electrical engineer. He leads the electrical team in designing and building the electrical systems for the robot.",
+      email: "emily.t@example.com",
+      linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/"
+    },
+    {
+      name: "Jessica Yao",
+      role: "Secretary",
+      major: "Electrical and Computer Engineering",
+      year: "Sophomore",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&h=300",
-      bio: "David leads the software development team, focusing on computer vision and autonomous navigation systems.",
+      bio: "Fill in bio here",
       email: "david.p@example.com",
       linkedin: "#"
+    },
+    {
+      name: "Doris Lai",
+      role: "Social Media Chair",
+      major: "Business Administration",
+      year: "Sophomore",
+      image: "https://images.unsplash.com/photo-1606786977073-4f4a7b5f0c5d?auto=format&fit=crop&w=300&h=300",
+      bio: "Fill in bio here",
+      email: ""
     }
   ];
 

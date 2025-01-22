@@ -3,12 +3,11 @@ import { CheckCircle2, Send } from 'lucide-react';
 
 function Join() {
   const benefits = [
-    "Hands-on experience with underwater robotics",
-    "Professional development opportunities",
-    "Networking with industry professionals",
-    "Competition travel opportunities",
-    "Leadership experience",
-    "Technical skills development"
+    "Gain a hands-on experience with underwater robotics",
+    "Develop leadership and teamwork skills",
+    "Travel to competitions",
+    "Develop your technical skills ",
+    "Make lifelong friends and connections"
   ];
 
   return (
@@ -25,7 +24,7 @@ function Join() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Benefits Section */}
           <div>
-            <h2 className="text-3xl font-bold mb-6">Why Join Us?</h2>
+            <h2 className="text-3xl font-bold mb-6">Why Join USC AUV?</h2>
             <ul className="space-y-4">
               {benefits.map((benefit, index) => (
                 <li key={index} className="flex items-center gap-3">
@@ -39,72 +38,21 @@ function Join() {
           {/* Application Form */}
           <div>
             <div className="bg-white p-8 rounded-xl shadow-md">
-              <h2 className="text-2xl font-bold mb-6">Apply Now</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Major
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Year
-                  </label>
-                  <select
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  >
-                    <option value="">Select year</option>
-                    <option value="Freshman">Freshman</option>
-                    <option value="Sophomore">Sophomore</option>
-                    <option value="Junior">Junior</option>
-                    <option value="Senior">Senior</option>
-                    <option value="Graduate">Graduate</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Why do you want to join?
-                  </label>
-                  <textarea
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    rows={4}
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                >
-                  Submit Application
-                  <Send className="w-4 h-4" />
-                </button>
-              </form>
+              <h2 className="text-2xl font-bold mb-6">Get Connected Now!</h2>
+
+              <p className="text-gray-700 mb-4">
+                Join our community to stay updated and get involved:
+              </p>
+              <a
+                href="https://discord.gg/7jPvyPWc8T"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-700 transition-colors duration-300"
+              >
+                <img src="/discord_white.svg" alt="Discord" className="w-8 h-8 mr-4" />
+                Join our Discord Server
+              </a>
+              
             </div>
           </div>
         </div>

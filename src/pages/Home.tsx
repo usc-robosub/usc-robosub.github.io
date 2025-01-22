@@ -42,7 +42,7 @@ function Home() {
           <div className="flex flex-col items-center text-center">
             <img src="/AUVbarracuda.png" alt="USC AUV Logo" className="w-48 h-48 mb-6 text-white invert" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4">USC AUV</h1>
-            <p className="text-xl md:text-2xl text-blue-200 mb-8">USC's Premier Robotics Design Team</p>
+            <p className="text-xl md:text-2xl text-blue-200 mb-8">University of Southern California's Premier Robotics Design Team</p>
             <Link to="/join" className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-colors">
               Join Our Team <ChevronRight className="w-5 h-5" />
             </Link>
@@ -128,19 +128,9 @@ function Home() {
               <img src="/AUVsockpuppetNoText.png" alt="USC AUV Logo" className="w-8 h-8 text-white invert" />
               <span className="text-xl font-bold">USC AUV</span>
             </div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-blue-300 transition-colors flex items-center gap-2">
-                <Mail className="w-5 h-5" />
-                Contact
-              </a>
-              <a href="#" className="hover:text-blue-300 transition-colors flex items-center gap-2">
-                <Github className="w-5 h-5" />
-                GitHub
-              </a>
-            </div>
           </div>
           <div className="mt-8 text-center text-blue-300">
-            <p>&copy; 2024 USC AUV. All rights reserved.</p>
+            <p>&copy; 2025 USC AUV. All rights reserved.</p>
           </div>
         </div>
       </footer>

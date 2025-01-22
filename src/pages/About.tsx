@@ -62,28 +62,36 @@ function About() {
         </div>
       </section>
 
-      {/* History Section */}
+
       <section className="py-16">
         <div className="container mx-auto px-6">
+            <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold mb-6">The Barracuda</h2>
+                <p className="text-lg text-gray-700 mb-8">
+                    The Barracuda is our latest autonomous underwater vehicle, TODO: add more info here
+                </p>
+            </div>
+        </div>
+      </section>
+        <section className="py-16 bg-white">
+            
+            <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Our History</h2>
             <p className="text-lg text-gray-700 mb-8">
-              Founded in 2020, USC AUV has quickly grown from a small group of passionate engineering 
-              students to a comprehensive robotics team. Our achievements include multiple awards in 
-              regional competitions and recognition for innovative underwater vehicle designs.
+              USC AUV has been competing in the RoboSub competition for almost two decades. Over the years, we have designed and built a multitude of autonomous underwater vehicles,
+              such as the Mantaray, Turtle, and Seabee. This year, we are excited to begin work on our newest robot, the Barracuda.
             </p>
-            <div className="bg-white p-6 rounded-xl shadow-md">
+            {/* <div className="bg-white p-6 rounded-xl shadow-md">
               <h3 className="text-xl font-semibold mb-4">Key Achievements</h3>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
-                <li>2023 RoboSub Competition - Innovation Award</li>
-                <li>2022 Regional Robotics Championship - 2nd Place</li>
-                <li>2021 Best Technical Documentation Award</li>
-                <li>Multiple successful autonomous mission completions</li>
+                <li>2023 RoboSub Competition - Semifinalist</li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
-      </section>
+        </section>
+
     </div>
   );
 }
