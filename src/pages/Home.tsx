@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, Trophy, Calendar, ChevronRight, Github, Mail, School2, Box, Cpu, BrainCircuit as Circuit, Cog } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 function Home() {
     const technologies = [
@@ -53,9 +54,9 @@ function Home() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white pt-16">
+        <div className="bg-gradient-to-b from-blue-50 to-white">
             {/* Hero Section */}
-            <header className="relative bg-blue-900 text-white">
+            <header className="relative bg-blue-900 text-white min-h-screen flex items-center">
                 <div className="container mx-auto px-6 py-16">
                     <div className="flex flex-col items-center text-center">
                         <img src="/AUVbarracuda.png" alt="USC AUV Logo" className="w-48 h-48 mb-6 text-white invert" />
@@ -65,11 +66,12 @@ function Home() {
                             Join Our Team <ChevronRight className="w-5 h-5" />
                         </Link>
                     </div>
+                    <ScrollIndicator />
                 </div>
             </header>
 
             {/* About Section */}
-            <section className="py-16">
+            <section id="about-section" className="py-16">
                 <div className="container mx-auto px-6">
                 <h2 className="text-3xl font-bold text-center mb-12">About Our Club</h2>
                     <div className="grid md:grid-cols-3 gap-8">
@@ -95,7 +97,6 @@ function Home() {
                                 <p className="text-gray-600">Hands-on experience in robotics, programming, and electrical and mechanical systems.</p>
                             </div>
                     </div>
-                    
                 </div>
             </section>
 

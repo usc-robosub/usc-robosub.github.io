@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Remove custom animation since we're using Tailwind's built-in animation */
