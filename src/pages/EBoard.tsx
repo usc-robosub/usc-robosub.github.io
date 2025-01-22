@@ -38,7 +38,7 @@ function EBoard() {
       role: "Secretary",
       major: "Electrical and Computer Engineering",
       year: "Sophomore",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&h=300",
+      image: "/jessicayao.jpg",
       bio: "Fill in bio here",
       email: "david.p@example.com",
       linkedin: "#"
@@ -48,7 +48,7 @@ function EBoard() {
       role: "Social Media Chair",
       major: "Business Administration",
       year: "Sophomore",
-      image: "https://images.unsplash.com/photo-1606786977073-4f4a7b5f0c5d?auto=format&fit=crop&w=300&h=300",
+      image: "/doris.jpg",
       bio: "Fill in bio here",
       email: ""
     }
