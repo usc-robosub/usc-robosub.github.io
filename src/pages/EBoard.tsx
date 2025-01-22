@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Mail, Linkedin } from 'lucide-react';
 
 function EBoard() {
@@ -57,6 +57,14 @@ function EBoard() {
     }
   ];
 
+  // Preload images
+  useEffect(() => {
+    leaders.forEach(leader => {
+      const img = new Image();
+      img.src = leader.image;
+    });
+  }, [leaders]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white pt-16">
       {/* Hero Section */}
@@ -79,6 +87,7 @@ function EBoard() {
                       className="h-48 w-full md:w-48 object-cover"
                       src={leader.image}
                       alt={leader.name}
+                      loading="eager"
                     />
                   </div>
                   <div className="p-8">
