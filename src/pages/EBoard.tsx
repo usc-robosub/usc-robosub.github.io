@@ -19,7 +19,7 @@ function EBoard() {
       year: "Senior",
       image: "/matt.jpeg",
       email: "jiangmy@usc.edu",
-      linkedin: "#"
+      linkedin: "https://www.linkedin.com/in/matthewyjiang/"
     },
     {
       name: "Ekamresh Vasudevan",
