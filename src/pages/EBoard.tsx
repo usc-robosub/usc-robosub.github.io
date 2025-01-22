@@ -9,7 +9,6 @@ function EBoard() {
       major: "Electrical and Computer Engineering",
       year: "Sophomore",
       image: "/lauryn_headshot.jpg",
-      bio: "Lauryn is passionate about robotics. She leads the team in setting goals and strategies for the year.",
       email: "sarah.chen@example.com",
       linkedin: "#"
     },
@@ -19,17 +18,15 @@ function EBoard() {
       major: "Computer Engineering and Computer Science",
       year: "Senior",
       image: "/matt.jpeg",
-      bio: "Matt is experienced in robotics. He heads the software team, responsible for designing the software architecture and and overseeing softwrae development.",
       email: "jiangmy@usc.edu",
       linkedin: "#"
     },
     {
-      name: "Ekamresh Vasuvedan",
+      name: "Ekamresh Vasudevan",
       role: "Treasurer and Electrical Lead",
       major: "Electrical and Computer Engineering",
       year: "Junior",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&h=300",
-      bio: "Ekamresh is a talented electrical engineer. He leads the electrical team in designing and building the electrical systems for the robot.",
       email: "emily.t@example.com",
       linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/"
     },
@@ -39,7 +36,6 @@ function EBoard() {
       major: "Electrical and Computer Engineering",
       year: "Sophomore",
       image: "/jessicayao.jpg",
-      bio: "Fill in bio here",
       email: "david.p@example.com",
       linkedin: "#"
     },
@@ -49,7 +45,14 @@ function EBoard() {
       major: "Business Administration",
       year: "Sophomore",
       image: "/doris.jpg",
-      bio: "Fill in bio here",
+      email: ""
+    },
+    {
+      name: "Kyle Woo",
+      role: "Assistant Electrical Lead",
+      major: "Electrical and Computer Engineering",
+      year: "Junior",
+      image: "/kyle_headshot.png",
       email: ""
     }
   ];
@@ -87,9 +90,6 @@ function EBoard() {
                     </h2>
                     <p className="mt-2 text-gray-600">
                       {leader.major} • {leader.year}
-                    </p>
-                    <p className="mt-4 text-gray-500">
-                      {leader.bio}
                     </p>
                     <div className="mt-4 flex gap-4">
                       <a
