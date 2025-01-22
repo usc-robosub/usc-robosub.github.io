@@ -9,7 +9,7 @@ function EBoard() {
       major: "Electrical and Computer Engineering",
       year: "Sophomore",
       image: "/lauryn_headshot.jpg",
-      email: "sarah.chen@example.com",
+      email: "lhills@usc.edu",
       linkedin: "#"
     },
     {
@@ -26,8 +26,8 @@ function EBoard() {
       role: "Treasurer and Electrical Lead",
       major: "Electrical and Computer Engineering",
       year: "Junior",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&h=300",
-      email: "emily.t@example.com",
+      image: "/ek.jpeg",
+      email: "evasudev@usc.edu",
       linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/"
     },
     {
@@ -36,7 +36,7 @@ function EBoard() {
       major: "Electrical and Computer Engineering",
       year: "Sophomore",
       image: "/jessicayao.jpg",
-      email: "david.p@example.com",
+      email: "",
       linkedin: "#"
     },
     {
