@@ -26,7 +26,7 @@ function EBoard() {
       role: "Treasurer and Electrical Lead",
       major: "Electrical and Computer Engineering",
       year: "Junior",
-      image: "/ek.jpeg",
+      image: "/ek.jpg",
       email: "evasudev@usc.edu",
       linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/"
     },
