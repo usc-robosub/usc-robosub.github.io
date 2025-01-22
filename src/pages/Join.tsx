@@ -38,20 +38,32 @@ function Join() {
           {/* Application Form */}
           <div>
             <div className="bg-white p-8 rounded-xl shadow-md">
-              <h2 className="text-2xl font-bold mb-6">Get Connected Now!</h2>
-
-              <p className="text-gray-700 mb-4">
-                Join our community to stay updated and get involved:
+              <h2 className="text-2xl font-bold mb-3">Get Connected Now!</h2>
+              <p className="text-gray-700 mb-3">
+                Fill out our interest form to get started with USC AUV!
               </p>
               <a
-                href="https://discord.gg/7jPvyPWc8T"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfZnhGsQTUPIkCJLfJcP2tE20nZVszWjG6SglmbcWH-VuExug/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-700 transition-colors duration-300"
               >
-                <img src="/discord_white.svg" alt="Discord" className="w-8 h-8 mr-4" />
-                Join our Discord Server
+                <Send className="w-5 h-5 mr-3" />
+                <span>Open Form</span>
               </a>
+              <br />
+              <p className="text-gray-700 mt-8 mb-2">
+                Have questions? Ask us at our Discord server!
+                </p>
+                <a
+                    href="https://discord.gg/7jPvyPWc8T"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-[#5865F2] text-white font-semibold rounded-md shadow hover:bg-blue-700 transition-colors duration-300"
+                > 
+
+                <img src="/discord_white.svg" alt="Discord Logo" className="w-6 h-6 mr-3" /> Join Discord
+                </a>
               
             </div>
           </div>
