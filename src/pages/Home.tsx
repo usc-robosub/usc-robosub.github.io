@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollIndicator from "../components/ScrollIndicator";
+import Footer from "../components/Footer";
 
 function Home() {
   const technologies = [
@@ -269,95 +270,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-blue-900 text-white py-12">
-        <div className="container mx-auto px-6 text-center">
-          <div className="flex flex-col items-center">
-            {/* Logo and Title */}
-            <div className="flex items-center gap-2 mb-6">
-              <img
-                src="/AUVsockpuppetNoText.png"
-                alt="USC AUV Logo"
-                className="w-8 h-8 text-white invert"
-              />
-              <span className="text-xl font-bold">USC AUV</span>
-            </div>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-6 mb-8">
-              <a
-                href="https://www.instagram.com/robosubsc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.423.414a4.93 4.93 0 011.738 1.126 4.928 4.928 0 011.126 1.738c.174.453.36 1.253.414 2.423.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.24 1.97-.414 2.423a4.93 4.93 0 01-1.126 1.738 4.93 4.93 0 01-1.738 1.126c-.453.174-1.253.36-2.423.414-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.97-.24-2.423-.414a4.93 4.93 0 01-1.738-1.126 4.93 4.93 0 01-1.126-1.738c-.174-.453-.36-1.253-.414-2.423-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.17.24-1.97.414-2.423a4.93 4.93 0 011.126-1.738 4.93 4.93 0 011.738-1.126c.453-.174 1.253-.36 2.423-.414C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.756.131 4.611.312 3.678.645 2.633 1.005 1.785 1.53 1.03 2.285c-.756.756-1.28 1.604-1.64 2.649-.333.933-.514 2.078-.573 3.374C-.014 8.332 0 8.741 0 12c0 3.259-.014 3.668.072 4.948.059 1.296.24 2.441.573 3.374.36 1.045.884 1.893 1.64 2.649.756.756 1.604 1.28 2.649 1.64.933.333 2.078.514 3.374.573C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.296-.059 2.441-.24 3.374-.573 1.045-.36 1.893-.884 2.649-1.64.756-.756 1.28-1.604 1.64-2.649.333-.933.514-2.078.573-3.374.059-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.059-1.296-.24-2.441-.573-3.374-.36-1.045-.884-1.893-1.64-2.649-.756-.756-1.604-1.28-2.649-1.64-.933-.333-2.078-.514-3.374-.573C15.668.014 15.259 0 12 0z" />
-                  <circle cx="12" cy="12" r="3.5" />
-                </svg>
-              </a>
-              <a
-                href="https://github.com/usc-robosub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 hover:text-white transition-colors"
-                aria-label="GitHub"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 .5a11.499 11.499 0 00-3.636 22.453c.575.11.786-.25.786-.554v-2.167c-3.02.637-3.655-1.457-3.655-1.457a2.886 2.886 0 00-1.205-1.587c-.985-.673.076-.659.076-.659a2.28 2.28 0 011.664 1.123c.974 1.666 2.556 1.184 3.178.905a2.287 2.287 0 01.683-1.432c-2.414-.277-4.95-1.205-4.95-5.373a4.2 4.2 0 011.125-2.914 3.91 3.91 0 01.106-2.874s.914-.293 2.996 1.125a10.336 10.336 0 015.45 0c2.082-1.418 2.996-1.125 2.996-1.125a3.91 3.91 0 01.106 2.874 4.2 4.2 0 011.125 2.914c0 4.183-2.544 5.092-4.963 5.362.806.693 1.515 2.062 1.515 4.157v6.168c0 .311.21.67.793.554A11.499 11.499 0 0012 .5z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/auv-usc"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M4.983 3.5c0-1.373-1.11-2.5-2.49-2.5-1.388 0-2.497 1.126-2.497 2.5 0 1.366 1.102 2.5 2.49 2.5h.01c1.385 0 2.487-1.134 2.487-2.5zM.49 23.146V7.431h4.928v15.715H.49zM8.928 7.431h4.933v2.31c.685-.98 2.377-2.372 4.867-2.372 5.206 0 6.169 3.628 6.169 8.342v9.434h-4.938v-8.353c0-1.992-.033-4.552-2.768-4.552-2.771 0-3.198 2.168-3.198 4.412v8.493H8.928V7.431z" />
-                </svg>
-              </a>
-              <a
-                href="https://discord.com/invite/7jPvyPWc8T"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 hover:text-white transition-colors"
-              >
-                <svg
-                  className="w-6 h-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515c-.211.371-.452.864-.621 1.252a18.33 18.33 0 0 0-5.962 0 12.262 12.262 0 0 0-.622-1.252A19.788 19.788 0 0 0 3.683 4.37C.657 9.019.157 13.511.429 17.937a20.188 20.188 0 0 0 5.996 3.062c.482-.664.913-1.364 1.284-2.096a12.987 12.987 0 0 1-2.024-1.02c.17-.123.34-.251.502-.381a14.728 14.728 0 0 0 11.645 0c.165.13.335.258.504.381-.647.411-1.319.761-2.02 1.02.375.732.806 1.432 1.283 2.096a20.187 20.187 0 0 0 5.998-3.062c.27-4.427-.073-8.918-3.055-13.568zm-13.71 9.418c-1.185 0-2.154-1.13-2.154-2.519 0-1.388.952-2.52 2.154-2.52 1.207 0 2.176 1.132 2.154 2.52.001 1.389-.952 2.52-2.154 2.52zm10.785 0c-1.185 0-2.154-1.13-2.154-2.519 0-1.388.951-2.52 2.154-2.52 1.207 0 2.176 1.132 2.154 2.52 0 1.389-.951 2.52-2.154 2.52z" />
-                </svg>
-              </a>
-            </div>
-
-            {/* Footer Text */}
-            <div className="text-blue-300">
-              <p>&copy; 2025 USC AUV. All rights reserved.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

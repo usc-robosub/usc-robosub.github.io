@@ -1,5 +1,6 @@
-import React from 'react';
-import { CheckCircle2, Send } from 'lucide-react';
+import React from "react";
+import { CheckCircle2, Send } from "lucide-react";
+import Footer from "../components/Footer";
 
 function Join() {
   const benefits = [
@@ -7,7 +8,7 @@ function Join() {
     "Develop leadership and teamwork skills",
     "Travel to competitions",
     "Develop your technical skills ",
-    "Make lifelong friends and connections"
+    "Make lifelong friends and connections",
   ];
 
   return (
@@ -15,8 +16,12 @@ function Join() {
       {/* Hero Section */}
       <div className="bg-blue-900 text-white py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-center">Join USC AUV</h1>
-          <p className="text-xl text-blue-200 text-center mt-4">Be part of something extraordinary</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-center">
+            Join USC AUV
+          </h1>
+          <p className="text-xl text-blue-200 text-center mt-4">
+            Be part of something extraordinary
+          </p>
         </div>
       </div>
 
@@ -54,21 +59,25 @@ function Join() {
               <br />
               <p className="text-gray-700 mt-8 mb-2">
                 Have questions? Ask us at our Discord server!
-                </p>
-                <a
-                    href="https://discord.gg/7jPvyPWc8T"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 bg-[#5865F2] text-white font-semibold rounded-md shadow hover:bg-blue-700 transition-colors duration-300"
-                > 
-
-                <img src="/discord_white.svg" alt="Discord Logo" className="w-6 h-6 mr-3" /> Join Discord
-                </a>
-              
+              </p>
+              <a
+                href="https://discord.gg/7jPvyPWc8T"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-2 bg-[#5865F2] text-white font-semibold rounded-md shadow hover:bg-blue-700 transition-colors duration-300"
+              >
+                <img
+                  src="/discord_white.svg"
+                  alt="Discord Logo"
+                  className="w-6 h-6 mr-3"
+                />{" "}
+                Join Discord
+              </a>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

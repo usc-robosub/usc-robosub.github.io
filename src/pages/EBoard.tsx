@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { Mail, Linkedin } from 'lucide-react';
+import React, { useEffect } from "react";
+import { Mail, Linkedin } from "lucide-react";
+import Footer from "../components/Footer";
 
 function EBoard() {
   const leaders = [
@@ -10,7 +11,7 @@ function EBoard() {
       year: "Sophomore",
       image: "/lauryn_headshot.jpg",
       email: "lhills@usc.edu",
-      linkedin: "#"
+      linkedin: "#",
     },
     {
       name: "Matthew Jiang",
@@ -19,7 +20,7 @@ function EBoard() {
       year: "Senior",
       image: "/matt.jpeg",
       email: "jiangmy@usc.edu",
-      linkedin: "https://www.linkedin.com/in/matthewyjiang/"
+      linkedin: "https://www.linkedin.com/in/matthewyjiang/",
     },
     {
       name: "Ekamresh Vasudevan",
@@ -28,7 +29,7 @@ function EBoard() {
       year: "Junior",
       image: "/ek.jpg",
       email: "evasudev@usc.edu",
-      linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/"
+      linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/",
     },
     {
       name: "Jessica Yao",
@@ -37,7 +38,7 @@ function EBoard() {
       year: "Sophomore",
       image: "/jessicayao.jpg",
       email: "",
-      linkedin: "#"
+      linkedin: "#",
     },
     {
       name: "Doris Lai",
@@ -45,7 +46,7 @@ function EBoard() {
       major: "Business Administration",
       year: "Sophomore",
       image: "/doris.jpg",
-      email: ""
+      email: "",
     },
     {
       name: "Kyle Woo",
@@ -53,13 +54,13 @@ function EBoard() {
       major: "Electrical and Computer Engineering",
       year: "Junior",
       image: "/kyle_headshot.png",
-      email: ""
-    }
+      email: "",
+    },
   ];
 
   // Preload images
   useEffect(() => {
-    leaders.forEach(leader => {
+    leaders.forEach((leader) => {
       const img = new Image();
       img.src = leader.image;
     });
@@ -70,8 +71,12 @@ function EBoard() {
       {/* Hero Section */}
       <div className="bg-blue-900 text-white py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-center">Executive Board</h1>
-          <p className="text-xl text-blue-200 text-center mt-4">Meet our student leadership team</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-center">
+            Executive Board
+          </h1>
+          <p className="text-xl text-blue-200 text-center mt-4">
+            Meet our student leadership team
+          </p>
         </div>
       </div>
 
@@ -80,7 +85,10 @@ function EBoard() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {leaders.map((leader) => (
-              <div key={leader.name} className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div
+                key={leader.name}
+                className="bg-white rounded-xl shadow-md overflow-hidden"
+              >
                 <div className="md:flex">
                   <div className="md:flex-shrink-0">
                     <img
@@ -123,6 +131,8 @@ function EBoard() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
