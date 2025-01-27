@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Menu, X, Github } from 'lucide-react';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Menu, X, Github } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/eboard', label: 'EBoard' },
-    { path: '/join', label: 'Join Us' },
+    { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
+    { path: "/eboard", label: "E-Board" },
+    { path: "/join", label: "Join Us" },
   ];
 
   return (
-    <nav className="bg-blue-900 text-white fixed w-full z-50">
+    <nav
+      className={
+        isOpen
+          ? "bg-blue-900 text-white fixed w-full z-50 shadow-lg"
+          : "bg-blue-900 text-white fixed w-full z-50"
+      }
+    >
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           <NavLink to="/" className="flex items-center space-x-2">
-            <img src="/AUVsockpuppetNoText.png" alt="USC AUV Logo" className="w-8 h-8 text-white invert" />
+            <img
+              src="/AUVsockpuppetNoText.png"
+              alt="USC AUV Logo"
+              className="w-8 h-8 text-white invert"
+            />
             <span className="font-bold text-xl">USC AUV</span>
           </NavLink>
 
@@ -29,13 +39,14 @@ const Navbar = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `hover:text-blue-300 transition-colors ${
-                    isActive ? 'text-blue-300' : ''
+                    isActive ? "text-blue-300" : ""
                   }`
                 }
               >
                 {item.label}
               </NavLink>
             ))}
+            <div className="w-px h-6 bg-white"></div>
             <a
               href="https://github.com/usc-robosub"
               target="_blank"
@@ -59,14 +70,14 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4">
+          <div className="md:hidden py-4 transition-all duration-500 ease-in-out">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
                   `block py-2 hover:text-blue-300 transition-colors ${
-                    isActive ? 'text-blue-300' : ''
+                    isActive ? "text-blue-300" : ""
                   }`
                 }
                 onClick={() => setIsOpen(false)}
@@ -74,11 +85,12 @@ const Navbar = () => {
                 {item.label}
               </NavLink>
             ))}
+            <div className="my-4 border-t border-white w-12"></div>
             <a
               href="https://github.com/usc-robosub"
               target="_blank"
               rel="noopener noreferrer"
-              className="block py-2 hover:text-blue-300 transition-colors flex items-center gap-2"
+              className="py-2 hover:text-blue-300 transition-colors flex items-center gap-2"
               onClick={() => setIsOpen(false)}
             >
               <Github className="w-5 h-5" />
