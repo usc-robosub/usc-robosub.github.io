@@ -136,7 +136,7 @@ function About() {
                 {/* Join Us Button */}
                 <div className="text-center mt-6">
                   <a
-                    href="https://usc-robosub.github.io/join"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfZnhGsQTUPIkCJLfJcP2tE20nZVszWjG6SglmbcWH-VuExug/viewform"
                     className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:bg-blue-700 transition duration-300"
                   >
                     Excited? Join Us Today!
