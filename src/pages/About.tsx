@@ -26,20 +26,30 @@ function About() {
                 <div className="bg-blue-50 p-6 rounded-xl shadow-md">
                   <h3 className="text-xl font-semibold mb-3">Our Beginnings</h3>
                   <p className="text-gray-600">
-                    Founded in 2005, USC AUV started as a small group of
-                    passionate students with a dream to explore underwater
-                    robotics.
+                    In 2005, USC AUV began as an ambitious project by a handful
+                    of students united by a shared passion for underwater
+                    robotics. Back then, the goal was simple: to design and
+                    build autonomous underwater vehicles (AUVs) that could
+                    navigate and explore the mysteries of the deep. Armed with
+                    determination, innovative ideas, and limited resources, the
+                    team worked tirelessly in dorm rooms and basements,
+                    assembling their first prototypes from scratch.
+                    <br />
+                    <br />
+                    Each challenge they faced — from fine-tuning navigation
+                    algorithms to optimizing hydrodynamic designs — fueled their
+                    determination to push boundaries. Over the years, USC AUV
+                    has evolved into an organization that continuously tests
+                    what’s possible in underwater automation.
+                    <br />
+                    <br />
+                    Now, two decades later, the spirit of innovation remains at
+                    the core of everything we do. This legacy of passion and
+                    progress has culminated in our latest triumph: the 2025
+                    Barracuda AUV. This cutting-edge vehicle represents the
+                    pinnacle of our journey, boasting features that set a new
+                    standard in underwater robotics.
                   </p>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-xl shadow-md">
-                  <h3 className="text-xl font-semibold mb-3">
-                    Past Submarines
-                  </h3>
-                  <ul className="list-disc list-inside space-y-2 text-gray-600">
-                    <li>Mantaray</li>
-                    <li>Turtle</li>
-                    <li>Seabee</li>
-                  </ul>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -63,6 +73,16 @@ function About() {
                   alt="Mantaray Harness"
                   className="rounded-lg shadow-md object-cover h-48 w-full"
                 />
+                <div className="col-span-2 bg-blue-50 p-6 rounded-xl shadow-md justify-center">
+                  <center>
+                    <h3 className="text-xl font-semibold mb-3">Past AUVs</h3>
+                    <ul className="flex flex-wrap gap-4 text-gray-600 list-disc list-inside justify-center">
+                      <li>Mantaray</li>
+                      <li>Turtle</li>
+                      <li>Seabee</li>
+                    </ul>
+                  </center>
+                </div>
               </div>
             </div>
           </div>
@@ -83,11 +103,11 @@ function About() {
                     Cutting-Edge Features
                   </h3>
                   <ul className="list-disc list-inside space-y-2 text-gray-600">
-                    <li>Fully integrated sensor fusion</li>
-                    <li>Simplified hydrodynamics</li>
-                    <li>Modular multi-hull design</li>
-                    <li>Improved mapping and navigation system</li>
-                    <li>Containerized and modular software</li>
+                    <li>Fully Integrated Sensor Fusion</li>
+                    <li>Simplified Hydrodynamics</li>
+                    <li>Modular Multi-Hull Design</li>
+                    <li>Improved Mapping and Navigation System</li>
+                    <li>Containerized and Modular Software</li>
                   </ul>
                 </div>
                 <div className="bg-blue-50 p-6 rounded-xl shadow-md">
@@ -112,6 +132,15 @@ function About() {
                       <p>16.2 Ah</p>
                     </div>
                   </div>
+                </div>
+                {/* Join Us Button */}
+                <div className="text-center mt-6">
+                  <a
+                    href="/join"
+                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:bg-blue-700 transition duration-300"
+                  >
+                    Excited? Join Us Today!
+                  </a>
                 </div>
               </div>
               <div className="relative">

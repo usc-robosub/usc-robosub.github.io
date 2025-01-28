@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 function Join() {
   const benefits = [
-    "Gain a hands-on experience with underwater robotics",
+    "Gain hands-on experience with underwater robotics",
     "Develop leadership and teamwork skills",
     "Travel to competitions",
     "Develop your technical skills ",
@@ -20,7 +20,7 @@ function Join() {
             Join USC AUV
           </h1>
           <p className="text-xl text-blue-200 text-center mt-4">
-            Be part of something extraordinary
+            Be part of something extraordinary!
           </p>
         </div>
       </div>

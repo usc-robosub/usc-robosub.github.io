@@ -7,7 +7,7 @@ function EBoard() {
     {
       name: "Lauryn Hills",
       role: "President",
-      major: "Electrical and Computer Engineering",
+      major: "Electrical & Computer Engineering",
       year: "Sophomore",
       image: "/lauryn_headshot.jpg",
       email: "lhills@usc.edu",
@@ -15,8 +15,8 @@ function EBoard() {
     },
     {
       name: "Matthew Jiang",
-      role: "Vice President and Software Lead",
-      major: "Computer Engineering and Computer Science",
+      role: "Vice President & Software Lead",
+      major: "Computer Engineering & Computer Science",
       year: "Senior",
       image: "/matt.jpeg",
       email: "jiangmy@usc.edu",
@@ -24,21 +24,39 @@ function EBoard() {
     },
     {
       name: "Ekamresh Vasudevan",
-      role: "Treasurer and Electrical Lead",
-      major: "Electrical and Computer Engineering",
+      role: "Treasurer & Electrical Lead",
+      major: "Electrical & Computer Engineering",
       year: "Junior",
       image: "/ek.jpg",
       email: "evasudev@usc.edu",
       linkedin: "https://www.linkedin.com/in/ekamresh-vasudevan-4840b0230/",
     },
     {
+      name: "Kyle Woo",
+      role: "Assistant Electrical Lead",
+      major: "Electrical & Computer Engineering",
+      year: "Junior",
+      image: "/kyle_headshot.png",
+      email: "kjwoo@usc.edu",
+      linkedin: "https://www.linkedin.com/in/kylejwoo/",
+    },
+    {
+      name: "Ayush Agarwal",
+      role: "Mechanical Lead",
+      major: "Mechanical Engineering & Applied Data Science",
+      year: "Masters",
+      image: "/ayush.jpg",
+      email: "ayushaga@usc.edu",
+      linkedin: "https://www.linkedin.com/in/ayushagarwal9000/",
+    },
+    {
       name: "Jessica Yao",
       role: "Secretary",
-      major: "Electrical and Computer Engineering",
+      major: "Electrical & Computer Engineering",
       year: "Sophomore",
       image: "/jessicayao.jpg",
-      email: "",
-      linkedin: "#",
+      email: "jryao@usc.edu",
+      linkedin: "https://www.linkedin.com/in/jessica-yao-700a61254/",
     },
     {
       name: "Doris Lai",
@@ -46,15 +64,8 @@ function EBoard() {
       major: "Business Administration",
       year: "Sophomore",
       image: "/doris.jpg",
-      email: "",
-    },
-    {
-      name: "Kyle Woo",
-      role: "Assistant Electrical Lead",
-      major: "Electrical and Computer Engineering",
-      year: "Junior",
-      image: "/kyle_headshot.png",
-      email: "",
+      email: "dhlai@usc.edu",
+      linkedin: "https://www.linkedin.com/in/dorishlai/",
     },
   ];
 
@@ -75,7 +86,7 @@ function EBoard() {
             Executive Board
           </h1>
           <p className="text-xl text-blue-200 text-center mt-4">
-            Meet our student leadership team
+            Meet our student leadership team!
           </p>
         </div>
       </div>
@@ -110,7 +121,9 @@ function EBoard() {
                     </p>
                     <div className="mt-4 flex gap-4">
                       <a
-                        href={`mailto:${leader.email}`}
+                        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${leader.email}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
                       >
                         <Mail className="w-4 h-4" />

@@ -19,6 +19,13 @@ import Footer from "../components/Footer";
 function Home() {
   const technologies = [
     {
+      name: "SOLIDWORKS",
+      description: "3D CAD software for mechanical design & simulation",
+      icon: Cog,
+      color: "text-red-600",
+      bgColor: "bg-red-100",
+    },
+    {
       name: "ROS (Robot Operating System)",
       description:
         "Industry-standard robotics middleware for distributed computing & sensor integration",
@@ -40,13 +47,6 @@ function Home() {
       icon: Circuit,
       color: "text-purple-600",
       bgColor: "bg-purple-100",
-    },
-    {
-      name: "SOLIDWORKS",
-      description: "3D CAD software for mechanical design & simulation",
-      icon: Cog,
-      color: "text-red-600",
-      bgColor: "bg-red-100",
     },
   ];
   const GOOGLE_CALENDAR_API_KEY = "AIzaSyA2TM5EbeSu_GX9WCH0F9k8KXoJ3WDI45w";
