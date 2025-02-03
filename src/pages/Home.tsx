@@ -49,11 +49,7 @@ function Home() {
       bgColor: "bg-purple-100",
     },
   ];
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    throw new Error("API key is missing!");
-  }
-
+  const GOOGLE_CALENDAR_API_KEY = "AIzaSyA2TM5EbeSu_GX9WCH0F9k8KXoJ3WDI45w";
   const CALENDAR_ID =
     "c_92bf58bd05edbf6dda0f717791a550a51482ea60ac8cd9ffdb69cce9621288ad@group.calendar.google.com";
   const [events, setEvents] = useState([]);
