@@ -103,10 +103,6 @@ function Home() {
   }, []);
 
     events.forEach((event) => {
-        console.log(event);
-    });
-
-    events.forEach((event) => {
         var eventDateTime = new Date(event.start?.dateTime || event.start?.date);
 
         var deleteEvent = false;
@@ -262,9 +258,18 @@ function Home() {
       {/* Events Section */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        <h2 className="text-3xl font-bold text-center mb-6">
             Upcoming Events
-          </h2>
+        </h2>
+        <div className="flex justify-center">
+        <Link
+            to="https://calendar.google.com/calendar/u/0?cid=Y183ZGU0MmEyMGI0M2ZiNzQ0OWUzN2EwNzNmMjMwMjkyNTk5Zjc4ZmMyNDgyMTc2ZjNiYzI2ZDUzZWUxOWQ4MWY4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 flex justify-center rounded-full font-semibold items-center gap-2 transition mb-8"
+        >
+            Google Calendar Invite Link
+        </Link>
+        </div>
+
           <div className="max-w-3xl mx-auto space-y-6">
             {
               events.map((event) => {
