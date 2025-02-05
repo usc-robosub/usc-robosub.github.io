@@ -54,14 +54,15 @@ function Home() {
     throw new Error("API key is missing!");
   }
   const CALENDAR_ID =
-    "c_92bf58bd05edbf6dda0f717791a550a51482ea60ac8cd9ffdb69cce9621288ad@group.calendar.google.com";
-  const [events, setEvents] = useState([]);
+    "c_7de42a20b43fb7449e37a073f230292599f78fc2482176f3bc26d53ee19d81f8@group.calendar.google.com";
+  const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        const nowTime = new Date().toISOString();
         const response = await fetch(
-          `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${apiKey}`
+          `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${apiKey}&orderBy=startTime&singleEvents=true&showDeleted=false&maxResults=4&timeMin=${nowTime}`
         );
         const data = await response.json();
         if (data.items) {
@@ -101,6 +102,29 @@ function Home() {
     };
   }, []);
 
+    events.forEach((event) => {
+        console.log(event);
+    });
+
+    events.forEach((event) => {
+        var eventDateTime = new Date(event.start?.dateTime || event.start?.date);
+
+        var deleteEvent = false;
+
+        if (event.status === "cancelled") {
+            deleteEvent = true;
+        } else if (eventDateTime < new Date()) {
+            // deleteEvent = true;
+        }
+
+        if (deleteEvent) {
+            setEvents((prevEvents) => prevEvents.filter((e) => e.id !== event.id));
+        }
+        
+    });
+
+    
+  
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
@@ -242,10 +266,19 @@ function Home() {
             Upcoming Events
           </h2>
           <div className="max-w-3xl mx-auto space-y-6">
-            {events.length > 0 ? (
-              events
-                .filter((event) => !event.recurrence)
-                .map((event) => (
+            {
+              events.map((event) => {
+
+                    var location = event.location;
+                    if (location === undefined) {
+                        location = "TBD";
+                    }
+
+                    var formattedStartDate = new Date(event.start?.dateTime || event.start?.date).toLocaleString('default', {month: 'long', day: 'numeric'});
+                    var formattedStartTime = new Date(event.start?.dateTime || event.start?.date).toLocaleTimeString('default',  {hour: 'numeric', minute: '2-digit'});
+
+
+                    return (
                   <div
                     key={event.id}
                     className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow flex items-center gap-6"
@@ -255,27 +288,27 @@ function Home() {
                       <h3 className="text-xl font-semibold mb-2">
                         {event.summary}
                       </h3>
-                      <p className="text-gray-600">
-                        {event.description + " | "}
-                        {new Date(
-                          event.start.dateTime || event.start.date
-                        ).toLocaleString()}
-                      </p>
+                      <div className="text-gray-700">
+                        {formattedStartDate + " | " + formattedStartTime + " to " + new Date(event.end?.dateTime).toLocaleTimeString('default',  {hour: 'numeric', minute: '2-digit'})}
+                        <span>&nbsp;|&nbsp;</span><span className="font-bold">{location}</span>
+                      </div>
                     </div>
                   </div>
-                ))
-            ) : (
-              <p className="text-center text-gray-600">
-                No upcoming events found.
-              </p>
-            )}
+                  )
+                
+            }
+              )
+            
+            }
           </div>
         </div>
       </section>
 
       <Footer />
     </div>
+    
   );
+
 }
 
 export default Home;
