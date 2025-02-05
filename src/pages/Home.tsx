@@ -49,7 +49,10 @@ function Home() {
       bgColor: "bg-purple-100",
     },
   ];
-  const GOOGLE_CALENDAR_API_KEY = "AIzaSyA2TM5EbeSu_GX9WCH0F9k8KXoJ3WDI45w";
+  const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+  if (!apiKey) {
+    throw new Error("API key is missing!");
+  }
   const CALENDAR_ID =
     "c_92bf58bd05edbf6dda0f717791a550a51482ea60ac8cd9ffdb69cce9621288ad@group.calendar.google.com";
   const [events, setEvents] = useState([]);
@@ -58,7 +61,7 @@ function Home() {
     const fetchEvents = async () => {
       try {
         const response = await fetch(
-          `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${GOOGLE_CALENDAR_API_KEY}`
+          `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${apiKey}`
         );
         const data = await response.json();
         if (data.items) {
