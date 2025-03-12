@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -12,11 +12,11 @@ import Sponsors from "./pages/Sponsors";
 // ScrollToTop component
 function ScrollToTop() {
   const { pathname } = useLocation();
-
+  
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top on route change
   }, [pathname]);
-
+  
   return null;
 }
 
