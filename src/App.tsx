@@ -7,6 +7,7 @@ import EBoard from "./pages/EBoard";
 import Join from "./pages/Join";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Sponsors from "./pages/Sponsors";
 
 // ScrollToTop component
 function ScrollToTop() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/eboard" element={<EBoard />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/sponsors" element={<Sponsors />} />
       </Routes>
     </Router>
   );
