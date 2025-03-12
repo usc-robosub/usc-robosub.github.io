@@ -28,7 +28,7 @@ function Join() {
       <div className="container mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-12">
           {/* Benefits Section */}
-          <div>
+          <div className="bg-white p-8 rounded-xl shadow-md">
             <h2 className="text-3xl font-bold mb-6">Why Join USC AUV?</h2>
             <ul className="space-y-4">
               {benefits.map((benefit, index) => (
@@ -42,8 +42,8 @@ function Join() {
 
           {/* Application Form */}
           <div>
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <h2 className="text-2xl font-bold mb-3">Get Connected Now!</h2>
+            <div className="bg-white p-8 rounded-xl shadow-md h-full">
+              <h2 className="text-3xl font-bold mb-3">Get Connected Now!</h2>
               <p className="text-gray-700 mb-3">
                 Fill out our interest form to get started with USC AUV!
               </p>
