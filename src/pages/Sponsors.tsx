@@ -49,7 +49,7 @@ function Sponsors() {
             <div className="flex items-center justify-center">
                 <a
                 href="/sponsors/auv-sponsorship-packet-2025.pdf"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md font-semibold hover:bg-blue-700 transition duration-300"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md font-semibold hover:bg-blue-700 transition duration-300 text-center"
                 download
                 >
                 Download Sponsorship Packet
@@ -77,7 +77,7 @@ function Sponsors() {
                     <img
                         src="/sponsors/LM-logo-stacked-blue-400x400.png"
                         alt="Lockheed Martin"
-                        className="h-16 w-auto object-fit"
+                        className="w-auto object-fit"
                     />
                     </div>
                     
