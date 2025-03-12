@@ -48,7 +48,7 @@ function Sponsors() {
 
             <div className="flex items-center justify-center">
                 <a
-                href="/sponsors/auv-sponsorship-packet-2025.pdf"
+                href="/auv-sponsorship-packet-2025.pdf"
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md font-semibold hover:bg-blue-700 transition duration-300 text-center"
                 download
                 >
@@ -68,14 +68,14 @@ function Sponsors() {
                 <div className="grid md:grid-cols-2 gap-6">
                 <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
                     <img
-                        src="/sponsors/Formal_Viterbi_CardOnWhite.jpg"
+                        src="/Formal_Viterbi_CardOnWhite.jpg"
                         alt="USC Viterbi"
                         className="w-auto object-cover"
                     />
                     </div>
                     <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
                     <img
-                        src="/sponsors/LM-logo-stacked-blue-400x400.png"
+                        src="/LM-logo-stacked-blue-400x400.png"
                         alt="Lockheed Martin"
                         className="w-auto object-fit"
                     />
