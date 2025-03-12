@@ -58,14 +58,14 @@ function Sponsors() {
           </div>
           
 
-          {/* Contact Form */}
+          
           <div>
             <div className="bg-white p-8 rounded-xl shadow-md h-full">
               <h2 className="text-3xl font-bold mb-6">Our Sponsors</h2>
               
               { /* List of sponsors, using a grid of boxes with logos */}
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6">
                 <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
                     <img
                         src="/sponsors/Formal_Viterbi_CardOnWhite.jpg"
