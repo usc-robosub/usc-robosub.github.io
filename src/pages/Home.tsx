@@ -161,19 +161,13 @@ function Home() {
           <h2 className="text-3xl font-bold text-center mb-7">
             About Our Club
           </h2>
-          <h3 className="text-2xl font-bold text-center mb-7">
-            Where Innovation Meets the Ocean
-          </h3>
           <div className="align-middle text-center mb-12">
             <p>
               USC RoboSub is a student-led organization pushing the boundaries
               of underwater robotics. Combining the expertise of our Software,
               Electrical, & Mechanical teams, we design & build autonomous
-              underwater vehicles (AUVs), like our 2025 Barracuda. With a focus
-              on cutting-edge technology, teamwork, & creativity, we compete in
-              the annual RoboSub competition, showcasing our dedication to
-              engineering excellence & innovation. Dive into our journey to
-              revolutionize underwater automation & robotics!
+              underwater vehicles (AUVs) and compete in
+              the annual RoboSub competition, where we showcase our dedication to excellence in engineering and innovation. Dive in and join us on our journey in underwater robotics!
             </p>
             <br />
           </div>
