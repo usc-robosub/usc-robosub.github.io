@@ -14,8 +14,69 @@ function About() {
         </div>
       </div>
 
-      {/* History Section */}
+      {/* The Barracuda Section */}
       <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center">
+              Meet The Barracuda
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="bg-gray-50 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold mb-3">
+                    Cutting-Edge Features
+                  </h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-600">
+                    <li>Fully Integrated Sensor Fusion</li>
+                    <li>Simplified Hydrodynamics</li>
+                    <li>Modular Multi-Hull Design</li>
+                    <li>Doppler Velocity Log and Imaging Sonar for Localization</li>
+                    <li>Containerized and Modular Software</li>
+                  </ul>
+                </div>
+                <div className="bg-gray-50 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold mb-3">
+                    Technical Specifications
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4 text-gray-600">
+                    <div>
+                      <p className="font-medium">Dimensions:</p>
+                      <p>0.75 m x 0.64 m x 0.39 m</p>
+                    </div>
+                    <div>
+                      <p className="font-medium">Weight:</p>
+                      <p>45 kg</p>
+                    </div>
+                    <div>
+                      <p className="font-medium">Thruster Count:</p>
+                      <p>8</p>
+                    </div>
+                    <div>
+                      <p className="font-medium">Battery Power:</p>
+                      <p>16.2 Ah</p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <div className="relative">
+                <img
+                  src="/barracuda-sim.png"
+                  alt="Barracuda AUV"
+                  className="rounded-lg shadow-md object-cover w-full"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white px-4 py-2 rounded-full text-sm">
+                  Coming Soon...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* History Section */}
+      <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 text-center">
@@ -82,75 +143,6 @@ function About() {
                       <li>Seabee</li>
                     </ul>
                   </center>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Barracuda Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-12 text-center">
-              Meet The Barracuda
-            </h2>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <div className="bg-blue-50 p-6 rounded-xl shadow-md">
-                  <h3 className="text-xl font-semibold mb-3">
-                    Cutting-Edge Features
-                  </h3>
-                  <ul className="list-disc list-inside space-y-2 text-gray-600">
-                    <li>Fully Integrated Sensor Fusion</li>
-                    <li>Simplified Hydrodynamics</li>
-                    <li>Modular Multi-Hull Design</li>
-                    <li>Improved Mapping and Navigation System</li>
-                    <li>Containerized and Modular Software</li>
-                  </ul>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-xl shadow-md">
-                  <h3 className="text-xl font-semibold mb-3">
-                    Technical Specifications
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4 text-gray-600">
-                    <div>
-                      <p className="font-medium">Dimensions:</p>
-                      <p>TBD</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Weight:</p>
-                      <p>~25 kg</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Thruster Count:</p>
-                      <p>8</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Battery Power:</p>
-                      <p>16.2 Ah</p>
-                    </div>
-                  </div>
-                </div>
-                {/* Join Us Button */}
-                <div className="text-center mt-6">
-                  <a
-                    href="/join"
-                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:bg-blue-700 transition duration-300"
-                  >
-                    Excited? Join Us Today!
-                  </a>
-                </div>
-              </div>
-              <div className="relative">
-                <img
-                  src="/AUVsockpuppetNoText.png"
-                  alt="Barracuda AUV"
-                  className="rounded-lg shadow-md object-cover w-full"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white px-4 py-2 rounded-full text-sm">
-                  Coming Soon...
                 </div>
               </div>
             </div>
