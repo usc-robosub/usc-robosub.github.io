@@ -1,4 +1,3 @@
-// filepath: /Users/matthewjiang/usc-robosub.github.io/src/pages/Sponsors.tsx
 import React from "react";
 import { CheckCircle2, Download } from "lucide-react";
 import Footer from "../components/Footer";
@@ -37,24 +36,28 @@ function Sponsors() {
               { /* List of sponsors, using a grid of boxes with logos */}
 
                 <div className="grid md:grid-cols-2 gap-6">
-                <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
+                  <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md h-40">
                     <img
                         src="/Formal_Viterbi_CardOnWhite.jpg"
                         alt="USC Viterbi"
-                        className="w-auto object-cover"
+                        className="max-w-full max-h-full object-contain"
                     />
-                    </div>
-                    <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
+                  </div>
+                  <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md h-40">
                     <img
                         src="/LM-logo-stacked-blue-400x400.png"
                         alt="Lockheed Martin"
-                        className="w-auto object-fit"
+                        className="max-w-full max-h-full object-contain"
                     />
-                    </div>
-                    
+                  </div>
+                  <div className="flex items-center justify-center bg-white p-4 rounded-lg shadow-md h-40">
+                    <img
+                        src="/Northrop_Grumman_logo_blue-on-clear_2020.png"
+                        alt="Northrop Grumman"
+                        className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
                 </div>
-
-                
             </div>
           </div>
           {/* Benefits Section */}
@@ -86,10 +89,6 @@ function Sponsors() {
                 </a>
             </div>
           </div>
-          
-
-          
-          
         </div>
       </div>
       <Footer />
