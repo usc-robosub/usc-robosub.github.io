@@ -77,7 +77,7 @@ function Sponsors() {
                     <img
                         src="/sponsors/LM-logo-stacked-blue-400x400.png"
                         alt="Lockheed Martin"
-                        className="h-16 w-auto"
+                        className="h-16 w-auto object-fit"
                     />
                     </div>
                     
