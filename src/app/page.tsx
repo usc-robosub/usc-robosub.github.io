@@ -4,10 +4,10 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { 
-  IconArrowRight, 
-  IconBrandGithub, 
-  IconBrandDiscord, 
+import {
+  IconArrowRight,
+  IconBrandGithub,
+  IconBrandDiscord,
   IconArrowDown,
   IconBrandDocker,
   IconCpu,
@@ -36,7 +36,7 @@ export default function Home() {
   const techRef = useRef(null);
   const pillarsRef = useRef(null);
   const ctaRef = useRef(null);
-  
+
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const techInView = useInView(techRef, { once: true, margin: "-100px" });
   const pillarsInView = useInView(pillarsRef, { once: true, margin: "-100px" });
@@ -119,10 +119,10 @@ export default function Home() {
           {/* Techy backgrounds */}
           <div className="bg-grid" />
           <div className="bg-grid-fade" />
-          
+
           {/* Animated scan lines */}
           <div className="bg-code-matrix" />
-          
+
           {/* Corner frame decorations */}
           <div className="corner-frame tl" />
           <div className="corner-frame tr" />
@@ -139,7 +139,7 @@ export default function Home() {
                 animate="visible"
               >
                 <SectionLabel text="USC's Premier Robotics Design Team" delay={0.2} />
-                
+
                 <AnimatedHeadline
                   text={["AUTONOMOUS", "UNDERWATER", "VEHICLES."]}
                   className="text-display"
@@ -162,8 +162,8 @@ export default function Home() {
                       lineHeight: 1.7,
                     }}
                   >
-                    We design, build, and deploy autonomous underwater systems. 
-                    Competing annually at RoboSub, pushing the boundaries of 
+                    We design, build, and deploy autonomous underwater systems.
+                    Competing annually at RoboSub, pushing the boundaries of
                     underwater robotics since 2005.
                   </p>
                 </FadeUpText>
@@ -240,7 +240,7 @@ export default function Home() {
               >
                 <IconArrowDown size={16} />
               </motion.div>
-              
+
               {/* Center: Typewriter status */}
               <div
                 style={{
@@ -267,7 +267,7 @@ export default function Home() {
                   pauseTime={2500}
                 />
               </div>
-              
+
               {/* Right: Status badge */}
               <div
                 style={{
@@ -318,7 +318,7 @@ export default function Home() {
           >
             {/* Hex grid pattern */}
             <div className="bg-hex-grid" />
-            
+
             {/* Technical diagram traces */}
             <svg
               style={{
@@ -333,11 +333,11 @@ export default function Home() {
               <line x1="0" y1="20%" x2="30%" y2="20%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
               <line x1="25%" y1="20%" x2="25%" y2="40%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
               <line x1="25%" y1="40%" x2="45%" y2="40%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-              
+
               <line x1="70%" y1="80%" x2="100%" y2="80%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
               <line x1="75%" y1="60%" x2="75%" y2="80%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
               <line x1="55%" y1="60%" x2="75%" y2="60%" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-              
+
               {/* Connection nodes */}
               <circle cx="25%" cy="20%" r="3" fill="rgba(255,255,255,0.25)" />
               <circle cx="25%" cy="40%" r="3" fill="rgba(255,255,255,0.25)" />
@@ -345,22 +345,22 @@ export default function Home() {
               <circle cx="75%" cy="80%" r="3" fill="rgba(255,255,255,0.25)" />
               <circle cx="75%" cy="60%" r="3" fill="rgba(255,255,255,0.25)" />
               <circle cx="55%" cy="60%" r="2" fill="rgba(255,255,255,0.2)" />
-              
+
               {/* Diagonal data lines */}
               <line x1="0" y1="100%" x2="20%" y2="70%" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4 4" />
               <line x1="80%" y1="30%" x2="100%" y2="0" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4 4" />
             </svg>
-            
+
             {/* Vertical data lines on the right edge */}
             <div className="data-stream" style={{ right: "5%" }} />
             <div className="data-stream" style={{ right: "8%", opacity: 0.5 }} />
             <div className="data-stream" style={{ right: "11%", opacity: 0.3 }} />
           </div>
-          
+
           {/* Corner tech brackets */}
           <div className="corner-frame tl" />
           <div className="corner-frame br" />
-          
+
           {/* Technical coordinate decorations */}
           <div
             className="mono"
@@ -392,7 +392,7 @@ export default function Home() {
             LAT: 34.0219° N<br />
             LON: 118.2857° W
           </div>
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <motion.div
               variants={staggerContainer}
@@ -432,13 +432,13 @@ export default function Home() {
                     marginBottom: "28px",
                   }}
                 >
-                  USC RoboSub is a student-led organization pushing the boundaries of 
-                  underwater robotics. Combining the expertise of our Software, Electrical, 
-                  &amp; Mechanical teams, we design &amp; build autonomous underwater vehicles 
-                  (AUVs) and compete in the annual RoboSub competition, where we showcase 
+                  USC RoboSub is a student-led organization pushing the boundaries of
+                  underwater robotics. Combining the expertise of our Software, Electrical,
+                  &amp; Mechanical teams, we design &amp; build autonomous underwater vehicles
+                  (AUVs) and compete in the annual RoboSub competition, where we showcase
                   our dedication to excellence in engineering and innovation.
                 </motion.p>
-                
+
                 {/* Quick stats row */}
                 <motion.div
                   variants={staggerItem}
@@ -472,7 +472,7 @@ export default function Home() {
                     </div>
                   ))}
                 </motion.div>
-                
+
                 <motion.div variants={staggerItem}>
                   <Link href="/about" className="btn-secondary">
                     LEARN MORE
@@ -511,7 +511,7 @@ export default function Home() {
                       PYTHON
                     </span>
                   </div>
-                  
+
                   {/* Code content */}
                   <div
                     style={{
@@ -526,17 +526,17 @@ export default function Home() {
                     <div style={{ color: "var(--text-muted)", marginBottom: "6px" }}>
                       <span style={{ color: "#c586c0" }}>from</span> auv_core <span style={{ color: "#c586c0" }}>import</span> Barracuda, Mission
                     </div>
-                    
+
                     {/* Class definition */}
                     <div>
                       <span style={{ color: "#c586c0" }}>class</span> <span style={{ color: "#4ec9b0" }}>RoboSubMission</span>(Mission):
                     </div>
-                    
+
                     {/* Docstring */}
                     <div style={{ paddingLeft: "20px", color: "#6a9955" }}>
                       &quot;&quot;&quot;Autonomous underwater mission&quot;&quot;&quot;
                     </div>
-                    
+
                     {/* Init */}
                     <div style={{ paddingLeft: "20px", marginTop: "4px" }}>
                       <span style={{ color: "#c586c0" }}>def</span> <span style={{ color: "#dcdcaa" }}>__init__</span>(self):
@@ -550,7 +550,7 @@ export default function Home() {
                     <div style={{ paddingLeft: "40px", color: "var(--text-secondary)" }}>
                       self.thrusters = <span style={{ color: "#b5cea8" }}>8</span>
                     </div>
-                    
+
                     {/* Execute method */}
                     <div style={{ paddingLeft: "20px", marginTop: "8px" }}>
                       <span style={{ color: "#c586c0" }}>def</span> <span style={{ color: "#dcdcaa" }}>execute</span>(self):
@@ -571,7 +571,7 @@ export default function Home() {
                       <span style={{ color: "#c586c0" }}>return</span> <span style={{ color: "#569cd6" }}>True</span>  <span style={{ color: "#6a9955" }}># Mission complete!</span>
                     </div>
                   </div>
-                  
+
                   {/* Status bar */}
                   <div
                     style={{
@@ -673,7 +673,7 @@ export default function Home() {
                       >
                         <Icon size={28} color={tech.color} />
                       </motion.div>
-                      
+
                       <p
                         style={{
                           fontSize: "11px",
@@ -737,7 +737,7 @@ export default function Home() {
               pointerEvents: "none",
             }}
           />
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <motion.div
               variants={staggerContainer}
@@ -815,7 +815,7 @@ export default function Home() {
                     >
                       {pillar.statLabel}
                     </p>
-                    
+
                     {/* Icon */}
                     <div
                       style={{
@@ -830,7 +830,7 @@ export default function Home() {
                     >
                       <Icon size={24} color="var(--text-secondary)" />
                     </div>
-                    
+
                     <h3
                       style={{
                         fontSize: "18px",
@@ -880,7 +880,7 @@ export default function Home() {
               background: "linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%)",
             }}
           />
-          
+
           {/* Subtle radial highlight */}
           <div
             style={{
@@ -894,13 +894,13 @@ export default function Home() {
               pointerEvents: "none",
             }}
           />
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate={ctaInView ? "visible" : "hidden"}
-              style={{ 
+              style={{
                 maxWidth: "800px",
                 margin: "0 auto",
               }}
@@ -920,7 +920,7 @@ export default function Home() {
                 <div style={{ position: "absolute", top: "16px", right: "16px", width: "24px", height: "24px", borderTop: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)" }} />
                 <div style={{ position: "absolute", bottom: "16px", left: "16px", width: "24px", height: "24px", borderBottom: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)" }} />
                 <div style={{ position: "absolute", bottom: "16px", right: "16px", width: "24px", height: "24px", borderBottom: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)" }} />
-                
+
                 <motion.span variants={staggerItem} className="section-label">
                   JOIN US
                 </motion.span>
@@ -968,7 +968,7 @@ export default function Home() {
                   </a>
                 </motion.div>
               </div>
-              
+
               {/* Quick info row below card */}
               <motion.div
                 variants={staggerItem}
@@ -982,7 +982,7 @@ export default function Home() {
               >
                 {[
                   { label: "Meeting", value: "Weekly" },
-                  { label: "Location", value: "USC Campus" },
+                  { label: "Location", value: "USC Baum Family Maker Space" },
                   { label: "Open To", value: "All Majors" },
                 ].map((item) => (
                   <div

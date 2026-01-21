@@ -70,7 +70,7 @@ export default function SponsorsPage() {
           }}
         >
           <div className="bg-grid" />
-          
+
           {/* Large text background */}
           <div
             style={{
@@ -88,7 +88,7 @@ export default function SponsorsPage() {
           >
             SPONSOR
           </div>
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div style={{ maxWidth: "700px" }}>
               <SectionLabel text="PARTNER WITH US" delay={0.1} />
@@ -112,8 +112,8 @@ export default function SponsorsPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Support the next generation of engineers building autonomous 
-                  underwater vehicles. Your partnership directly impacts student 
+                  Support the next generation of engineers building autonomous
+                  underwater vehicles. Your partnership directly impacts student
                   learning and innovation.
                 </p>
               </FadeUpText>
@@ -130,7 +130,7 @@ export default function SponsorsPage() {
                     SPONSORSHIP PACKET
                   </a>
                   <a
-                    href="mailto:evasudev@usc.edu"
+                    href="mailto:uscfieldroboticslab@gmail.com"
                     className="btn-secondary"
                   >
                     <IconMail size={18} />
@@ -268,7 +268,7 @@ export default function SponsorsPage() {
           {/* Grid background */}
           <div className="bg-grid" style={{ opacity: 0.5 }} />
           <div className="bg-grid-fade" />
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <motion.div
               variants={staggerContainer}
@@ -306,7 +306,7 @@ export default function SponsorsPage() {
                       lineHeight: 1.7,
                     }}
                   >
-                    Your sponsorship directly supports student engineering education 
+                    Your sponsorship directly supports student engineering education
                     and breakthrough research in autonomous systems.
                   </p>
                 </div>
@@ -392,7 +392,7 @@ export default function SponsorsPage() {
           >
             20
           </div>
-          
+
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div
               style={{
@@ -422,7 +422,7 @@ export default function SponsorsPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Join industry leaders like USC Viterbi, Lockheed Martin, and 
+                  Join industry leaders like USC Viterbi, Lockheed Martin, and
                   Northrop Grumman in supporting the next generation of engineers.
                 </p>
                 <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
@@ -444,7 +444,7 @@ export default function SponsorsPage() {
                   </a>
                 </div>
               </div>
-              
+
               {/* Stats */}
               <div
                 style={{

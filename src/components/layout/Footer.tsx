@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { IconBrandGithub, IconBrandDiscord, IconArrowUpRight } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandDiscord, IconBrandLinkedin, IconArrowUpRight } from "@tabler/icons-react";
 
 const navLinks = [
   { href: "/about", label: "ABOUT" },
@@ -14,6 +14,7 @@ const navLinks = [
 const externalLinks = [
   { href: "https://github.com/usc-robosub", label: "GITHUB" },
   { href: "https://discord.gg/7jPvyPWc8T", label: "DISCORD" },
+  { href: "https://www.linkedin.com/company/auv-usc/", label: "LINKEDIN" },
 ];
 
 export function Footer() {
@@ -75,7 +76,7 @@ export function Footer() {
                 lineHeight: 1.7,
               }}
             >
-              Engineering autonomous underwater vehicles at the University of 
+              Engineering autonomous underwater vehicles at the University of
               Southern California since 2005.
             </p>
           </div>
@@ -214,6 +215,32 @@ export function Footer() {
                 aria-label="Discord"
               >
                 <IconBrandDiscord size={20} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/auv-usc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  border: "1px solid var(--border)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--text-muted)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--text-primary)";
+                  e.currentTarget.style.borderColor = "var(--border-light)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-muted)";
+                  e.currentTarget.style.borderColor = "var(--border)";
+                }}
+                aria-label="Linkedin"
+              >
+                <IconBrandLinkedin size={20} />
               </a>
             </div>
           </div>
