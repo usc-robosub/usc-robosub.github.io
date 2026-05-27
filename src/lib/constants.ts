@@ -129,14 +129,14 @@ export const teamMembers = [
     image: "/team/taka-soeda.jpg",
   },
   {
-    id: "ayush-agarwal",
-    name: "Ayush Agarwal",
+    id: "hugh-thompson",
+    name: "Hugh Thompson",
     role: "Mechanical Lead",
-    major: "Mechanical Engineering & Applied Data Science",
-    year: "Masters",
-    email: "ayushaga@usc.edu",
-    linkedin: "https://www.linkedin.com/in/ayushagarwal9000/",
-    image: "/team/ayush-agarwal.jpg",
+    major: "Mechanical Engineering",
+    year: "Junior",
+    email: "hueythom@usc.edu",
+    linkedin: "https://www.linkedin.com/in/hugh-thompson1/",
+    image: "/team/hugh-thompson.jpg",
   },
   {
     id: "russell-rodriguez",
@@ -148,7 +148,7 @@ export const teamMembers = [
     linkedin: "https://www.linkedin.com/in/russell-rodriguez/",
     image: "/team/russell-rodriguez.jpg",
   },
-  {
+  /*{
     id: "jessica-yao",
     name: "Jessica Yao",
     role: "Secretary",
@@ -167,7 +167,7 @@ export const teamMembers = [
     email: "dhlai@usc.edu",
     linkedin: "https://www.linkedin.com/in/dorishlai/",
     image: "/team/doris-lai.jpg",
-  },
+  },*/
 ] as const;
 
 // Barracuda specs
