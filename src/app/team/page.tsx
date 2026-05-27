@@ -210,7 +210,7 @@ export default function TeamPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Meet our student leadership team guiding USC AUV forward
+                  Meet the Student Leadership guiding USC AUV forward
                 </p>
               </motion.div>
 
