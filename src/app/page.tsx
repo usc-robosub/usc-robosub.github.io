@@ -453,7 +453,7 @@ export default function Home() {
                   {[
                     { value: "3", label: "Sub-Teams" },
                     { value: "25+", label: "Members" },
-                    { value: "20", label: "Years" },
+                    { value: "21", label: "Years" },
                   ].map((stat) => (
                     <div
                       key={stat.label}
