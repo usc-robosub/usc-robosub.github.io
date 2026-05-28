@@ -174,6 +174,29 @@ export const teamMembers = [
   },*/
 ] as const;
 
+export const alumniMembers = [
+  {
+    id: "matthew-jiang",
+    name: "Matthew Jiang",
+    role: "2024 Vice President & Software Lead",
+    major: "Computer Engineering & Computer Science",
+    year: "Senior",
+    email: "jiangmy@usc.edu",
+    linkedin: "https://www.linkedin.com/in/matthewyjiang/",
+    image: "/team/matthew-jiang.jpg",
+  },
+  {
+    id: "firstname2-lastname2",
+    name: "Firstname2 Lastname2",
+    role: "Software Alumni",
+    favoriteFish: "Manta Ray",
+    contactEmail: "firstname2@usc.edu",
+    contactLinkedIn: "https://www.linkedin.com/in/firstname2-lastname2/",
+    currentPlacement: "Software Engineer, Company Name",
+    image: "/alumni/firstname2-lastname2.jpg",
+  },
+] as const;
+
 // Barracuda specs
 export const barracudaSpecs = {
   name: "The Barracuda",
