@@ -190,24 +190,24 @@ function MemberCard({
         }}
         >
         {variant === "current" ? (
-            <>
+        <>
             <p>{member.major}</p>
             <p style={{ marginTop: "2px" }}>{member.year}</p>
             {member.favoriteFish?.trim() && (
-                <p style={{ marginTop: "2px" }}>
+            <p style={{ marginTop: "2px" }}>
                 Favorite Fish: {member.favoriteFish}
-                </p>
+            </p>
             )}
-            </>
+        </>
         ) : (
-            <>
+        <>
             <p>{member.currentPlacement}</p>
             {member.favoriteFish?.trim() && (
-                <p style={{ marginTop: "2px" }}>
+            <p style={{ marginTop: "2px" }}>
                 Favorite Fish: {member.favoriteFish}
-                </p>
+            </p>
             )}
-            </>
+        </>
         )}
         </div>
 

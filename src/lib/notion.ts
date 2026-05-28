@@ -158,7 +158,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
       isEboard,
       major: getText(props.Major),
       year: getText(props.Year),
-      favoriteFish: getText(props["Favorite Fish"]),
+      favoriteFish: getText(props["Favorite fish"]),
       email: getEmail(props["Contact Email"]),
       linkedin: getUrl(props["Contact LinkedIn"]),
       github: getUrl(props["Contact GitHub"]),
