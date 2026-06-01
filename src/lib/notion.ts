@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import teamImages from "@/data/team-images.json";
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -148,6 +149,13 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     const displayRole = sortedRoles[0] ?? "";
     const extraRoles = sortedRoles.slice(1);
 
+    const remoteImage =
+      props.Photo?.files?.[0]?.external?.url ??
+      props.Photo?.files?.[0]?.file?.url ??
+      "";
+
+    const image = (teamImages as Record<string, string>)[page.id] ?? remoteImage;
+
     return {
       id: page.id,
       name: getText(props.Name),
@@ -163,10 +171,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
       linkedin: getUrl(props["Contact LinkedIn"]),
       github: getUrl(props["Contact GitHub"]),
       currentPlacement: getText(props["(Alumni Only) Current Placement"]),
-      image:
-        props.Photo?.files?.[0]?.file?.url ??
-        props.Photo?.files?.[0]?.external?.url ??
-        "",
+      image: image,
     };
   });
 }

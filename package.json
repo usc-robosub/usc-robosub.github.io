@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:team-assets": "tsx scripts/sync-team-assets.ts"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",
