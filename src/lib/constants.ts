@@ -230,6 +230,7 @@ export const sponsors = {
   gold: [
     { name: "Lockheed Martin", logo: "/sponsors/lockheed-martin.png" },
     { name: "Northrop Grumman", logo: "/sponsors/northrop-grumman.png" },
+    { name: "Texas Instruments", logo: "/sponsors/texas-instruments.png" },
   ],
   silver: [],
   bronze: [],

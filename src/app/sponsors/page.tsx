@@ -44,6 +44,12 @@ const allSponsors = [
   { name: "USC Viterbi School of Engineering", logo: "/sponsors/usc-viterbi.jpg", description: "Providing academic support and resources for student engineering projects" },
   { name: "Lockheed Martin", logo: "/sponsors/lockheed-martin.png", description: "Supporting innovation in autonomous systems and aerospace technology" },
   { name: "Northrop Grumman", logo: "/sponsors/northrop-grumman.png", description: "Empowering next-generation engineers in defense and space systems" },
+  {
+    name: "Texas Instruments",
+    logo: "/sponsors/texas-instruments.png",
+    description: "Supporting embedded systems innovation and next-generation engineering development",
+    logoBackground: "#ffffff",
+  },
 ];
 
 export default function SponsorsPage() {
@@ -215,12 +221,26 @@ export default function SponsorsPage() {
                         justifyContent: "center",
                       }}
                     >
-                      <Image
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        fill
-                        style={{ objectFit: "contain" }}
-                      />
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          height: "100%",
+                          padding: sponsor.logoBackground ? "14px 18px" : "0",
+                          background: sponsor.logoBackground || "transparent",
+                          border: sponsor.logoBackground
+                            ? "1px solid rgba(255, 255, 255, 0.08)"
+                            : "none",
+                          borderRadius: sponsor.logoBackground ? "10px" : "0",
+                        }}
+                      >
+                        <Image
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          fill
+                          style={{ objectFit: "contain" }}
+                        />
+                      </div>
                     </div>
 
                     <h3
