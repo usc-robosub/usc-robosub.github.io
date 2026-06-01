@@ -16,6 +16,13 @@ import { AnimatedHeadline, SectionLabel, FadeUpText } from "@/components/ui";
 import { externalLinks } from "@/lib/constants";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 
+type Sponsor = {
+  name: string;
+  logo: string;
+  description: string;
+  logoBackground?: string;
+};
+
 const sponsorshipBenefits = [
   {
     icon: IconEye,
@@ -39,11 +46,11 @@ const sponsorshipBenefits = [
   },
 ];
 
-const trojanSponsors = [
+const trojanSponsors: Sponsor[] = [
   { name: "USC Viterbi School of Engineering", logo: "/sponsors/usc-viterbi.jpg", description: "Providing academic support and resources for student engineering projects" },
 ];
 
-const goldSponsors = [
+const goldSponsors: Sponsor[] = [
   { name: "Lockheed Martin", logo: "/sponsors/lockheed-martin.png", description: "Supporting innovation in autonomous systems and aerospace technology" },
   { name: "Northrop Grumman", logo: "/sponsors/northrop-grumman.png", description: "Empowering next-generation engineers in defense and space systems" },
   {
