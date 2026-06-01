@@ -39,9 +39,11 @@ const sponsorshipBenefits = [
   },
 ];
 
-// All sponsors in a flat array
-const allSponsors = [
+const trojanSponsors = [
   { name: "USC Viterbi School of Engineering", logo: "/sponsors/usc-viterbi.jpg", description: "Providing academic support and resources for student engineering projects" },
+];
+
+const goldSponsors = [
   { name: "Lockheed Martin", logo: "/sponsors/lockheed-martin.png", description: "Supporting innovation in autonomous systems and aerospace technology" },
   { name: "Northrop Grumman", logo: "/sponsors/northrop-grumman.png", description: "Empowering next-generation engineers in defense and space systems" },
   {
@@ -178,95 +180,115 @@ export default function SponsorsPage() {
                 </h2>
               </motion.div>
 
-              {/* Sponsor cards - vertical stack with big horizontal logos */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "32px",
-                  maxWidth: "900px",
-                  margin: "0 auto",
-                }}
-              >
-                {allSponsors.map((sponsor) => (
-                  <motion.div
-                    key={sponsor.name}
-                    variants={staggerItem}
-                    className="card"
-                    style={{
-                      padding: "40px",
-                      background: "var(--bg-secondary)",
-                      border: "1px solid var(--border)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textAlign: "center",
-                    }}
-                    whileHover={{
-                      y: -4,
-                      borderColor: "var(--border-light)",
-                      transition: { duration: 0.3 },
-                    }}
-                  >
-                    {/* Logo - large horizontal display */}
-                    <div
+              {[
+                { label: "Trojan Sponsor", sponsors: trojanSponsors },
+                { label: "Gold Sponsors", sponsors: goldSponsors },
+              ].map((group) => (
+                <div
+                  key={group.label}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "32px",
+                    maxWidth: "900px",
+                    margin: group.label === "Trojan Sponsor" ? "0 auto 48px" : "0 auto",
+                  }}
+                >
+                  <motion.div variants={staggerItem} style={{ textAlign: "center" }}>
+                    <span
                       style={{
-                        position: "relative",
-                        width: "100%",
-                        maxWidth: "400px",
-                        height: "120px",
-                        marginBottom: "24px",
+                        display: "inline-block",
+                        fontSize: "18px",
+                        fontWeight: 600,
+                        letterSpacing: "0.14em",
+                        textTransform: "uppercase",
+                        color: "var(--accent-primary)",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      {group.label}
+                    </span>
+                  </motion.div>
+
+                  {group.sponsors.map((sponsor) => (
+                    <motion.div
+                      key={sponsor.name}
+                      variants={staggerItem}
+                      className="card"
+                      style={{
+                        padding: "40px",
+                        background: "var(--bg-secondary)",
+                        border: "1px solid var(--border)",
                         display: "flex",
+                        flexDirection: "column",
                         alignItems: "center",
-                        justifyContent: "center",
+                        textAlign: "center",
+                      }}
+                      whileHover={{
+                        y: -4,
+                        borderColor: "var(--border-light)",
+                        transition: { duration: 0.3 },
                       }}
                     >
                       <div
                         style={{
                           position: "relative",
                           width: "100%",
-                          height: "100%",
-                          padding: sponsor.logoBackground ? "14px 18px" : "0",
-                          background: sponsor.logoBackground || "transparent",
-                          border: sponsor.logoBackground
-                            ? "1px solid rgba(255, 255, 255, 0.08)"
-                            : "none",
-                          borderRadius: sponsor.logoBackground ? "10px" : "0",
+                          maxWidth: "400px",
+                          height: "120px",
+                          marginBottom: "24px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        <Image
-                          src={sponsor.logo}
-                          alt={sponsor.name}
-                          fill
-                          style={{ objectFit: "contain" }}
-                        />
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "100%",
+                            height: "100%",
+                            padding: sponsor.logoBackground ? "14px 18px" : "0",
+                            background: sponsor.logoBackground || "transparent",
+                            border: sponsor.logoBackground
+                              ? "1px solid rgba(255, 255, 255, 0.08)"
+                              : "none",
+                            borderRadius: sponsor.logoBackground ? "10px" : "0",
+                          }}
+                        >
+                          <Image
+                            src={sponsor.logo}
+                            alt={sponsor.name}
+                            fill
+                            style={{ objectFit: "contain" }}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <h3
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: 600,
-                        marginBottom: "12px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.02em",
-                      }}
-                    >
-                      {sponsor.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: "15px",
-                        color: "var(--text-muted)",
-                        lineHeight: 1.6,
-                        maxWidth: "500px",
-                      }}
-                    >
-                      {sponsor.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+                      <h3
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: 600,
+                          marginBottom: "12px",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.02em",
+                        }}
+                      >
+                        {sponsor.name}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: "15px",
+                          color: "var(--text-muted)",
+                          lineHeight: 1.6,
+                          maxWidth: "500px",
+                        }}
+                      >
+                        {sponsor.description}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              ))}
             </motion.div>
           </div>
         </section>
