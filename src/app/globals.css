@@ -26,9 +26,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-instrument);
-  --font-mono: var(--font-jetbrains-mono);
-  --font-display: var(--font-instrument);
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Outfit", system-ui, sans-serif;
 }
 
 * {

@@ -1,10 +1,6 @@
-import { Client } from "@notionhq/client";
-
-const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
-});
-
-const DATA_SOURCE_ID = process.env.NOTION_DATA_SOURCE_ID!;
+const NOTION_API_KEY = process.env.NOTION_API_KEY;
+const DATA_SOURCE_ID = process.env.NOTION_DATA_SOURCE_ID;
+const NOTION_API_VERSION = "2025-09-03";
 
 export type TeamMember = {
   id: string;
@@ -22,6 +18,13 @@ export type TeamMember = {
   github?: string;
   currentPlacement?: string;
   image?: string;
+};
+
+type NotionQueryResponse = {
+  results?: Array<{
+    id: string;
+    properties?: Record<string, any>;
+  }>;
 };
 
 function getText(property: any): string {
@@ -98,20 +101,44 @@ function getRolePriority(role: string): number {
   if (lower === "treasurer") return 3;
   if (lower === "social chair") return 4;
   if (lower === "secretary") return 5;
-  if (lower.endsWith(" lead")) return 6; // Electrical Lead, Software Lead, Mechanical Lead
+  if (lower.endsWith(" lead")) return 6;
   if (lower === "project lead") return 7;
   if (lower === "engineer") return 8;
 
   return 99;
 }
 
-export async function getTeamMembers(): Promise<TeamMember[]> {
-  const response = await notion.dataSources.query({
-    data_source_id: DATA_SOURCE_ID,
-  });
+async function queryTeamDataSource(): Promise<NotionQueryResponse> {
+  if (!NOTION_API_KEY || !DATA_SOURCE_ID) {
+    return { results: [] };
+  }
 
-  return response.results.map((page: any) => {
-    const props = page.properties;
+  const response = await fetch(
+    `https://api.notion.com/v1/data_sources/${DATA_SOURCE_ID}/query`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${NOTION_API_KEY}`,
+        "Content-Type": "application/json",
+        "Notion-Version": NOTION_API_VERSION,
+      },
+      body: JSON.stringify({}),
+      next: { revalidate: 3600 },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Notion query failed with status ${response.status}`);
+  }
+
+  return (await response.json()) as NotionQueryResponse;
+}
+
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  const response = await queryTeamDataSource();
+
+  return (response.results ?? []).map((page) => {
+    const props = page.properties ?? {};
 
     const team = getText(props.Team);
     const rawRoles = getMultiSelect(props.Role);
