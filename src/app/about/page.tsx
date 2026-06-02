@@ -8,6 +8,7 @@ import {
   IconRocket,
   IconBrain,
   IconUsers,
+  IconDownload,
 } from "@tabler/icons-react";
 import { Navbar, Footer } from "@/components/layout";
 import {
@@ -220,6 +221,19 @@ export default function AboutPage() {
                       </li>
                     ))}
                   </ul>
+                </motion.div>
+
+                <motion.div variants={staggerItem} style={{ marginTop: "32px" }}>
+                  <a
+                    href="https://drive.google.com/file/d/1BrcK6pGdd4CBl9zglACMc6I8wHD-CQNz/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                    style={{ display: "inline-flex" }}
+                  >
+                    <IconDownload size={16} />
+                    TECHNICAL DESIGN REPORT
+                  </a>
                 </motion.div>
               </div>
 
