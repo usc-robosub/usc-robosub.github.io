@@ -13,16 +13,12 @@ import {
   IconCpu,
   IconBolt,
   IconCube,
-  IconUsers,
-  IconTrophy,
-  IconSchool,
 } from "@tabler/icons-react";
 import { Navbar, Footer } from "@/components/layout";
 import {
   AnimatedHeadline,
   SectionLabel,
   FadeUpText,
-  AnimatedCounter,
   TypewriterEffect,
 } from "@/components/ui";
 import {
@@ -34,12 +30,10 @@ import {
 export default function Home() {
   const aboutRef = useRef(null);
   const techRef = useRef(null);
-  const pillarsRef = useRef(null);
   const ctaRef = useRef(null);
 
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const techInView = useInView(techRef, { once: true, margin: "-100px" });
-  const pillarsInView = useInView(pillarsRef, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
   const technologies = [
@@ -70,30 +64,6 @@ export default function Home() {
       description: "Professional PCB design & electronic schematic software",
       icon: IconBolt,
       color: "#a5915f",
-    },
-  ];
-
-  const pillars = [
-    {
-      icon: IconUsers,
-      name: "Student-Led",
-      desc: "Empowering students to take leadership roles and drive innovation in underwater robotics.",
-      stat: "25+",
-      statLabel: "Members",
-    },
-    {
-      icon: IconTrophy,
-      name: "Competitions",
-      desc: "Participating in RoboSub, an international student underwater robotics competition.",
-      stat: "15+",
-      statLabel: "Years Competing",
-    },
-    {
-      icon: IconSchool,
-      name: "Learning",
-      desc: "Hands-on experience in robotics, coding, & electrical & mechanical systems.",
-      stat: "3",
-      statLabel: "Sub-Teams",
     },
   ];
 
@@ -707,155 +677,6 @@ export default function Home() {
                   );
                 })}
               </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ==========================================
-            PILLARS SECTION - New Visual Design
-            ========================================== */}
-        <section
-          ref={pillarsRef}
-          className="section"
-          style={{
-            background: "var(--bg-secondary)",
-            borderTop: "1px solid var(--border)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Background accent */}
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "600px",
-              height: "600px",
-              background: "radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          <div className="container" style={{ position: "relative", zIndex: 1 }}>
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate={pillarsInView ? "visible" : "hidden"}
-              style={{ textAlign: "center", marginBottom: "64px" }}
-            >
-              <motion.span variants={staggerItem} className="section-label">
-                WHAT DRIVES US
-              </motion.span>
-              <motion.h2
-                variants={staggerItem}
-                className="text-heading"
-                style={{
-                  fontSize: "clamp(32px, 5vw, 48px)",
-                  textTransform: "uppercase",
-                  marginTop: "16px",
-                }}
-              >
-                Our Core Pillars
-              </motion.h2>
-            </motion.div>
-
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate={pillarsInView ? "visible" : "hidden"}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "0",
-                maxWidth: "1000px",
-                margin: "0 auto",
-              }}
-              className="hero-grid"
-            >
-              {pillars.map((pillar, index) => {
-                const Icon = pillar.icon;
-                return (
-                  <motion.div
-                    key={pillar.name}
-                    variants={staggerItem}
-                    style={{
-                      padding: "48px 32px",
-                      textAlign: "center",
-                      borderRight: index < 2 ? "1px solid var(--border)" : "none",
-                      position: "relative",
-                    }}
-                  >
-                    {/* Large animated stat */}
-                    <motion.div
-                      style={{
-                        fontSize: "56px",
-                        fontWeight: 700,
-                        lineHeight: 1,
-                        marginBottom: "8px",
-                        background: "linear-gradient(180deg, #fff 0%, #666 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                    >
-                      <AnimatedCounter value={pillar.stat} duration={2.5} />
-                    </motion.div>
-                    <p
-                      className="mono"
-                      style={{
-                        fontSize: "10px",
-                        color: "var(--text-muted)",
-                        marginBottom: "24px",
-                      }}
-                    >
-                      {pillar.statLabel}
-                    </p>
-
-                    {/* Icon */}
-                    <div
-                      style={{
-                        width: "48px",
-                        height: "48px",
-                        margin: "0 auto 16px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        border: "1px solid var(--border)",
-                      }}
-                    >
-                      <Icon size={24} color="var(--text-secondary)" />
-                    </div>
-
-                    <h3
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: 700,
-                        marginBottom: "12px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.02em",
-                      }}
-                    >
-                      {pillar.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        color: "var(--text-muted)",
-                        lineHeight: 1.6,
-                        maxWidth: "280px",
-                        margin: "0 auto",
-                      }}
-                    >
-                      {pillar.desc}
-                    </p>
-                  </motion.div>
-                );
-              })}
             </motion.div>
           </div>
         </section>
