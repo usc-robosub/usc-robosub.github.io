@@ -31,10 +31,6 @@ export const metadata: Metadata = {
     "underwater systems",
   ],
   authors: [{ name: "USC AUV Team" }],
-  icons: {
-    icon: "/auv-logo.png",
-    apple: "/auv-logo.png",
-  },
   openGraph: {
     title: "USC AUV | AUTONOMOUS UNDERWATER VEHICLE TEAM",
     description:
