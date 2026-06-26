@@ -31,13 +31,13 @@ export const blogPosts: BlogPost[] = [
     title: "Spring 2026 Wet Tests: From Dry-Dock to Pool Operations",
     excerpt:
       "A look back at how the team moved from dry-dock development into real pool operations, transforming coordination across software, electrical, and mechanical along the way.",
-    date: "May 2026",
-    readTime: "5 min read",
+    date: "June 2026",
+    readTime: "6 min read",
     category: "Testing",
     author: "USC AUV Team",
     image: "/blog-spring-2026-wet-test-team.jpg",
     summary:
-      "This semester was a massive leap forward for the USC AUV team as we officially moved out of the comfort of the lab and into the actual water at Century Apartments. Across four key milestones between February and May, we did not just test a robot. We transformed how our subteams collaborate, pushed our computing core to its limits, worked through tricky mechanical bottlenecks, and learned exactly what it takes to keep a hull sealed under pressure. Every single rainy postponement, poolside diagnostic check, and late-night calibration brought us closer together as an engineering team and proved just how resilient our sub really is.",
+      "This semester was a massive leap forward for the USC AUV team as we officially moved out of the comfort of the lab and into the actual water at Century Apartments. Across five key milestones between February and June, we did not just test a robot. We transformed how our subteams collaborate, pushed our computing core to its limits, worked through tricky mechanical bottlenecks, and learned exactly what it takes to keep a hull sealed under pressure. Every single rainy postponement, poolside diagnostic check, and late-night calibration brought us closer together as an engineering team and proved just how resilient our sub really is.",
     details: [
       { label: "Location", value: "Century Apts" },
       { label: "Focus", value: "Wet Tests" },
@@ -102,12 +102,33 @@ export const blogPosts: BlogPost[] = [
           },
         ],
       },
+      {
+        heading: "June 23, 2026 — Thruster Control, Sensors, and the Gate",
+        body: [
+          "The Valve: We took care of the valve this session, exactly the part we knew needed attention. With it handled, Barracuda sat in the water just the way we wanted and the internals came back completely dry, letting the team focus on controls and autonomy.",
+          "Thruster Control, Fully Tested: The biggest win of the session was a complete test of thruster control, and it worked perfectly. Every thruster responded as commanded and the vehicle moved exactly the way we expected, giving us full confidence in the propulsion and low-level control stack going forward.",
+          "Sensor Inputs and Localization: We also tested our sensor inputs and used the session to push on localization. That work paid off: we traced the problems in our GTSAM localization down to the IMU, and we were able to fix that issue after the test. Pinning the root cause to a specific sensor turned a vague localization problem into a concrete, solved one.",
+          "Setting Up the Gate: We staked out a stand-in competition gate with a pair of weighted PVC markers on the pool bottom, but we were not able to run it autonomously. This was not a hardware problem. It came back to localization: without a reliable current pose and target pose, the robot does not yet know where it is or where it needs to go on its own, so it cannot navigate the gate autonomously. With the IMU issue now fixed, getting an autonomous gate run is the clear next step.",
+          "Logistics That Finally Click: The other quiet win was logistics. The amount of time it takes to get the sub assembled, sealed, and into the water has dropped significantly compared to earlier in the year. What used to consume most of a wet test now happens quickly and predictably, leaving far more of each session for actually testing the vehicle. That faster turnaround is a direct payoff from the modularity and process improvements the team has invested in all semester.",
+        ],
+        images: [
+          {
+            src: "/blog-jun-23-wet-test.gif",
+            alt: "Barracuda floating and maneuvering in the pool during the June 23, 2026 wet test, with the hull sealed and dry.",
+          },
+          {
+            src: "/blog-jun-23-gate.jpg",
+            alt: "Weighted white and red PVC markers staked to the pool bottom forming a stand-in competition gate during the June 23, 2026 wet test.",
+          },
+        ],
+      },
     ],
     highlights: [
       "Dual-board architecture, ZED bring-up, and rosbag logging",
       "Peripheral integration, sealing sprints, and poolside network prep",
       "Sensor fusion with real-world SLAM dataset capture",
       "Live PWM diagnostics and thruster board remapping",
+      "Valve fix, flawless thruster control, and GTSAM localization traced to the IMU and fixed",
     ],
   },
   {
