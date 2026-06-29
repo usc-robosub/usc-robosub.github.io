@@ -249,9 +249,10 @@ export default function AboutPage() {
                     }}
                   >
                     <Image
-                      src="/barracuda.jpg"
-                      alt="The Barracuda AUV"
+                      src="/blog-jun-23-wet-test.gif"
+                      alt="The Barracuda AUV during a June 23, 2026 wet test"
                       fill
+                      unoptimized
                       style={{ objectFit: "cover" }}
                     />
                   </div>
