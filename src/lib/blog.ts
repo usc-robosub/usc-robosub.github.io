@@ -265,7 +265,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Day 2: Presentations, Iteration & a 3 A.M. Breakthrough",
         body: [
           "The morning began with our **technical presentation and design assessment**. Ek, Taka, and Huey presented Barracuda's mechanical design, software architecture, and engineering decisions to the judges. We received encouraging feedback that validated many of the improvements the team had spent months developing.",
-          "Afterward, everyone moved to the competition pool for the first time, and it behaved very differently from the water we had trained in throughout the spring. Our first competition runs quickly revealed several problems: Barracuda **consistently drifted to the right**, making autonomous navigation unreliable, and we struggled with **depth control and vehicle speed**, preventing consistent gate passes.",
+          "Afterward, everyone moved to the competition pool for the first time, and it behaved very differently from the water we had trained in throughout the spring. Our first tests at the competition site quickly revealed several problems: Barracuda **consistently drifted to the right**, making autonomous navigation unreliable, and we struggled with **depth control and vehicle speed**, preventing consistent gate passes.",
           "Instead of becoming discouraged, the team immediately **split into troubleshooting groups**. The software team analyzed logs between every run while the mechanical team adjusted ballast and weight distribution to improve stability. Every run generated more data; every adjustment improved the vehicle.",
           "Testing continued long after most teams had packed up. We stayed in the pool until **nearly 3:00 AM**, continuously refining the vehicle and repeating autonomous runs. By the end of the night, Barracuda passed through the gate multiple times, and these were our **first fully autonomous gate runs with the tether completely disconnected**, relying only on the wireless kill switch. It was a milestone we had been working toward all season.",
         ],
@@ -290,7 +290,7 @@ export const blogPosts: BlogPost[] = [
           "Competition morning began with the qualifying draw, but we quickly discovered an unexpected requirement: disconnecting the tether wasn't sufficient. Competition rules required the **tether to be removed entirely** from the vehicle, meaning we suddenly needed a **T10 enclosure** that we had not prepared.",
           "RoboSub once again demonstrated its collaborative spirit. Thanks to **Team Washington State University**, who generously lent us a replacement enclosure, we were able to continue competing without losing valuable time.",
           "Our first qualifying run still wasn't successful, Barracuda struggled to maintain depth, making autonomous navigation unreliable. Back on deck, the team reviewed the logs and identified the culprit: the **DVL had become misaligned**, resulting in inaccurate navigation estimates. After **recalibrating the sensor** and making adjustments, we returned to the pool that afternoon. Once again, the team **met the setback with resilience** rather than frustration, treating a failed run as the next problem to solve, not a reason to quit.",
-          "Although we never got to try the slalom and other mission tasks in a real water test, the software team was able to **complete and validate that code by running it in NVIDIA Isaac Sim**, where we test autonomy and mission logic before ever touching the water.",
+          "After that morning run, we went back to simulation to keep debugging. Although we never got to try the slalom and other mission tasks in a real water test, the software team was able to **complete and validate that code by running it in NVIDIA Isaac Sim**, where we test autonomy and mission logic before ever touching the water.",
           "The improvement was immediate. Barracuda completed **one of its strongest autonomous runs** of the competition, passing cleanly through the gate and showing how much progress had been made in only a few hours. The gap between the morning and afternoon runs captured exactly what RoboSub is about: **rapid engineering iteration under pressure**.",
         ],
         inlineImages: [
@@ -355,7 +355,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Final Day: A New Barracuda Takes the Water",
         body: [
-          "The final day marked the **first in-pool test of the rebuilt Barracuda**, and the results immediately justified the overnight effort. The new vehicle achieved the expected buoyancy, remained stable throughout the run, and **completed an autonomous gate pass during its very first pool test**.",
+          "The final day marked the **first in-pool test of Barracuda 2.0**, our rebuilt vehicle, and the results immediately justified the overnight effort. Barracuda 2.0 achieved the expected buoyancy, remained stable throughout the run, and **completed an autonomous gate pass during its very first pool test**.",
           "Watching a vehicle that had existed only as a collection of individual components hours earlier navigate successfully through the course was one of the most rewarding moments of the entire competition. Although our RoboSub journey ended there, the experience reinforced one of the team's greatest strengths: our **willingness to adapt, rebuild, and keep improving** even under extreme time pressure.",
         ],
         image: "/team-group-photo.jpg",
@@ -380,7 +380,7 @@ export const blogPosts: BlogPost[] = [
     statusItems: [
       "Passed the autonomous gate",
       "Ran fully tether-free with a T10 enclosure",
-      "Diagnosed and recalibrated the DVL",
+      "Qualification (autonomous gate pass)",
       "Rebuilt Barracuda onto a lighter frame",
     ],
     readNote:
