@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -14,6 +15,85 @@ import type { BlogPost } from "@/lib/blog";
 
 function slugify(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+// Bordered, full-width photo at natural aspect ratio.
+function SectionImage({
+  src,
+  alt,
+  style,
+}: {
+  src: string;
+  alt: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        lineHeight: 0,
+        ...style,
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={0}
+        height={0}
+        sizes="(max-width: 768px) 100vw, 700px"
+        style={{ width: "100%", height: "auto", display: "block" }}
+      />
+    </div>
+  );
+}
+
+// Responsive 16:9 YouTube embed.
+function SectionVideo({
+  id,
+  title,
+  style,
+}: {
+  id: string;
+  title: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        aspectRatio: "16 / 9",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        background: "var(--bg-secondary)",
+        ...style,
+      }}
+    >
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+      />
+    </div>
+  );
+}
+
+// Renders **key phrases** as bold; everything else stays plain text.
+function renderRich(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 700 }}>
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
 }
 
 type BlogPostArticleProps = {
@@ -270,8 +350,8 @@ export function BlogPostArticle({
                       lineHeight: 1.8,
                     }}
                   >
-                    “The fastest way to improve an AUV is to make every part easier to inspect,
-                    service, and trust under pressure.”
+                    “{post.quote ??
+                      "The fastest way to improve an AUV is to make every part easier to inspect, service, and trust under pressure."}”
                   </p>
                 </div>
 
@@ -326,8 +406,31 @@ export function BlogPostArticle({
                             gap: "16px",
                           }}
                         >
-                          {section.body.map((paragraph) => (
-                            <p key={paragraph}>{paragraph}</p>
+                          {section.body.map((paragraph, pIdx) => (
+                            <Fragment key={paragraph}>
+                              <p>{renderRich(paragraph)}</p>
+                              {/* Photos anchored after a specific paragraph. */}
+                              {section.inlineImages
+                                ?.filter((m) => m.after === pIdx)
+                                .map((m) => (
+                                  <SectionImage
+                                    key={m.src}
+                                    src={m.src}
+                                    alt={m.alt}
+                                    style={{ marginTop: "4px" }}
+                                  />
+                                ))}
+                              {section.inlineVideos
+                                ?.filter((v) => v.after === pIdx)
+                                .map((v) => (
+                                  <SectionVideo
+                                    key={v.id}
+                                    id={v.id}
+                                    title={v.title}
+                                    style={{ marginTop: "4px" }}
+                                  />
+                                ))}
+                            </Fragment>
                           ))}
                         </div>
 
@@ -335,51 +438,29 @@ export function BlogPostArticle({
                           <div
                             style={{
                               display: "grid",
-                              gridTemplateColumns:
-                                section.images.length > 1 ? "repeat(2, minmax(0, 1fr))" : "1fr",
+                              gridTemplateColumns: "1fr",
                               gap: "16px",
                               marginTop: "20px",
                             }}
-                            className="hero-grid"
                           >
                             {section.images.map((image) => (
-                              <div
-                                key={image.src}
-                                style={{
-                                  position: "relative",
-                                  width: "100%",
-                                  aspectRatio: "16 / 10",
-                                  border: "1px solid var(--border)",
-                                  overflow: "hidden",
-                                }}
-                              >
-                                <Image
-                                  src={image.src}
-                                  alt={image.alt}
-                                  fill
-                                  style={{ objectFit: "cover" }}
-                                />
-                              </div>
+                              <SectionImage key={image.src} src={image.src} alt={image.alt} />
                             ))}
                           </div>
                         ) : section.image ? (
-                          <div
-                            style={{
-                              position: "relative",
-                              width: "100%",
-                              aspectRatio: "16 / 10",
-                              border: "1px solid var(--border)",
-                              overflow: "hidden",
-                              marginTop: "20px",
-                            }}
-                          >
-                            <Image
-                              src={section.image}
-                              alt={section.imageAlt ?? section.heading}
-                              fill
-                              style={{ objectFit: "cover" }}
-                            />
-                          </div>
+                          <SectionImage
+                            src={section.image}
+                            alt={section.imageAlt ?? section.heading}
+                            style={{ marginTop: "20px" }}
+                          />
+                        ) : null}
+
+                        {section.video ? (
+                          <SectionVideo
+                            id={section.video}
+                            title={section.videoTitle ?? `${section.heading} video`}
+                            style={{ marginTop: "20px" }}
+                          />
                         ) : null}
                       </section>
                     );
@@ -485,14 +566,14 @@ export function BlogPostArticle({
 
                 <div className="card" style={{ padding: "28px" }}>
                   <p className="mono" style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
-                    BUILD STATUS
+                    {post.statusLabel ?? "BUILD STATUS"}
                   </p>
                   <div style={{ display: "grid", gap: "14px" }}>
-                    {[
+                    {(post.statusItems ?? [
                       "March and April issues successfully diagnosed",
                       "May 2 full-system pool run completed",
                       "Next wet test scheduled for May 30",
-                    ].map((item) => (
+                    ]).map((item) => (
                       <div
                         key={item}
                         style={{
@@ -523,9 +604,8 @@ export function BlogPostArticle({
                       marginBottom: "20px",
                     }}
                   >
-                    To be continued: the next wet test is scheduled for May 30, when the team
-                    will carry this spring development cycle into its next round of pool
-                    operations and diagnostics.
+                    {post.readNote ??
+                      "To be continued: the next wet test is scheduled for May 30, when the team will carry this spring development cycle into its next round of pool operations and diagnostics."}
                   </p>
                   <Link href="/" className="btn-secondary">
                     RETURN TO SITE
@@ -538,9 +618,8 @@ export function BlogPostArticle({
                     QUICK NOTE
                   </p>
                   <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "15px" }}>
-                    Development Blog 2026 is being updated milestone by milestone as the team
-                    moves from wet tests into the next phase of pool operations and competition
-                    prep.
+                    {post.quickNote ??
+                      "Development Blog 2026 is being updated milestone by milestone as the team moves from wet tests into the next phase of pool operations and competition prep."}
                   </p>
                 </div>
               </aside>

@@ -21,8 +21,28 @@ export type BlogPost = {
       src: string;
       alt: string;
     }[];
+    // Photos placed inline, each after a given body paragraph index.
+    inlineImages?: {
+      after: number;
+      src: string;
+      alt: string;
+    }[];
+    // Videos placed inline, each after a given body paragraph index.
+    inlineVideos?: {
+      after: number;
+      id: string; // YouTube video id
+      title: string;
+    }[];
+    video?: string; // YouTube video id
+    videoTitle?: string;
   }[];
   highlights: string[];
+  // Optional aside/quote overrides (fall back to the development-blog defaults)
+  quote?: string;
+  statusLabel?: string;
+  statusItems?: string[];
+  readNote?: string;
+  quickNote?: string;
 };
 
 export const blogPosts: BlogPost[] = [
@@ -45,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     ],
     sections: [
       {
-        heading: "February 18, 2026 — Spring Wet Test Kickoff",
+        heading: "February 18, 2026: Spring Wet Test Kickoff",
         body: [
           "Planned Location: Century Apartments Pool",
           "The Pivot: Mother Nature had other plans for our first official pool session. Lauryn had to call a rain delay in #announcements, but we did not let the night go to waste. The whole crew regrouped in RTH 206 for a technical sync to check code readiness and overall system status.",
@@ -60,7 +80,7 @@ export const blogPosts: BlogPost[] = [
           "Bench setup showing thrusters, a controller, and the Barracuda control interface during early spring wet test preparation.",
       },
       {
-        heading: "March 25, 2026 — The Mid-Semester Roadmap",
+        heading: "March 25, 2026: The Mid-Semester Roadmap",
         body: [
           "Objective: This strategy session focused on establishing the spring pool testing pipeline and setting a consistent operational cadence for the rest of the semester.",
           "Venue Selection: The team officially finalized the Century Apartments pool as its recurring testing grounds. A major factor in that decision was stable campus Wi-Fi coverage reaching all the way to the water's edge, which would let developers push live hotfixes and terminal commands directly from the pool deck.",
@@ -68,7 +88,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "April 4, 2026 — Recovery, Sensors and Real Datasets",
+        heading: "April 4, 2026: Recovery, Sensors and Real Datasets",
         body: [
           "Software Target: Coming out of the April 1 software subteam sync, the team set a major pre-dive goal for the next deployment: moving away from simulation and integrating live IMU and Depth Sonar feedback loops directly into the control stack.",
           "Pipeline Readiness: The software leads also confirmed that the ZED stereo camera vision pipeline was compiled and stable. Peripheral communication scripts were being wrapped up so the team could start harvesting clean pool telemetry profiles for offline SLAM datasets.",
@@ -80,7 +100,7 @@ export const blogPosts: BlogPost[] = [
         imageAlt: "Laptop screen showing Barracuda diagnostics and live video during April wet test troubleshooting.",
       },
       {
-        heading: "May 2, 2026 — Full-System Pool Operations",
+        heading: "May 2, 2026: Full-System Pool Operations",
         body: [
           "A Flawless Phased Timeline: This wet test was one of the smoothest and most coordinated runs of the semester. The electrical team arrived early at 3:00 PM for panel assembly and hardware integration, software took over at 4:00 PM for final configuration, and by 6:00 PM the sub was officially in the water.",
           "Last-Minute Thruster Tweaks: Right before deployment, Alejandro caught a propulsion issue. The team pivoted quickly and adjusted the Thruster Board Mapping to disable thruster index 2, covering addresses 0x2d and 0x2e, so it would not interfere with runtime. Later that evening, Huey shared terminal diagnostics showing that the software nodes were holding steady.",
@@ -103,7 +123,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "June 23, 2026 — Thruster Control, Sensors, and the Gate",
+        heading: "June 23, 2026: Thruster Control, Sensors, and the Gate",
         body: [
           "The Valve: We took care of the valve this session, exactly the part we knew needed attention. With it handled, Barracuda sat in the water just the way we wanted and the internals came back completely dry, letting the team focus on controls and autonomy.",
           "Thruster Control, Fully Tested: The biggest win of the session was a complete test of thruster control, and it worked perfectly. Every thruster responded as commanded and the vehicle moved exactly the way we expected, giving us full confidence in the propulsion and low-level control stack going forward.",
@@ -194,6 +214,160 @@ export const blogPosts: BlogPost[] = [
       "Cleaner power and cable routing",
       "More reliable integration testing",
     ],
+  },
+  {
+    slug: "robosub-2026-competition-log",
+    title: "RoboSub 2026 Competition Log",
+    excerpt:
+      "Six days at the Woollett Aquatics Center in Irvine became the culmination of an entire year of work, the story of how Barracuda and the USC AUV team diagnosed problems, made engineering calls on the pool deck, rebuilt the entire vehicle overnight, and swam into the Autonomy Challenge semi-finals.",
+    date: "July 11–16, 2026",
+    readTime: "7 min read",
+    category: "Competition Log",
+    author: "USC AUV Team",
+    image: "/team-group-photo.jpg",
+    summary:
+      "Six days at the Woollett Aquatics Center in Irvine became the culmination of an entire year of work. RoboSub isn't just about the final score, it's about how quickly a team can learn, adapt, and improve under pressure. Every issue we encountered became another opportunity to grow, and every successful run was built on countless hours of testing before we ever arrived in Irvine. This competition wasn't defined by a single autonomous run. It was defined by our team's ability to diagnose problems, make engineering decisions on the pool deck, and come back stronger each time Barracuda entered the water.",
+    quote:
+      "The biggest lesson from RoboSub wasn't that everything worked. It was that every setback became another engineering problem we learned how to solve together.",
+    details: [
+      { label: "Result", value: "AC Semi-Finalist" },
+      { label: "Location", value: "Irvine, CA" },
+      { label: "Vehicle", value: "Barracuda" },
+    ],
+    sections: [
+      {
+        heading: "Day 1: Arrival & Preparing for Competition",
+        body: [
+          "After driving down to Irvine, the team completed registration and settled into the competition schedule. While the official events had only just begun, everyone knew the real work would happen in the water. We headed to the practice pool for our **first testing session**.",
+          "Transporting an AUV always introduces uncertainty. Before our first official run we **verified every critical subsystem**: electrical systems, watertight seals, thrusters, controls, and sensors.",
+          "More importantly, we began **adapting Barracuda to a competition pool** that behaved very differently from the one we had trained in throughout the spring. It set the tone for the week: **long nights, constant iteration**, and making every minute in the water count.",
+        ],
+        image: "/day_1_practice.jpeg",
+        imageAlt: "The team gathered around the practice pool at our Airbnb, running Barracuda during the first day's testing session.",
+      },
+      {
+        heading: "Day 2: Presentations, Iteration & a 3 A.M. Breakthrough",
+        body: [
+          "The morning began with our **technical presentation and design assessment**. Ek, Taka, and Hyue presented Barracuda's mechanical design, software architecture, and engineering decisions to the judges. We received encouraging feedback that validated many of the improvements the team had spent months developing.",
+          "Afterward, everyone shifted back to the pool, and our first competition runs quickly revealed several problems. Barracuda **consistently drifted to the right**, making autonomous navigation unreliable, and we struggled with **depth control and vehicle speed**, preventing consistent gate passes.",
+          "Instead of becoming discouraged, the team immediately **split into troubleshooting groups**. The software team analyzed logs between every run while the mechanical team adjusted ballast and weight distribution to improve stability. Every run generated more data; every adjustment improved the vehicle.",
+          "Testing continued long after most teams had packed up. We stayed in the pool until **nearly 3:00 AM**, continuously refining the vehicle and repeating autonomous runs. By the end of the night, Barracuda passed through the gate multiple times, and these were our **first fully autonomous gate runs with the tether completely disconnected**, relying only on the wireless kill switch. It was a milestone we had been working toward all season.",
+        ],
+        inlineImages: [
+          {
+            after: 0,
+            src: "/day-1-presentation.jpg",
+            alt: "Team members presenting Barracuda's design and engineering decisions to the judges during the technical assessment.",
+          },
+          {
+            after: 2,
+            src: "/software_working_1.jpg",
+            alt: "The team at the USC AUV competition tent in San Diego, working between troubleshooting sessions.",
+          },
+        ],
+        video: "XId9qINUtW0",
+        videoTitle: "Day 2 late-night test run, first autonomous gate passes",
+      },
+      {
+        heading: "Day 3: Qualifying, Unexpected Challenges & Teamwork",
+        body: [
+          "Competition morning began with the qualifying draw, but we quickly discovered an unexpected requirement: disconnecting the tether wasn't sufficient. Competition rules required the **tether to be removed entirely** from the vehicle, meaning we suddenly needed a **T10 enclosure** that we had not prepared.",
+          "RoboSub once again demonstrated its collaborative spirit. Thanks to **Team Washington State University**, who generously lent us a replacement enclosure, we were able to continue competing without losing valuable time.",
+          "Our first qualifying run still wasn't successful, Barracuda struggled to maintain depth, making autonomous navigation unreliable. Back on deck, the team reviewed the logs and identified the culprit: the **DVL had become misaligned**, resulting in inaccurate navigation estimates. After **recalibrating the sensor** and making adjustments, we returned to the pool that afternoon. Once again, the team **met the setback with resilience** rather than frustration, treating a failed run as the next problem to solve, not a reason to quit.",
+          "The improvement was immediate. Barracuda completed **one of its strongest autonomous runs** of the competition, passing cleanly through the gate and showing how much progress had been made in only a few hours. The gap between the morning and afternoon runs captured exactly what RoboSub is about: **rapid engineering iteration under pressure**.",
+        ],
+        inlineImages: [
+          {
+            after: 2,
+            src: "/software_working_2.jpg",
+            alt: "Software team members reviewing camera feeds and run logs on their laptops between qualifying attempts.",
+          },
+        ],
+        video: "hekgq-YujYk",
+        videoTitle: "Successful qualifying run, clean autonomous gate pass",
+      },
+      {
+        heading: "Overnight Rebuild: Reinventing Barracuda",
+        body: [
+          "Qualifying also set up a larger engineering challenge. From the beginning, we had **planned to move Barracuda onto a lighter frame** for better yaw maneuverability, and the competition became the moment to finally execute that change.",
+          "Rather than settling for incremental improvements, the team committed to **rebuilding Barracuda during the competition**, exactly as we had intended.",
+          "The mechanical team worked through the night, completely disassembling the vehicle and **rebuilding it around a lighter frame**. Components were transferred, wiring reorganized, buoyancy recalculated, and the entire vehicle reassembled under an incredibly tight deadline.",
+          "The software team was equally busy. The redesigned vehicle required **updated parameters throughout the software stack**, controllers were retuned, configuration files updated, and the mission framework reconfigured to match the new platform, while additional autonomous mission capabilities were integrated for tasks beyond the gate. By the following morning, **an entirely new version of Barracuda was ready**.",
+          "Although we never got to try the slalom and other mission tasks in a real water test, the software team was able to **complete and validate that code by running it in NVIDIA Isaac Sim**, where we test autonomy and mission logic before ever touching the water.",
+        ],
+        inlineVideos: [
+          {
+            after: 4,
+            id: "JGoJrz6ZzJc",
+            title: "Barracuda in NVIDIA Isaac Sim",
+          },
+        ],
+        inlineImages: [
+          {
+            after: 0,
+            src: "/barracuda_cad_before.PNG",
+            alt: "CAD render of Barracuda's original, heavier boxed frame before the rebuild.",
+          },
+          {
+            after: 0,
+            src: "/barracuda_cad_after.PNG",
+            alt: "CAD render of Barracuda's new, lighter frame the team rebuilt around at competition.",
+          },
+        ],
+        images: [
+          {
+            src: "/change_frame_1.jpg",
+            alt: "Team members rewiring and reassembling Barracuda onto a lighter frame during the overnight rebuild.",
+          },
+          {
+            src: "/change_frame_2.jpg",
+            alt: "The team disassembling and rebuilding Barracuda late into the night beside the pool.",
+          },
+          {
+            src: "/change_frame_3.jpg",
+            alt: "The team transferring components onto Barracuda's lighter frame during the overnight rebuild.",
+          },
+          {
+            src: "/new_sub.jpg",
+            alt: "The rebuilt Barracuda on its lighter frame, reassembled and ready for its first in-pool test.",
+          },
+        ],
+      },
+      {
+        heading: "Final Day: A New Barracuda Takes the Water",
+        body: [
+          "The final day marked the **first in-pool test of the rebuilt Barracuda**, and the results immediately justified the overnight effort. The new vehicle achieved the expected buoyancy, remained stable throughout the run, and **completed an autonomous gate pass during its very first pool test**.",
+          "Watching a vehicle that had existed only as a collection of individual components hours earlier navigate successfully through the course was one of the most rewarding moments of the entire competition. Although our RoboSub journey ended there, the experience reinforced one of the team's greatest strengths: our **willingness to adapt, rebuild, and keep improving** even under extreme time pressure.",
+        ],
+        image: "/team-group-photo.jpg",
+        imageAlt: "The USC AUV team gathered around the rebuilt Barracuda at the end of the competition.",
+      },
+      {
+        heading: "Looking Ahead",
+        body: [
+          "Reaching the **Autonomy Challenge Semi-Finals** was only one measure of success. The real achievement was watching Barracuda, and our team, grow throughout the week. We learned to diagnose failures quickly under competition pressure, coordinate software and hardware development efficiently, adapt to unexpected competition requirements, validate engineering decisions with real-world testing, and trust the engineering process built over months of pool work.",
+          "Every successful run was built on dozens of unsuccessful ones. Perhaps the greatest lesson was realizing that **nearly every challenge we encountered had already appeared during our spring testing**, because we had seen these problems before, we knew how to investigate them instead of panicking.",
+          "As we look toward **RoboSub 2027**, we're taking home far more than a competition result: a lighter and more capable Barracuda, a stronger software stack, a more experienced engineering team, and a deeper understanding of what it takes to build an AUV that can compete at the highest level. **We'll be back next year.**",
+        ],
+      },
+    ],
+    highlights: [
+      "First fully autonomous gate pass, tether disconnected",
+      "DVL misalignment diagnosed and recalibrated poolside",
+      "Full overnight rebuild onto a lighter frame",
+      "Advanced to Autonomy Challenge semi-finals",
+    ],
+    statusLabel: "FINAL RESULT",
+    statusItems: [
+      "Autonomous gate: PASS",
+      "Tether-free (T10): PASS",
+      "DVL / navigation: RECALIBRATED",
+      "Frame & buoyancy: REBUILT",
+    ],
+    readNote:
+      "The Autonomy Challenge Semi-Finalist finish is USC AUV's best recent RoboSub result. Next stop: RoboSub 2027, with a lighter Barracuda and a stronger software stack.",
+    quickNote:
+      "This competition log recaps RoboSub 2026 at the Woollett Aquatics Center in Irvine, CA, six days of poolside engineering, an overnight rebuild, and a semi-finals run.",
   },
 ];
 
