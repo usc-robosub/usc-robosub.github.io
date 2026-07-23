@@ -35,5 +35,5 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  return <BlogPostArticle post={post} />;
+  return <BlogPostArticle post={post} headlineWords={post.headline} />;
 }
