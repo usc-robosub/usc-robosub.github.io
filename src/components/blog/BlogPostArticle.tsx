@@ -430,6 +430,36 @@ export function BlogPostArticle({
                                     style={{ marginTop: "4px" }}
                                   />
                                 ))}
+                              {/* Side-by-side captioned comparison (e.g. before / after). */}
+                              {section.comparison && section.comparison.after === pIdx ? (
+                                <div
+                                  style={{
+                                    display: "grid",
+                                    gridTemplateColumns:
+                                      "repeat(auto-fit, minmax(240px, 1fr))",
+                                    gap: "16px",
+                                    marginTop: "4px",
+                                  }}
+                                >
+                                  {section.comparison.items.map((it) => (
+                                    <figure key={it.src} style={{ margin: 0 }}>
+                                      <SectionImage src={it.src} alt={it.alt} />
+                                      <figcaption
+                                        className="mono"
+                                        style={{
+                                          marginTop: "10px",
+                                          fontSize: "11px",
+                                          letterSpacing: "0.1em",
+                                          textTransform: "uppercase",
+                                          color: "var(--text-muted)",
+                                        }}
+                                      >
+                                        {it.caption}
+                                      </figcaption>
+                                    </figure>
+                                  ))}
+                                </div>
+                              ) : null}
                             </Fragment>
                           ))}
                         </div>
