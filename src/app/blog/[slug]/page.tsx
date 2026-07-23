@@ -4,9 +4,9 @@ import { BlogPostArticle } from "@/components/blog/BlogPostArticle";
 import { blogPosts, getBlogPost } from "@/lib/blog";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export async function generateStaticParams() {
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const post = getBlogPost(slug);
 
   if (!post) {
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const { slug } = params;
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
   const post = getBlogPost(slug);
 
   if (!post) {
