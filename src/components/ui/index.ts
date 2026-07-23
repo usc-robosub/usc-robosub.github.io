@@ -12,6 +12,7 @@ export {
 
 // New spicy components
 export { FloatingBubbles, GlowingOrbs, SonarPulse } from "./FloatingBubbles";
+export { FlowField } from "./FlowField";
 export { MagneticButton, RippleButton, WaterRippleCard } from "./MagneticButton";
 export { AnimatedCounter, AnimatedStat, RollingNumber, TypewriterCounter } from "./AnimatedCounter";
 export { AnimatedAUV, AnimatedPropeller, SonarSweep } from "./AnimatedAUV";
