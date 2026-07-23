@@ -199,19 +199,19 @@ export const alumniMembers = [
 
 // Barracuda specs
 export const barracudaSpecs = {
-  name: "The Barracuda",
-  year: 2025,
-  dimensions: "26 in L x 20 in W x 15 in H approximately",
-  weight: "35 kg",
+  name: "Barracuda 2.0",
+  year: 2026,
+  dimensions: "27 in L x 23 in W x 14.5 in H",
+  weight: "40 kg",
   thrusters: 8,
   battery: "16.2 Ah",
   features: [
-    "Fully Integrated Sensor Fusion",
-    "Simplified Hydrodynamics",
-    "Modular Multi-Hull Design",
-    "Doppler Velocity Log",
-    "Imaging Sonar for Localization",
-    "Containerized & Modular Software",
+    "Modular 80/20 Aluminum & Plate Chassis",
+    "Reduced Footprint & Drag Profile",
+    "Optimized Thruster Geometry",
+    "1.2 m/s Top Speed",
+    "Integrated Sensor Fusion with DVL",
+    "Imaging Sonar & Real-Time SLAM",
   ],
 } as const;
 

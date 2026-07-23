@@ -38,8 +38,8 @@ export default function AboutPage() {
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
 
   const specStats = [
-    { label: "DIMENSIONS", value: 26, unit: "in L" },
-    { label: "WEIGHT", value: 35, unit: "kg" },
+    { label: "DIMENSIONS", value: 27, unit: "in L" },
+    { label: "WEIGHT", value: 40, unit: "kg", decimals: 1 },
     { label: "THRUSTERS", value: 8, unit: "" },
     { label: "BATTERY", value: 16.2, unit: "Ah", decimals: 1 },
   ];
@@ -249,10 +249,9 @@ export default function AboutPage() {
                     }}
                   >
                     <Image
-                      src="/blog-jun-23-wet-test.gif"
-                      alt="The Barracuda AUV during a June 23, 2026 wet test"
+                      src="/new_sub.jpg"
+                      alt="Barracuda 2.0 on its stand, sealed and ready for testing"
                       fill
-                      unoptimized
                       style={{ objectFit: "cover" }}
                     />
                   </div>
