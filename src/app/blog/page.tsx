@@ -41,8 +41,7 @@ const cards: BlogCard[] = [
     label: "ROBOSUB 2026 COMPETITION LOG",
     title: "RoboSub 2026 Competition Log",
     excerpt:
-      compPost?.excerpt ??
-      "Six days in Irvine, an overnight rebuild, and a run into the Autonomy Challenge semi-finals.",
+      "Five days at the Woollett Aquatics Center in Irvine: pool-deck problem-solving, an overnight rebuild, and a run into the Autonomy Challenge semi-finals.",
     image: compPost?.image ?? "/barracuda.jpg",
     date: compPost?.date ?? "July 2026",
     readTime: compPost?.readTime ?? "7 min read",
