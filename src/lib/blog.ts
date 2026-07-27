@@ -253,8 +253,16 @@ export const blogPosts: BlogPost[] = [
           "Transporting an AUV always introduces uncertainty. Before our first official run we **verified every critical subsystem**: electrical systems, watertight seals, thrusters, controls, and sensors.",
           "We hadn't gone to the competition site yet, so this first day was entirely at the practice pool, where we began **adapting Barracuda to unfamiliar water** that behaved very differently from the pool we had trained in throughout the spring. It set the tone for the week: **long nights, constant iteration**, and making every minute in the water count.",
         ],
-        image: "/day_1_practice.jpeg",
-        imageAlt: "The team gathered around the practice pool at our Airbnb, running Barracuda during the first day's testing session.",
+        images: [
+          {
+            src: "/day-1-practice-2.jpg",
+            alt: "The team gathered around the practice pool at our Airbnb at night, watching Barracuda run during the first day's testing session.",
+          },
+          {
+            src: "/day-1-practice-3.jpg",
+            alt: "The team at the practice pool during the first night of testing at the team house.",
+          },
+        ],
         inlineImages: [
           {
             after: 0,
