@@ -88,6 +88,8 @@ export function Navbar() {
                 gap: "12px",
                 textDecoration: "none",
                 color: "inherit",
+                flexShrink: 0,
+                marginRight: "24px",
               }}
             >
               <Image
@@ -95,7 +97,7 @@ export function Navbar() {
                 alt="USC AUV Logo"
                 width={40}
                 height={40}
-                style={{ filter: "invert(1)" }}
+                style={{ filter: "invert(1)", flexShrink: 0 }}
               />
               <span
                 style={{
@@ -103,6 +105,7 @@ export function Navbar() {
                   fontWeight: 600,
                   fontSize: "14px",
                   letterSpacing: "0.1em",
+                  whiteSpace: "nowrap",
                 }}
               >
                 USC AUV

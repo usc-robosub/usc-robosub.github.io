@@ -252,15 +252,7 @@ export function BlogPostArticle({
 
         <section className="section">
           <div className="container">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "48px",
-                alignItems: "start",
-              }}
-              className="hero-grid"
-            >
+            <div className="blog-layout-grid">
               <article
                 style={{
                   background: "var(--bg-card)",
