@@ -413,9 +413,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "vlm-vs-yolo-underwater",
     series: "software-research",
-    title: "Can a Vision-Language Model See the RoboSub Course Better Than YOLO?",
+    title: "Can a Vision-Language Model See Our Isaac Sim Course Better Than YOLO?",
     excerpt:
-      "We put two open AI models in front of 397 simulated camera frames from Barracuda's course and checked what they could actually see once we stopped showing them YOLO's answers.",
+      "We put two open AI models in front of 397 camera frames from our Isaac Sim course and checked what they could actually see once we stopped showing them YOLO's answers.",
     date: "October 2026",
     readTime: "7 min read",
     category: "Research",
@@ -423,7 +423,7 @@ export const blogPosts: BlogPost[] = [
     image: "/research-vlm-gate-sign.jpg",
     headline: ["VLM", "VS", "YOLO"],
     summary:
-      "Vision-language models can look at a photo and answer questions about it in plain language, and recent research has put one in charge of an underwater robot. Before building anything like that into Barracuda, we asked a narrower question: does a VLM tell us anything about the course that our YOLO object detector doesn't? For the models our hardware can run, the answer is no, not yet. This post covers how we tested it, what the models got wrong, and what we learned along the way.",
+      "Vision-language models can look at a photo and answer questions about it in plain language, and recent research has put one in charge of an underwater robot. Before building anything like that into Barracuda, we asked a narrower question: does a VLM tell us anything about the simulated course that our YOLO object detector doesn't? For the models our hardware can run, the answer is no, not yet. This post covers how we tested it, what the models got wrong, and what we learned along the way.",
     details: [
       { label: "Frames", value: "397 (sim)" },
       { label: "Models", value: "Qwen3-VL 8B, 30B" },
@@ -570,7 +570,7 @@ export const blogSeries: BlogSeries[] = [
     label: "SOFTWARE RESEARCH",
     title: "Software Research",
     description:
-      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see the RoboSub course better than our YOLO detector?",
+      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see our Isaac Sim course better than YOLO?",
   },
 ];
 
