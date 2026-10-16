@@ -807,6 +807,20 @@ html, body {
   }
 }
 
+/* Blog index cards: three across on desktop, stacked on tablets and phones */
+.blog-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .blog-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Blog article + sidebar layout: 1.2/0.8 on desktop, stacked on mobile */
 .blog-layout-grid {
   display: grid;

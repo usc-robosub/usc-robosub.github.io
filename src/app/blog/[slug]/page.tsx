@@ -35,5 +35,17 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
+  if (post.category === "Research") {
+    return (
+      <BlogPostArticle
+        post={post}
+        headlineWords={post.headline}
+        sectionLabel="BLOG / SOFTWARE RESEARCH"
+        backHref="/blog/research"
+        backLabel="BACK TO RESEARCH"
+      />
+    );
+  }
+
   return <BlogPostArticle post={post} headlineWords={post.headline} />;
 }

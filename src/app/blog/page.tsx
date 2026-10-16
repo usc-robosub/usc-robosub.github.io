@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock } from "@tabler/icons-react";
 import { Navbar, Footer } from "@/components/layout";
 import { SectionLabel, AnimatedHeadline, FadeUpText, FlowField } from "@/components/ui";
-import { getBlogPost, blogPosts } from "@/lib/blog";
+import { getBlogPost, blogPosts, researchPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | USC AUV",
@@ -24,6 +24,7 @@ type BlogCard = {
 
 const devPost = blogPosts[0];
 const compPost = getBlogPost("robosub-2026-competition-log");
+const latestResearch = researchPosts[researchPosts.length - 1];
 
 const cards: BlogCard[] = [
   {
@@ -45,6 +46,16 @@ const cards: BlogCard[] = [
     image: compPost?.image ?? "/barracuda.jpg",
     date: compPost?.date ?? "July 2026",
     readTime: compPost?.readTime ?? "7 min read",
+  },
+  {
+    href: "/blog/research",
+    label: "SOFTWARE RESEARCH",
+    title: "Software Research",
+    excerpt:
+      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see the RoboSub course better than our YOLO detector?",
+    image: latestResearch?.image ?? "/barracuda.jpg",
+    date: latestResearch?.date ?? "October 2026",
+    readTime: latestResearch?.readTime ?? "7 min read",
   },
 ];
 
@@ -96,15 +107,7 @@ export default function BlogPage() {
 
         <section className="section">
           <div className="container">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "28px",
-                alignItems: "stretch",
-              }}
-              className="hero-grid"
-            >
+            <div className="blog-card-grid">
               {cards.map((card) => (
                 <Link
                   key={card.href}

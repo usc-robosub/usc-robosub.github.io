@@ -45,6 +45,14 @@ export type BlogPost = {
     };
     video?: string; // YouTube video id
     videoTitle?: string;
+    // A small data table placed after a given body paragraph index.
+    table?: {
+      after: number;
+      columns: string[];
+      rows: string[][];
+      highlightRow?: number; // row index to emphasize
+      caption?: string;
+    };
   }[];
   highlights: string[];
   // Optional aside/quote overrides (fall back to the development-blog defaults)
@@ -398,8 +406,141 @@ export const blogPosts: BlogPost[] = [
     quickNote:
       "This competition log recaps RoboSub 2026 at the Woollett Aquatics Center in Irvine, CA, five days of poolside engineering, an overnight rebuild, and a semi-finals run.",
   },
+  {
+    slug: "vlm-vs-yolo-underwater",
+    title: "Can a Vision-Language Model See the RoboSub Course Better Than YOLO?",
+    excerpt:
+      "We put two open AI models in front of 397 simulated camera frames from Barracuda's course and checked what they could actually see once we stopped showing them YOLO's answers.",
+    date: "October 2026",
+    readTime: "7 min read",
+    category: "Research",
+    author: "USC AUV Software Team",
+    image: "/research-vlm-isaac-scene.webp",
+    headline: ["VLM", "VS", "YOLO"],
+    summary:
+      "Vision-language models can look at a photo and answer questions about it in plain language, and recent research has put one in charge of an underwater robot. Before building anything like that into Barracuda, we asked a narrower question: does a VLM tell us anything about the course that our YOLO object detector doesn't? For the models our hardware can run, the answer is no, not yet. This post covers how we tested it, what the models got wrong, and what we learned along the way.",
+    details: [
+      { label: "Frames", value: "397 (sim)" },
+      { label: "Models", value: "Qwen3-VL 8B, 30B" },
+      { label: "Hardware", value: "RTX 4090" },
+    ],
+    sections: [
+      {
+        heading: "The Question",
+        body: [
+          "YOLO draws boxes and labels: gate, 0.9 confidence. It can't say the gate is half hidden behind a pipe, that we're lined up with the wrong opening, or that we just logged the gate as done without going through it. A VLM might. It is also slow and can be confidently wrong, so we measured before trusting it.",
+          "**The short answer, for the models our hardware can run: no, not yet.**",
+        ],
+        image: "/research-vlm-isaac-scene.webp",
+        imageAlt:
+          "Isaac Sim viewport showing the Barracuda vehicle in front of the start gate, with red and black gate legs, two role signs, and a rocky channel beyond.",
+      },
+      {
+        heading: "The Setup",
+        body: [
+          "**Footage.** We ran Barracuda's full autonomy stack in Isaac Sim: search for the gate, pass through it, attempt the slalom, then return home through the gate. A small ROS 2 recorder saved every camera frame alongside YOLO's detections for that exact frame, matched by timestamp. One complete run gave us 397 frames at about 2 frames per second.",
+          "**Models.** We tested Qwen3-VL at two sizes, both compressed to 4-bit so they fit on the team's RTX 4090: an 8-billion-parameter model (6 GB) and a 30-billion-parameter mixture-of-experts model that uses about 3 billion parameters per answer (19 GB).",
+          "**The question we asked.** For every frame, the model answered in a strict JSON format: which course objects are visible, whether each is partly hidden or out of reach, what hazards are nearby, and whether the vehicle is approaching the wrong side of the gate. Answers that broke the format counted as unusable.",
+          "**Two conditions.** Each model ran twice on the same frames. Once with YOLO's detections written into the prompt, the way you would deploy it. Once blind, with YOLO's list removed, so the model has to find things itself. The blind runs turned out to matter most.",
+        ],
+        inlineImages: [
+          {
+            after: 3,
+            src: "/research-vlm-gate-sign.jpg",
+            alt: "Simulated frame near the gate: a red and black gate leg with an SOS role sign above it. YOLO found both; the 30B model, running blind, reported neither.",
+          },
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "Each row is one run over the same 397 frames. \"Labels found by both\" counts objects YOLO and the VLM both reported in a frame.",
+          "**1. The model was mostly repeating YOLO.** With YOLO's list in the prompt, the 8B model agreed with YOLO on 197 labels. Blind, the agreement dropped to 43. Most of the earlier agreement was the model echoing the list it had been given, not seeing the objects itself. If you show a model a hint, you have to test it without the hint too.",
+          "**2. On its own, it doesn't see the course objects.** YOLO found the role signs on the gate in 45 frames. Blind, the 8B model found them twice and the 30B model never. Both mostly described the scenery instead: pool wall, water surface, floor.",
+          "**3. A bigger model didn't fix it.** The 30B model echoed YOLO less and mentioned tethers and divers about half as often as the 8B. But blind, it found even fewer course objects and broke the answer format more often, almost always by placing objects at positions like \"top-left\" that our format doesn't allow.",
+          "**4. Speed rules out the control loop.** Three to four seconds per frame on a desktop RTX 4090 is fine for an occasional slow question, and far too slow to steer a vehicle. The Jetson on board Barracuda is slower still, so any onboard use would be advisory, at decision points only.",
+        ],
+        table: {
+          after: 0,
+          columns: ["Run", "Usable answers", "Sec / frame", "Found by both", "VLM only", "YOLO only", "Role signs (YOLO: 45)"],
+          rows: [
+            ["8B, YOLO's list shown", "92%", "3.75", "197", "47", "8", "46"],
+            ["8B, blind", "61%", "4.33", "43", "288", "63", "2"],
+            ["30B, YOLO's list shown", "60%", "3.61", "70", "268", "99", "19"],
+            ["30B, blind", "54%", "3.37", "21", "313", "54", "0"],
+          ],
+          highlightRow: 3,
+        },
+      },
+      {
+        heading: "What the Hazards Really Were",
+        body: [
+          "Both models reported a tether and a diver near the vehicle. We first assumed these were made up. Looking at the frames showed something more interesting.",
+          "The tether is a real rope lying on the channel floor, so that answer is fair. The diver is Barracuda's own shadow on the floor, frame and thrusters included. Neither answer came from nothing, but a planner acting on \"diver on the left, not reachable\" would have swerved away from its own shadow.",
+        ],
+        comparison: {
+          after: 0,
+          items: [
+            {
+              src: "/research-vlm-tether.jpg",
+              alt: "Channel floor with a yellow segmented rope running along it.",
+              caption: "\"The tether is visible and poses a hazard.\" A rope on the floor.",
+            },
+            {
+              src: "/research-vlm-shadow.jpg",
+              alt: "Pool floor from above with the dark shadow of the vehicle's frame on the left.",
+              caption: "\"Near a diver on the left side.\" The sub's own shadow.",
+            },
+          ],
+        },
+      },
+      {
+        heading: "Did We Actually Finish the Task?",
+        body: [
+          "Our behavior tree decides a task is done from waypoints and time budgets. That can go wrong. In one run the vehicle ended the mission pressed against the channel wall, on the wrong side of the gate, and the log still said \"mission complete.\"",
+          "So we asked the VLM one yes-or-no question at the end of each task: did the vehicle pass through the gate? Shown only the last six frames, about four seconds of footage, it answered \"done\" with 95% confidence before the vehicle had even reached the gate. Spreading nine frames across the whole task fixed that mistake, but on the full gate pass it could only answer \"can't tell.\" A forward camera only shows a pass as the gate growing and then leaving the frame, and the model doesn't yet reason about that.",
+          "The camera did catch the bad \"mission complete.\" The model just couldn't be the one to call it. The failure itself is now filed as a bug in our planner.",
+        ],
+        inlineImages: [
+          {
+            after: 0,
+            src: "/research-vlm-return-strip.jpg",
+            alt: "Four frames from the last 20 seconds of the return trip: the sub turns into the channel wall until the camera is pressed against the rock and the picture goes dark.",
+          },
+        ],
+      },
+      {
+        heading: "Limitations and Next Steps",
+        body: [
+          "This is a first look, not a benchmark. It uses simulation only, and Isaac Sim imagery is cleaner and less varied than a real pool. It covers one run on one course layout. We have no ground-truth labels yet, so agreement with YOLO is not accuracy. Both models come from one family, and both are 4-bit quantized.",
+          "All of the tools are in our barracuda-vlm repository: the frame recorder, the comparison report with a blind mode, the task-completion check, and a spreadsheet labeling workflow. Next we will label a 100-frame set to report real precision and recall, then rerun everything on footage from our November pool test. If a model ever earns a place on Barracuda, it will be because it beat YOLO blind, in real water.",
+        ],
+      },
+    ],
+    highlights: [
+      "Shown YOLO's answers, the VLM mostly repeated them",
+      "Blind, neither model found the gate's role signs",
+      "A 4x larger model did not see the course better",
+      "\"Diver\" was the sub's own shadow; \"tether\" was a real rope",
+      "Real footage exposed a planner bug the logs hid",
+    ],
+    quote: "If you show a model a hint, you have to test it without the hint too.",
+    statusLabel: "STUDY STATUS",
+    statusItems: [
+      "Sim footage recorded and analyzed",
+      "Blind runs done for both model sizes",
+      "Ground-truth labels in progress",
+      "Pool-footage rerun after the November test",
+    ],
+    readNote:
+      "More software research is on the way: precision and recall from labeled frames, then the same test on real pool footage.",
+    quickNote:
+      "Software Research notes are written by the software subteam as experiments finish, including the ones that don't work out.",
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
 }
+
+export const researchPosts = blogPosts.filter((post) => post.category === "Research");

@@ -422,6 +422,80 @@ export function BlogPostArticle({
                                     style={{ marginTop: "4px" }}
                                   />
                                 ))}
+                              {/* Small data table anchored after a specific paragraph. */}
+                              {section.table && section.table.after === pIdx ? (
+                                <div style={{ overflowX: "auto", marginTop: "4px" }}>
+                                  <table
+                                    style={{
+                                      width: "100%",
+                                      minWidth: "560px",
+                                      borderCollapse: "collapse",
+                                      fontSize: "14px",
+                                      lineHeight: 1.5,
+                                      fontVariantNumeric: "tabular-nums",
+                                    }}
+                                  >
+                                    <thead>
+                                      <tr>
+                                        {section.table.columns.map((col, cIdx) => (
+                                          <th
+                                            key={col}
+                                            className="mono"
+                                            style={{
+                                              textAlign: cIdx === 0 ? "left" : "right",
+                                              padding: "10px 12px",
+                                              fontSize: "11px",
+                                              fontWeight: 500,
+                                              letterSpacing: "0.08em",
+                                              textTransform: "uppercase",
+                                              color: "var(--text-muted)",
+                                              borderBottom: "1px solid var(--border)",
+                                              verticalAlign: "bottom",
+                                            }}
+                                          >
+                                            {col}
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {section.table.rows.map((row, rIdx) => {
+                                        const highlighted = section.table?.highlightRow === rIdx;
+                                        return (
+                                          <tr
+                                            key={row[0]}
+                                            style={{
+                                              background: highlighted ? "var(--bg-secondary)" : undefined,
+                                            }}
+                                          >
+                                            {row.map((cell, cIdx) => (
+                                              <td
+                                                key={`${row[0]}-${cIdx}`}
+                                                className={cIdx === 0 ? undefined : "mono"}
+                                                style={{
+                                                  textAlign: cIdx === 0 ? "left" : "right",
+                                                  padding: "10px 12px",
+                                                  borderBottom: "1px solid var(--border)",
+                                                  whiteSpace: "nowrap",
+                                                  color: highlighted ? "var(--text-primary)" : undefined,
+                                                  fontWeight: highlighted ? 700 : undefined,
+                                                }}
+                                              >
+                                                {cell}
+                                              </td>
+                                            ))}
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                  {section.table.caption ? (
+                                    <p className="mono" style={{ marginTop: "10px", fontSize: "11px", color: "var(--text-muted)" }}>
+                                      {section.table.caption}
+                                    </p>
+                                  ) : null}
+                                </div>
+                              ) : null}
                               {/* Side-by-side captioned comparison (e.g. before / after). */}
                               {section.comparison && section.comparison.after === pIdx ? (
                                 <div
