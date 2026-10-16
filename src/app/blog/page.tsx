@@ -16,7 +16,7 @@ type BlogCard = {
   href: string;
   label: string;
   title: string;
-  excerpt: string;
+  excerpt?: string;
   image: string;
   date: string;
   count: string;
@@ -143,16 +143,18 @@ export default function BlogPage() {
                     >
                       {card.title}
                     </h2>
-                    <p
-                      style={{
-                        color: "var(--text-secondary)",
-                        fontSize: "15px",
-                        lineHeight: 1.75,
-                        marginBottom: "22px",
-                      }}
-                    >
-                      {card.excerpt}
-                    </p>
+                    {card.excerpt ? (
+                      <p
+                        style={{
+                          color: "var(--text-secondary)",
+                          fontSize: "15px",
+                          lineHeight: 1.75,
+                          marginBottom: "22px",
+                        }}
+                      >
+                        {card.excerpt}
+                      </p>
+                    ) : null}
 
                     <div
                       style={{
