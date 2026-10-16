@@ -466,6 +466,7 @@ export const blogPosts: BlogPost[] = [
           "**2. Ask for a strict, scorable answer.** For every frame, the model had to return a single JSON object: each visible object with its visibility (visible, partially occluded, or not visible), reachability from the current heading, and image region; spatial relations such as \"approaching the wrong side of the gate\"; and nearby hazards. Answers that did not parse against this schema counted as unusable, because a behavior tree cannot act on free text.",
           "**3. Test two model sizes locally.** We used Qwen3-VL at 8 billion parameters and a 30-billion-parameter mixture-of-experts variant that activates about 3 billion per answer, both 4-bit quantized and served on the team's RTX 4090. Local models matter for us: a submerged vehicle has no network link.",
           "**4. Run every model prompted and blind.** In the prompted condition, YOLO's detections for the frame were written into the prompt, the way the system would be deployed. In the blind condition, they were removed, so the model had to find everything itself. Comparing the two separates what the model sees from what it is told.",
+          "**The VLM never controlled the vehicle.** Throughout the mission, YOLO, the behavior tree, and the controller drove Barracuda exactly as they do in competition. The VLM only answered questions about the recorded frames afterward, so its results say how well it sees, not how well Barracuda performs.",
         ],
       },
       {
