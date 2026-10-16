@@ -446,7 +446,7 @@ export const blogPosts: BlogPost[] = [
         body: [
           "Barracuda's perception stack follows a standard modular design: the ZED stereo camera feeds a YOLO object detector, detections become 3D landmarks in our factor-graph state estimator, and a behavior tree plans each task for an MPPI controller to execute.",
           "A bounding box answers one question well: what is in the frame, and where. It cannot say that the gate is half hidden behind a pipe, that the vehicle is lined up with the wrong opening, or that a task the behavior tree marked as finished never actually happened. These are exactly the judgments a human operator makes at a glance.",
-          "This study was inspired by UnderwaterVLA (Wang et al., 2025, arXiv:2509.22441), a dual-brain vision-language-action architecture for underwater navigation. Its large \"brain\" model looks at the scene and breaks a mission into sub-goals, and a smaller onboard \"cerebellum\" model reads each camera frame and returns a structured decision: which way to move, how fast, and whether the current step is done. The idea that stood out to us was that small, structured answers from a vision model, including an explicit \"step done\" flag, could sit on top of an existing robot rather than replace it.",
+          "This study was inspired by [UnderwaterVLA](https://arxiv.org/abs/2509.22441) [1], a dual-brain vision-language-action architecture for underwater navigation. Its large \"brain\" model looks at the scene and breaks a mission into sub-goals, and a smaller onboard \"cerebellum\" model reads each camera frame and returns a structured decision: which way to move, how fast, and whether the current step is done. The idea that stood out to us was that small, structured answers from a vision model, including an explicit \"step done\" flag, could sit on top of an existing robot rather than replace it.",
           "Two things made us adapt it rather than copy it. At RoboSub, the vehicle runs untethered and fully autonomous, with no link to an outside computer, so any vision model has to run onboard and be small. And Barracuda already plans and controls well with a behavior tree and MPPI, so the useful question is not whether a VLM can drive, but whether it can see. That led to the narrower claim tested here: does an onboard-sized VLM see our course well enough to be trusted with any of these judgments? The paper's \"step done\" flag also became our task-completion check, described below.",
         ],
       },
@@ -560,6 +560,14 @@ export const blogPosts: BlogPost[] = [
           "At the model sizes that run on our hardware, a general-purpose VLM does not add reliable scene information to Barracuda's perception, and scaling from 8 to 30 billion parameters did not change that. Barracuda's perception stays with YOLO and the behavior tree for now.",
           "Two lessons carry beyond this study. Any model shown a hint has to be tested without it, or agreement will be overstated. And confidence scores from these models were not informative: we saw 95% on answers that were wrong.",
           "This was a simulation-only study of one mission, scored against YOLO rather than hand-labeled ground truth, with two quantized models from one family. We plan to repeat it against labeled frames and real pool footage, and to revisit it as models trained on underwater imagery become available.",
+        ],
+      },
+      {
+        heading: "References",
+        body: [
+          "[1] Z. Wang, Y. Zhu, Y. Yan, X. Tian, X. Shao, M. Li, W. Li, G. Su, W. Cui, and D. Fan, \"UnderwaterVLA: Dual-brain Vision-Language-Action architecture for Autonomous Underwater Navigation,\" arXiv:2509.22441, 2025. [arxiv.org/abs/2509.22441](https://arxiv.org/abs/2509.22441)",
+          "[2] Qwen Team, Qwen3-VL vision-language models. [github.com/QwenLM/Qwen3-VL](https://github.com/QwenLM/Qwen3-VL)",
+          "[3] RoboNation, RoboSub 2026 Team Handbook. [robonation.org/programs/robosub](https://robonation.org/programs/robosub/)",
         ],
       },
     ],

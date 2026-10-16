@@ -83,17 +83,33 @@ function SectionVideo({
   );
 }
 
-// Renders **key phrases** as bold; everything else stays plain text.
+// Renders **key phrases** as bold and [text](https://...) as links; everything
+// else stays plain text.
 function renderRich(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 700 }}>
-        {part.slice(2, -2)}
-      </strong>
-    ) : (
-      part
-    ),
-  );
+  return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^)\s]+\))/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 700 }}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+    if (link) {
+      return (
+        <a
+          key={i}
+          href={link[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--text-primary)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+        >
+          {link[1]}
+        </a>
+      );
+    }
+    return part;
+  });
 }
 
 type BlogPostArticleProps = {
