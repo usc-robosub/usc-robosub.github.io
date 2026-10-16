@@ -537,8 +537,8 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Can It Tell When a Task Is Done?",
         body: [
-          "Our behavior tree decides a task is complete from waypoints and time budgets, which can be wrong. In this mission, the vehicle finished its return leg pressed against the channel wall, on the wrong side of the gate, while the mission log still reported success.",
-          "We tested whether a VLM could act as an independent check by asking one yes-or-no question at the end of each task: did the vehicle pass through the gate? Given only the last six frames, about four seconds of footage, the 8B model answered \"done\" with 95% confidence before the vehicle had reached the gate. Sampling nine frames evenly across the whole task removed that false positive, but on the complete gate pass the model could only answer \"can't tell\". A forward camera shows a pass as the gate growing and then leaving the frame, and the model did not reason about that sequence.",
+          "Our behavior tree decides a task is complete from waypoints and time budgets, which can occasionally be wrong. In this simulated mission, Barracuda passed through the gate on the way out, as it did autonomously to qualify at RoboSub 2026. The miss came on the final return-home leg: the simulated vehicle ended up against the channel wall, short of the gate, while the mission log still reported success.",
+          "We tested whether a VLM could act as an independent check by asking one yes-or-no question at the end of each task: did the vehicle pass through the gate? Given only the last six frames, about four seconds of footage, the 8B model answered \"done\" with 95% confidence before the vehicle had reached the gate. Sampling nine frames evenly across the whole task removed that false positive, but on the outbound gate pass, which the vehicle did complete, the model could only answer \"can't tell\". A forward camera shows a pass as the gate growing and then leaving the frame, and the model did not reason about that sequence.",
           "The camera footage did expose the false success; the model could not be the one to flag it. That finding is now informing changes to how our mission planner decides a task is complete.",
         ],
         inlineImages: [
@@ -564,7 +564,7 @@ export const blogPosts: BlogPost[] = [
       "Blind, neither model found the gate's role signs",
       "A 4x larger model did not see the course better",
       "\"Diver\" was the vehicle's own shadow; \"tether\" was a real rope",
-      "Camera footage exposed a false \"mission complete\"",
+      "Sim footage caught a false \"complete\" on the return leg",
     ],
     quote: "If you show a model a hint, you have to test it without the hint too.",
     statusLabel: "AT A GLANCE",
