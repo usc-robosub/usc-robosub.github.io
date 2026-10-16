@@ -432,7 +432,7 @@ export const blogPosts: BlogPost[] = [
     image: "/research-vlm-gate-sign.jpg",
     headline: ["VLM", "VS", "YOLO"],
     summary:
-      "This study was led by Isabella Wu on the USC AUV software team. Vision-language models (VLMs) can describe a camera image in plain language, and recent research has used them to plan for underwater robots. We asked whether one could add information that our YOLO detector can't express, such as occlusion, which side of the gate the vehicle is approaching, or whether a task was actually completed. Across four runs over the same 397 simulated frames, neither an 8-billion nor a 30-billion-parameter open model found the course objects reliably without being shown YOLO's detections, and the larger model did not close the gap.",
+      "Vision-language models (VLMs) can describe a camera image in plain language, and recent research has used them to plan for underwater robots. We asked whether one could add information that our YOLO detector can't express, such as occlusion, which side of the gate the vehicle is approaching, or whether a task was actually completed. Across four runs over the same 397 simulated frames, neither an 8-billion nor a 30-billion-parameter open model found the course objects reliably without being shown YOLO's detections, and the larger model did not close the gap.",
     details: [
       { label: "Frames", value: "397 (sim)" },
       { label: "Models", value: "Qwen3-VL 8B, 30B" },
