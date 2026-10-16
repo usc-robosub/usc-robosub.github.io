@@ -557,9 +557,9 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Conclusion",
         body: [
-          "So, did the VLM pass the eye exam? Not at the sizes that fit on our hardware. A general-purpose VLM doesn't add reliable scene information to Barracuda's perception, and going from 8 to 30 billion parameters didn't change that. YOLO and the behavior tree keep the job.",
-          "Two lessons travel well beyond this study. If you show a model a hint, test it without the hint, or you'll mistake copying for seeing. And don't trust the confidence numbers: we saw 95% on answers that were simply wrong.",
-          "Be clear about what this was, too: one simulated mission, graded against YOLO rather than hand-labeled ground truth, with two quantized models from one family. We'll repeat it against labeled frames and real pool footage, and come back when models trained on underwater imagery arrive. Until then, keep the hint covered.",
+          "So, did the VLM pass? No. On its own, neither model could reliably find the gate and its signs, and the 30-billion-parameter model did no better than the 8-billion one. Barracuda will keep using YOLO to find objects and the behavior tree to make decisions.",
+          "We learned two things that apply to any AI model, not just this one. First, if you give a model a hint (here, YOLO's list of what it found), also test it without the hint. Otherwise you can't tell whether it is seeing or just copying. Second, don't trust how sure the model says it is: it said 95% on answers that were wrong.",
+          "This was a small first test. We ran one mission in simulation, and we compared the VLM to YOLO instead of to answers checked by a person. Both models also came from the same family, Qwen3-VL. Next, we want to check the frames by hand, repeat the test on real pool footage, and try again when models trained on underwater images become available.",
         ],
       },
       {
