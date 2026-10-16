@@ -518,6 +518,7 @@ export const blogPosts: BlogPost[] = [
         body: [
           "Both models repeatedly reported a tether and a diver near the vehicle. We first assumed these were hallucinations. Inspecting the frames showed something more instructive.",
           "The \"tether\" is a real rope lying on the channel floor, so that answer is a fair description. The \"diver\" is Barracuda's own shadow on the floor, with the frame and thrusters clearly visible. Neither answer came from nothing, but a planner that trusted \"diver on the left, not reachable\" would steer away from its own shadow.",
+          "There is a second reason these words appeared so often: our own instructions suggested them. The prompt asked for \"hazards such as walls, the surface, tether or divers\", and the model's most common answers were exactly those four. Examples in a prompt work as hints too, so a fairer rerun would ask for hazards without naming any.",
         ],
         comparison: {
           after: 0,
