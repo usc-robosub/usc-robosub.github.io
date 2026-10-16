@@ -555,7 +555,7 @@ export const blogPosts: BlogPost[] = [
           "At the model sizes that run on our hardware, a general-purpose VLM does not add reliable scene information to Barracuda's perception, and scaling from 8 to 30 billion parameters did not change that. Barracuda's perception stays with YOLO and the behavior tree for now.",
           "Two lessons carry beyond this study. Any model shown a hint has to be tested without it, or agreement will be overstated. And confidence scores from these models were not informative: we saw 95% on answers that were wrong.",
           "This was a simulation-only study of one mission, scored against YOLO rather than hand-labeled ground truth, with two quantized models from one family. We plan to repeat it against labeled frames and real pool footage, and to revisit it as models trained on underwater imagery become available.",
-          "Written by Isabella Wu, USC AUV Software.",
+          "Written by Isabella Wu, USC AUV Software Co-lead, October 15, 2026.",
         ],
       },
     ],
