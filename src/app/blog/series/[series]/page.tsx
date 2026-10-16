@@ -58,11 +58,13 @@ export default async function SeriesPage({ params }: PageProps) {
                 className="text-display"
                 style={{ fontSize: "clamp(40px, 7vw, 80px)", marginBottom: "28px" }}
               />
-              <FadeUpText delay={0.4}>
-                <p style={{ color: "var(--text-secondary)", fontSize: "18px", lineHeight: 1.8, maxWidth: "720px" }}>
-                  {series.description}
-                </p>
-              </FadeUpText>
+              {series.description ? (
+                <FadeUpText delay={0.4}>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "18px", lineHeight: 1.8, maxWidth: "720px" }}>
+                    {series.description}
+                  </p>
+                </FadeUpText>
+              ) : null}
               <div style={{ marginTop: "32px" }}>
                 <Link href="/blog" className="btn-secondary">
                   <IconArrowLeft size={16} />

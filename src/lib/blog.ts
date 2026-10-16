@@ -604,7 +604,7 @@ export type BlogSeries = {
   slug: string;
   label: string; // small caps label on the blog index card
   title: string;
-  description: string; // card excerpt and series page intro; keep the three similar in length
+  description?: string; // card excerpt and series page intro; optional
 };
 
 // One card on /blog and one page at /blog/series/<slug> per series. Add a post by
@@ -628,8 +628,6 @@ export const blogSeries: BlogSeries[] = [
     slug: "software-research",
     label: "SOFTWARE RESEARCH",
     title: "Software Research",
-    description:
-      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see our Isaac Sim course better than YOLO?",
   },
 ];
 
