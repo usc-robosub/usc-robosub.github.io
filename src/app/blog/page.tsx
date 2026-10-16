@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock } from "@tabler/icons-react";
+import { IconArrowRight, IconArrowLeft, IconCalendar, IconArticle } from "@tabler/icons-react";
 import { Navbar, Footer } from "@/components/layout";
 import { SectionLabel, AnimatedHeadline, FadeUpText, FlowField } from "@/components/ui";
-import { getBlogPost, blogPosts } from "@/lib/blog";
+import { blogSeries, postsInSeries } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | USC AUV",
@@ -19,34 +19,24 @@ type BlogCard = {
   excerpt: string;
   image: string;
   date: string;
-  readTime: string;
+  count: string;
 };
 
-const devPost = blogPosts[0];
-const compPost = getBlogPost("robosub-2026-competition-log");
-
-const cards: BlogCard[] = [
-  {
-    href: "/blog/development",
-    label: "DEVELOPMENT BLOG 2026",
-    title: "Development Blog 2026",
-    excerpt:
-      "Milestone-by-milestone from dry-dock to full-system pool operations: how software, electrical, and mechanical came together across the spring wet tests.",
-    image: devPost.image,
-    date: devPost.date,
-    readTime: devPost.readTime,
-  },
-  {
-    href: "/blog/robosub-2026-competition-log",
-    label: "ROBOSUB 2026 COMPETITION LOG",
-    title: "RoboSub 2026 Competition Log",
-    excerpt:
-      "Five days at the Woollett Aquatics Center in Irvine: pool-deck problem-solving, an overnight rebuild, and a run into the Autonomy Challenge semi-finals.",
-    image: compPost?.image ?? "/barracuda.jpg",
-    date: compPost?.date ?? "July 2026",
-    readTime: compPost?.readTime ?? "7 min read",
-  },
-];
+// One card per series; the image and date come from the series' most recent post
+// (the last one listed in blogPosts).
+const cards: BlogCard[] = blogSeries.map((series) => {
+  const posts = postsInSeries(series.slug);
+  const latest = posts[posts.length - 1];
+  return {
+    href: `/blog/series/${series.slug}`,
+    label: series.label,
+    title: series.title,
+    excerpt: series.description,
+    image: latest?.image ?? "/barracuda.jpg",
+    date: latest?.date ?? "",
+    count: `${posts.length} ${posts.length === 1 ? "post" : "posts"}`,
+  };
+});
 
 export default function BlogPage() {
   return (
@@ -96,15 +86,7 @@ export default function BlogPage() {
 
         <section className="section">
           <div className="container">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "28px",
-                alignItems: "stretch",
-              }}
-              className="hero-grid"
-            >
+            <div className="blog-card-grid">
               {cards.map((card) => (
                 <Link
                   key={card.href}
@@ -198,8 +180,8 @@ export default function BlogPage() {
                           {card.date}
                         </span>
                         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                          <IconClock size={13} />
-                          {card.readTime}
+                          <IconArticle size={13} />
+                          {card.count}
                         </span>
                       </div>
                       <span

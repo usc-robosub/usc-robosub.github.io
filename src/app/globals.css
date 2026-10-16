@@ -807,6 +807,46 @@ html, body {
   }
 }
 
+/* Blog index cards: three across on desktop, stacked on tablets and phones */
+.blog-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .blog-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Series page rows: cover image left, text right; stacked on phones */
+.series-post-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.series-post-card__image {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .series-post-card {
+    grid-template-columns: 1fr;
+  }
+
+  .series-post-card__image {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
 /* Blog article + sidebar layout: 1.2/0.8 on desktop, stacked on mobile */
 .blog-layout-grid {
   display: grid;

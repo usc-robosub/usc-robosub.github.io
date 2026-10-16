@@ -83,17 +83,33 @@ function SectionVideo({
   );
 }
 
-// Renders **key phrases** as bold; everything else stays plain text.
+// Renders **key phrases** as bold and [text](https://...) as links; everything
+// else stays plain text.
 function renderRich(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 700 }}>
-        {part.slice(2, -2)}
-      </strong>
-    ) : (
-      part
-    ),
-  );
+  return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^)\s]+\))/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} style={{ color: "var(--text-primary)", fontWeight: 700 }}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+    if (link) {
+      return (
+        <a
+          key={i}
+          href={link[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--text-primary)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+        >
+          {link[1]}
+        </a>
+      );
+    }
+    return part;
+  });
 }
 
 type BlogPostArticleProps = {
@@ -316,6 +332,20 @@ export function BlogPostArticle({
                   {post.title}
                 </h2>
 
+                {post.byline ? (
+                  <p
+                    className="mono"
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: "12px",
+                      letterSpacing: "0.06em",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    {post.byline}
+                  </p>
+                ) : null}
+
                 <p
                   style={{
                     color: "var(--text-secondary)",
@@ -422,6 +452,122 @@ export function BlogPostArticle({
                                     style={{ marginTop: "4px" }}
                                   />
                                 ))}
+                              {/* Bar chart anchored after a specific paragraph, drawn to one scale. */}
+                              {section.chart && section.chart.after === pIdx ? (
+                                <figure
+                                  role="img"
+                                  aria-label={`${section.chart.title}: ${section.chart.groups
+                                    .map((g) => `${g.label} ${g.values.join(" vs ")}`)
+                                    .join("; ")}`}
+                                  style={{ margin: "4px 0 0", display: "grid", gap: "14px" }}
+                                >
+                                  <p className="mono" style={{ fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)" }}>
+                                    {section.chart.title}
+                                  </p>
+                                  {section.chart.groups.map((group) => (
+                                    <div key={group.label} style={{ display: "grid", gridTemplateColumns: "56px 1fr", gap: "12px", alignItems: "center" }}>
+                                      <span className="mono" style={{ fontSize: "13px", color: "var(--text-secondary)" }}>{group.label}</span>
+                                      <div style={{ display: "grid", gap: "5px" }}>
+                                        {group.values.map((value, vIdx) => (
+                                          <div key={vIdx} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                            <div
+                                              style={{
+                                                height: "16px",
+                                                minWidth: "2px",
+                                                width: `calc((100% - 48px) * ${value / (section.chart?.max ?? value)})`,
+                                                background: section.chart?.series[vIdx]?.color,
+                                              }}
+                                            />
+                                            <span className="mono" style={{ fontSize: "12px", color: "var(--text-primary)" }}>{value}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  ))}
+                                  <div className="mono" style={{ display: "flex", flexWrap: "wrap", gap: "8px 20px", fontSize: "11px", color: "var(--text-muted)" }}>
+                                    {section.chart.series.map((s) => (
+                                      <span key={s.name} style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                                        <i style={{ width: "10px", height: "10px", background: s.color, display: "inline-block" }} />
+                                        {s.name}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </figure>
+                              ) : null}
+                              {/* Small data table anchored after a specific paragraph. */}
+                              {section.table && section.table.after === pIdx ? (
+                                <div style={{ overflowX: "auto", marginTop: "4px" }}>
+                                  <table
+                                    style={{
+                                      width: "100%",
+                                      minWidth: "560px",
+                                      borderCollapse: "collapse",
+                                      fontSize: "14px",
+                                      lineHeight: 1.5,
+                                      fontVariantNumeric: "tabular-nums",
+                                    }}
+                                  >
+                                    <thead>
+                                      <tr>
+                                        {section.table.columns.map((col, cIdx) => (
+                                          <th
+                                            key={col}
+                                            className="mono"
+                                            style={{
+                                              textAlign: cIdx === 0 ? "left" : "right",
+                                              padding: "10px 12px",
+                                              fontSize: "11px",
+                                              fontWeight: 500,
+                                              letterSpacing: "0.08em",
+                                              textTransform: "uppercase",
+                                              color: "var(--text-muted)",
+                                              borderBottom: "1px solid var(--border)",
+                                              verticalAlign: "bottom",
+                                            }}
+                                          >
+                                            {col}
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {section.table.rows.map((row, rIdx) => {
+                                        const highlighted = section.table?.highlightRow === rIdx;
+                                        return (
+                                          <tr
+                                            key={row[0]}
+                                            style={{
+                                              background: highlighted ? "var(--bg-secondary)" : undefined,
+                                            }}
+                                          >
+                                            {row.map((cell, cIdx) => (
+                                              <td
+                                                key={`${row[0]}-${cIdx}`}
+                                                className={cIdx === 0 ? undefined : "mono"}
+                                                style={{
+                                                  textAlign: cIdx === 0 ? "left" : "right",
+                                                  padding: "10px 12px",
+                                                  borderBottom: "1px solid var(--border)",
+                                                  whiteSpace: "nowrap",
+                                                  color: highlighted ? "var(--text-primary)" : undefined,
+                                                  fontWeight: highlighted ? 700 : undefined,
+                                                }}
+                                              >
+                                                {cell}
+                                              </td>
+                                            ))}
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                  {section.table.caption ? (
+                                    <p className="mono" style={{ marginTop: "10px", fontSize: "11px", color: "var(--text-muted)" }}>
+                                      {section.table.caption}
+                                    </p>
+                                  ) : null}
+                                </div>
+                              ) : null}
                               {/* Side-by-side captioned comparison (e.g. before / after). */}
                               {section.comparison && section.comparison.after === pIdx ? (
                                 <div

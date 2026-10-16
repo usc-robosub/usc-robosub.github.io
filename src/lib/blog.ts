@@ -1,5 +1,6 @@
 export type BlogPost = {
   slug: string;
+  series: string; // blogSeries slug: which series page lists this post
   title: string;
   excerpt: string;
   date: string;
@@ -8,6 +9,7 @@ export type BlogPost = {
   author: string;
   image: string;
   summary: string;
+  byline?: string; // e.g. "Written by ...", shown above the summary
   headline?: string[]; // override the big hero headline words
   details: {
     label: string;
@@ -45,6 +47,23 @@ export type BlogPost = {
     };
     video?: string; // YouTube video id
     videoTitle?: string;
+    // A small data table placed after a given body paragraph index.
+    table?: {
+      after: number;
+      columns: string[];
+      rows: string[][];
+      highlightRow?: number; // row index to emphasize
+      caption?: string;
+    };
+    // Horizontal bar chart placed after a given body paragraph index. Bars are
+    // drawn to one scale (max), one bar per series in each group.
+    chart?: {
+      after: number;
+      title: string;
+      max: number;
+      series: { name: string; color: string }[]; // color: a CSS value, e.g. "var(--terminal-amber)"
+      groups: { label: string; values: number[] }[];
+    };
   }[];
   highlights: string[];
   // Optional aside/quote overrides (fall back to the development-blog defaults)
@@ -58,6 +77,7 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "spring-2026-wet-tests",
+    series: "development-2026",
     title: "Spring 2026 Wet Tests: From Dry-Dock to Pool Operations",
     excerpt:
       "A look back at how the team moved from dry-dock development into real pool operations, transforming coordination across software, electrical, and mechanical along the way.",
@@ -164,6 +184,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "robosub-2025-barracuda-build-update",
+    series: "development-2026",
     title: "Barracuda Build Update: What We Changed for RoboSub 2025",
     excerpt:
       "A look at the latest structural, software, and electrical upgrades that are shaping our 2025 vehicle.",
@@ -227,6 +248,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "robosub-2026-competition-log",
+    series: "robosub-2026",
     title: "RoboSub 2026 Competition Log",
     excerpt:
       "Five days at the Woollett Aquatics Center in Irvine became the culmination of an entire year of work, the story of how Barracuda and the USC AUV team diagnosed problems, made engineering calls on the pool deck, rebuilt the entire vehicle overnight, and swam into the Autonomy Challenge semi-finals.",
@@ -398,8 +420,220 @@ export const blogPosts: BlogPost[] = [
     quickNote:
       "This competition log recaps RoboSub 2026 at the Woollett Aquatics Center in Irvine, CA, five days of poolside engineering, an overnight rebuild, and a semi-finals run.",
   },
+  {
+    slug: "vlm-vs-yolo-underwater",
+    series: "software-research",
+    title: "Can a Vision-Language Model See Our Isaac Sim Course Better Than YOLO?",
+    excerpt:
+      "We gave two open vision-language models an eye exam: 397 synchronized camera frames from a full autonomous mission in Isaac Sim. Here is what they could see once nobody whispered YOLO's answers to them.",
+    date: "October 2026",
+    readTime: "8 min read",
+    category: "Research",
+    author: "Isabella Wu",
+    image: "/research-vlm-gate-sign.jpg",
+    headline: ["VLM", "VS", "YOLO"],
+    byline: "Written by Isabella Wu, Software Co-lead, October 15, 2026.",
+    summary:
+      "Vision-language models (VLMs) can look at a camera image and tell you about it in plain language, and recent research has handed them the planning for underwater robots. So we asked the obvious question: could one tell us something our YOLO detector can't, like that a sign is half hidden, that we're lined up on the wrong opening, or that a task the robot called finished never happened? We ran four tests over the same 397 simulated frames. Neither an 8-billion nor a 30-billion-parameter open model found the course objects reliably once we stopped showing it YOLO's detections, and the bigger model did not close the gap.",
+    details: [
+      { label: "Frames", value: "397 (sim)" },
+      { label: "Models", value: "Qwen3-VL 8B, 30B" },
+      { label: "Hardware", value: "RTX 4090" },
+    ],
+    sections: [
+      {
+        heading: "Backstory",
+        body: [
+          "Start with what Barracuda already does. The ZED stereo camera feeds a YOLO object detector, the detections become 3D landmarks in our factor-graph state estimator, and a behavior tree plans each task for an MPPI controller to fly.",
+          "A bounding box is good at one question: what is in the frame, and where? Ask it anything harder and it goes quiet. Is the gate half hidden behind a pipe? Are we lined up with the wrong opening? Did the task the behavior tree just checked off actually happen? A human operator answers those at a glance. YOLO can't answer them at all.",
+          "This study started with a paper: [UnderwaterVLA](https://arxiv.org/abs/2509.22441) [1], a dual-brain vision-language-action architecture for underwater navigation. A large \"brain\" model looks at the scene and breaks the mission into sub-goals; a smaller onboard \"cerebellum\" model reads each camera frame and answers in a fixed format: which way to move, how fast, and whether the current step is done. That last part caught our attention. Small, structured answers from a vision model, including a plain \"step done\" flag, could sit on top of a robot that already works instead of replacing it.",
+          "We adapted the idea rather than copying it, for two reasons. At RoboSub the vehicle runs untethered and fully autonomous, with no link to an outside computer, so any vision model has to fit onboard. And Barracuda already plans and controls well with a behavior tree and MPPI, so the interesting question was never whether a VLM can drive. It was whether it can see. That is the claim we tested: does an onboard-sized VLM see our course well enough to trust with any of these judgments? (The paper's \"step done\" flag became our task-completion check, further down.)",
+        ],
+      },
+      {
+        heading: "Project Description",
+        body: [
+          "Think of this as an eye exam. Before you let anyone advise the pilot, you check their eyesight. Our hypothesis was that a VLM could add scene-level judgments on top of YOLO, as an advisor at the behavior tree's decision points and never inside the control loop. To earn that job, it had to pass three tests:",
+          "**1. It sees the course on its own.** Nobody reads the chart for it. Without YOLO's list, it should still report the gate elements and signs that YOLO finds.",
+          "**2. What it adds is true.** When it says something is hidden, out of reach, or dangerous, the frame should agree.",
+          "**3. It answers in time.** A few seconds is fine at a decision point. Inside a control loop, a few seconds is a crash.",
+        ],
+        image: "/research-vlm-isaac-scene.webp",
+        imageAlt:
+          "Isaac Sim viewport showing the Barracuda vehicle in front of the start gate, with red and black gate legs, two role signs, and a rocky channel beyond.",
+      },
+      {
+        heading: "Method",
+        body: [
+          "**1. Record synchronized frames and detections.** We flew Barracuda's full autonomy stack through Isaac Sim: find the gate, pass through it, try the slalom, come home through the gate. A small ROS 2 recorder held camera frames by timestamp and matched each YOLO detection message to the frame with exactly the same stamp (easy, because our detector copies the image header onto its output). Frames where YOLO saw nothing stayed in as negatives. One mission gave us 397 frames at about 2 frames per second.",
+          "**2. Ask for an answer you can grade.** For every frame the model had to return one JSON object: each visible object with its visibility (visible, partially occluded, or not visible), whether it could be reached from the current heading, and where it sat in the image, plus relations like \"approaching the wrong side of the gate\" and any hazards nearby. An answer that didn't parse counted as unusable. A behavior tree can't act on a nice paragraph.",
+          "**3. Test two model sizes, locally.** We used Qwen3-VL at 8 billion parameters and a 30-billion-parameter mixture-of-experts version that wakes up about 3 billion of them per answer, both squeezed to 4-bit and served on the team's RTX 4090. Local mattered: a submerged vehicle can't phone a data center.",
+          "**4. Run every model prompted and blind.** This is the cover-one-eye part of the exam. Both conditions sent the same image, the same task (\"gate traversal\"), the same list of allowed object names, and the same answer format. The prompted condition added one line: YOLO's detections for that frame, with each object's confidence and rough position. For the frame at the top of this post it read: Object detector output: gate (score 0.19, center); search_rescue (score 0.68, center). That is how you would deploy it. The blind condition left the line out, so the model had to find everything itself. Compare the two and you learn what the model sees versus what it was told.",
+          "**The VLM never controlled the vehicle.** YOLO, the behavior tree, and the controller flew Barracuda the whole mission, exactly as they do in competition. The VLM only answered questions about the recorded frames afterward, so these results grade its eyesight, not Barracuda's performance.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "Each row is one run over the same 397 frames. \"Found by both\" counts objects that YOLO and the VLM both reported in the same frame.",
+          "**The prompted model was mostly repeating YOLO.** Here is the habit to watch for: seeing high agreement and calling it understanding. With YOLO's list in the prompt, the 8B model agreed with YOLO on 197 labels. Cover the hint and agreement fell to 43. Most of that agreement was the model reading the answer key.",
+          "**On their own, neither model found the course objects.** YOLO spotted the gate's role signs in 45 frames. Blind, the 8B model found them in 2 and the 30B model in none. Instead, both described the room: pool wall, water surface, floor. Accurate, as far as it goes. Not what we asked.",
+          "**A bigger model did not close the gap.** The 30B model copied YOLO less and reported spurious hazards about half as often, which is something. Blind, though, it found even fewer course objects, and most of its unusable answers put objects at positions our format doesn't allow, like \"top-left\". Bigger models, it turns out, also color outside the lines.",
+          "**Latency rules out the control loop.** Three to four seconds per frame on a desktop RTX 4090, and slower still on the vehicle's embedded computer. That's fine for an occasional question at a decision point. It's useless for steering.",
+        ],
+        table: {
+          after: 0,
+          columns: ["Run", "Usable answers", "Sec / frame", "Found by both", "VLM only", "YOLO only", "Role signs (YOLO: 45)"],
+          rows: [
+            ["8B, prompted with YOLO", "92%", "3.75", "197", "47", "8", "46"],
+            ["8B, blind", "61%", "4.33", "43", "288", "63", "2"],
+            ["30B, prompted with YOLO", "60%", "3.61", "70", "268", "99", "19"],
+            ["30B, blind", "54%", "3.37", "21", "313", "54", "0"],
+          ],
+          highlightRow: 3,
+        },
+        chart: {
+          after: 1,
+          title: "Labels found by both YOLO and the VLM",
+          max: 197,
+          series: [
+            { name: "Prompted with YOLO's list", color: "var(--text-secondary)" },
+            { name: "Blind", color: "var(--terminal-amber)" },
+          ],
+          groups: [
+            { label: "8B", values: [197, 43] },
+            { label: "30B", values: [70, 21] },
+          ],
+        },
+        comparison: {
+          after: 2,
+          items: [
+            {
+              src: "/research-vlm-gate-sign.jpg",
+              alt: "Simulated frame near the gate: a red and black gate leg with the Search and Rescue (SOS) role sign above it, and the channel with slalom pipes beyond.",
+              caption: "YOLO found the gate and the SOS sign here. The 30B model, running blind, reported neither.",
+            },
+          ],
+        },
+      },
+      {
+        heading: "What the Hazards Really Were",
+        body: [
+          "Both models kept reporting a tether and a diver near the vehicle. Our first reaction was \"hallucination.\" Then we actually looked at the frames, which is always the better move.",
+          "The \"tether\" is a real rope lying on the channel floor, so that one is fair. The \"diver\" is Barracuda's own shadow, frame and thrusters included. Neither answer came from nowhere. But picture a planner that trusts \"diver on the left, not reachable\": it would spend the whole run politely avoiding its own shadow.",
+          "There is a second culprit, and it's us. The prompt asked for \"hazards such as walls, the surface, tether or divers\", and the model's four most common answers were exactly those four. Examples in a prompt are hints too. Next time, ask for hazards without naming any.",
+        ],
+        comparison: {
+          after: 0,
+          items: [
+            {
+              src: "/research-vlm-tether.jpg",
+              alt: "Channel floor with a yellow segmented rope running along it.",
+              caption: "\"The tether is visible and poses a hazard.\" A rope on the floor.",
+            },
+            {
+              src: "/research-vlm-shadow.jpg",
+              alt: "Pool floor from above with the dark shadow of the vehicle's frame on the left.",
+              caption: "\"Near a diver on the left side.\" The vehicle's own shadow.",
+            },
+          ],
+        },
+      },
+      {
+        heading: "Can It Tell When a Task Is Done?",
+        body: [
+          "Our behavior tree decides a task is complete from waypoints and time budgets, and now and then it's wrong. In this simulated mission, Barracuda went through the gate on the way out, just as it did autonomously to qualify at RoboSub 2026. The miss came on the last leg, return home: the simulated vehicle ended up against the channel wall, short of the gate, while the log cheerfully reported success.",
+          "So we tried the VLM as a second pair of eyes, with one yes-or-no question at the end of each task: did the vehicle pass through the gate? Shown only the last six frames (about four seconds of footage), the 8B model said \"done\" with 95% confidence before the vehicle had even reached the gate. Spreading nine frames across the whole task fixed that false alarm. On the outbound gate pass, though, which the vehicle did complete, the best it could manage was \"can't tell.\" From a forward camera, a pass looks like the gate growing and then sliding out of frame, and the model never put that story together.",
+          "The footage did catch the false success. The model just couldn't be the one to call it, and that finding is now shaping how our mission planner decides a task is done.",
+        ],
+        inlineImages: [
+          {
+            after: 0,
+            src: "/research-vlm-return-strip.jpg",
+            alt: "Four frames from the last 20 seconds of the return trip: the vehicle turns into the channel wall until the camera is pressed against the rock and the picture goes dark.",
+          },
+        ],
+      },
+      {
+        heading: "Conclusion",
+        body: [
+          "So, did the VLM pass the eye exam? Not at the sizes that fit on our hardware. A general-purpose VLM doesn't add reliable scene information to Barracuda's perception, and going from 8 to 30 billion parameters didn't change that. YOLO and the behavior tree keep the job.",
+          "Two lessons travel well beyond this study. If you show a model a hint, test it without the hint, or you'll mistake copying for seeing. And don't trust the confidence numbers: we saw 95% on answers that were simply wrong.",
+          "Be clear about what this was, too: one simulated mission, graded against YOLO rather than hand-labeled ground truth, with two quantized models from one family. We'll repeat it against labeled frames and real pool footage, and come back when models trained on underwater imagery arrive. Until then, keep the hint covered.",
+        ],
+      },
+      {
+        heading: "References",
+        body: [
+          "[1] Z. Wang, Y. Zhu, Y. Yan, X. Tian, X. Shao, M. Li, W. Li, G. Su, W. Cui, and D. Fan, \"UnderwaterVLA: Dual-brain Vision-Language-Action architecture for Autonomous Underwater Navigation,\" arXiv:2509.22441, 2025. [arxiv.org/abs/2509.22441](https://arxiv.org/abs/2509.22441)",
+          "[2] Qwen Team, Qwen3-VL vision-language models. [github.com/QwenLM/Qwen3-VL](https://github.com/QwenLM/Qwen3-VL)",
+          "[3] RoboNation, RoboSub 2026 Team Handbook. [robonation.org/programs/robosub](https://robonation.org/programs/robosub/)",
+        ],
+      },
+    ],
+    highlights: [
+      "Prompted with YOLO's answers, the VLM mostly repeated them",
+      "Blind, neither model found the gate's role signs",
+      "A 4x larger model did not see the course better",
+      "\"Diver\" was the vehicle's own shadow; \"tether\" was a real rope",
+      "Sim footage caught a false \"complete\" on the return leg",
+    ],
+    quote: "If you show a model a hint, you have to test it without the hint too.",
+    statusLabel: "AT A GLANCE",
+    statusItems: [
+      "397 synchronized frames from one full mission",
+      "2 model sizes, 4 runs, prompted and blind",
+      "0 role signs found blind by the 30B model",
+      "3 to 4 seconds per frame on an RTX 4090",
+    ],
+    readNote:
+      "More research notes from the USC AUV software team are on the way, from perception and state estimation to autonomy.",
+    quickNote:
+      "Software Research notes share what our software team tests on Barracuda, including the ideas that don't work out.",
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
+}
+
+export type BlogSeries = {
+  slug: string;
+  label: string; // small caps label on the blog index card
+  title: string;
+  description: string; // card excerpt and series page intro; keep the three similar in length
+};
+
+// One card on /blog and one page at /blog/series/<slug> per series. Add a post by
+// giving it one of these slugs as its `series`.
+export const blogSeries: BlogSeries[] = [
+  {
+    slug: "development-2026",
+    label: "DEVELOPMENT BLOG 2026",
+    title: "Development Blog 2026",
+    description:
+      "Milestone-by-milestone from dry-dock to full-system pool operations: how software, electrical, and mechanical came together across the spring wet tests.",
+  },
+  {
+    slug: "robosub-2026",
+    label: "ROBOSUB 2026 COMPETITION",
+    title: "RoboSub 2026 Competition Blog",
+    description:
+      "Five days at the Woollett Aquatics Center in Irvine: pool-deck problem-solving, an overnight rebuild, and a run into the Autonomy Challenge semi-finals.",
+  },
+  {
+    slug: "software-research",
+    label: "SOFTWARE RESEARCH",
+    title: "Software Research",
+    description:
+      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see our Isaac Sim course better than YOLO?",
+  },
+];
+
+export function getSeries(slug: string): BlogSeries | undefined {
+  return blogSeries.find((series) => series.slug === slug);
+}
+
+export function postsInSeries(slug: string): BlogPost[] {
+  return blogPosts.filter((post) => post.series === slug);
 }
