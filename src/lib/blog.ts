@@ -419,7 +419,7 @@ export const blogPosts: BlogPost[] = [
     date: "October 2026",
     readTime: "7 min read",
     category: "Research",
-    author: "USC AUV Software Team",
+    author: "Isabella Wu",
     image: "/research-vlm-gate-sign.jpg",
     headline: ["VLM", "VS", "YOLO"],
     summary:
