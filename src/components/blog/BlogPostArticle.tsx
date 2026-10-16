@@ -422,6 +422,48 @@ export function BlogPostArticle({
                                     style={{ marginTop: "4px" }}
                                   />
                                 ))}
+                              {/* Bar chart anchored after a specific paragraph, drawn to one scale. */}
+                              {section.chart && section.chart.after === pIdx ? (
+                                <figure
+                                  role="img"
+                                  aria-label={`${section.chart.title}: ${section.chart.groups
+                                    .map((g) => `${g.label} ${g.values.join(" vs ")}`)
+                                    .join("; ")}`}
+                                  style={{ margin: "4px 0 0", display: "grid", gap: "14px" }}
+                                >
+                                  <p className="mono" style={{ fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)" }}>
+                                    {section.chart.title}
+                                  </p>
+                                  {section.chart.groups.map((group) => (
+                                    <div key={group.label} style={{ display: "grid", gridTemplateColumns: "56px 1fr", gap: "12px", alignItems: "center" }}>
+                                      <span className="mono" style={{ fontSize: "13px", color: "var(--text-secondary)" }}>{group.label}</span>
+                                      <div style={{ display: "grid", gap: "5px" }}>
+                                        {group.values.map((value, vIdx) => (
+                                          <div key={vIdx} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                            <div
+                                              style={{
+                                                height: "16px",
+                                                minWidth: "2px",
+                                                width: `calc((100% - 48px) * ${value / (section.chart?.max ?? value)})`,
+                                                background: section.chart?.series[vIdx]?.color,
+                                              }}
+                                            />
+                                            <span className="mono" style={{ fontSize: "12px", color: "var(--text-primary)" }}>{value}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  ))}
+                                  <div className="mono" style={{ display: "flex", flexWrap: "wrap", gap: "8px 20px", fontSize: "11px", color: "var(--text-muted)" }}>
+                                    {section.chart.series.map((s) => (
+                                      <span key={s.name} style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                                        <i style={{ width: "10px", height: "10px", background: s.color, display: "inline-block" }} />
+                                        {s.name}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </figure>
+                              ) : null}
                               {/* Small data table anchored after a specific paragraph. */}
                               {section.table && section.table.after === pIdx ? (
                                 <div style={{ overflowX: "auto", marginTop: "4px" }}>

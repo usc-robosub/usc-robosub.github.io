@@ -54,6 +54,15 @@ export type BlogPost = {
       highlightRow?: number; // row index to emphasize
       caption?: string;
     };
+    // Horizontal bar chart placed after a given body paragraph index. Bars are
+    // drawn to one scale (max), one bar per series in each group.
+    chart?: {
+      after: number;
+      title: string;
+      max: number;
+      series: { name: string; color: string }[]; // color: a CSS value, e.g. "var(--terminal-amber)"
+      groups: { label: string; values: number[] }[];
+    };
   }[];
   highlights: string[];
   // Optional aside/quote overrides (fall back to the development-blog defaults)
@@ -478,6 +487,29 @@ export const blogPosts: BlogPost[] = [
             ["30B, blind", "54%", "3.37", "21", "313", "54", "0"],
           ],
           highlightRow: 3,
+        },
+        chart: {
+          after: 1,
+          title: "Labels found by both YOLO and the VLM",
+          max: 197,
+          series: [
+            { name: "Prompted with YOLO's list", color: "var(--text-secondary)" },
+            { name: "Blind", color: "var(--terminal-amber)" },
+          ],
+          groups: [
+            { label: "8B", values: [197, 43] },
+            { label: "30B", values: [70, 21] },
+          ],
+        },
+        comparison: {
+          after: 2,
+          items: [
+            {
+              src: "/research-vlm-gate-sign.jpg",
+              alt: "Simulated frame near the gate: a red and black gate leg with the Search and Rescue (SOS) role sign above it, and the channel with slalom pipes beyond.",
+              caption: "YOLO found the gate and the SOS sign here. The 30B model, running blind, reported neither.",
+            },
+          ],
         },
       },
       {
