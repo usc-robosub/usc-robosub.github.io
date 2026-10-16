@@ -1,18 +1,34 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock } from "@tabler/icons-react";
 import { Navbar, Footer } from "@/components/layout";
 import { SectionLabel, AnimatedHeadline, FadeUpText, FlowField } from "@/components/ui";
-import { researchPosts } from "@/lib/blog";
+import { blogSeries, getSeries, postsInSeries } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title: "Software Research | USC AUV",
-  description:
-    "Experiments from the USC AUV software team: what we tried on Barracuda, how we measured it, and what we learned, including the ideas that didn't work out.",
+type PageProps = {
+  params: Promise<{
+    series: string;
+  }>;
 };
 
-export default function ResearchPage() {
+export async function generateStaticParams() {
+  return blogSeries.map((series) => ({ series: series.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const series = getSeries((await params).series);
+  return series ? { title: `${series.title} | USC AUV`, description: series.description } : {};
+}
+
+export default async function SeriesPage({ params }: PageProps) {
+  const series = getSeries((await params).series);
+  if (!series) {
+    notFound();
+  }
+  const posts = postsInSeries(series.slug);
+
   return (
     <>
       <Navbar />
@@ -26,7 +42,7 @@ export default function ResearchPage() {
             borderBottom: "1px solid var(--border)",
           }}
         >
-          <FlowField seed={20261015} style={{ opacity: 0.8 }} />
+          <FlowField seed={70716 + series.slug.length} style={{ opacity: 0.8 }} />
           <div className="bg-grid" style={{ opacity: 0.35 }} />
           <div className="bg-grid-fade" />
           <div className="corner-frame tl" />
@@ -36,16 +52,15 @@ export default function ResearchPage() {
 
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div style={{ maxWidth: "980px" }}>
-              <SectionLabel text="BLOG / SOFTWARE RESEARCH" delay={0.1} />
+              <SectionLabel text={`BLOG / ${series.label}`} delay={0.1} />
               <AnimatedHeadline
-                text={["SOFTWARE", "RESEARCH"]}
+                text={series.title.toUpperCase().split(" ")}
                 className="text-display"
                 style={{ fontSize: "clamp(40px, 7vw, 80px)", marginBottom: "28px" }}
               />
               <FadeUpText delay={0.4}>
                 <p style={{ color: "var(--text-secondary)", fontSize: "18px", lineHeight: 1.8, maxWidth: "720px" }}>
-                  Experiments from the software subteam: what we tried on Barracuda, how we measured it, and what we
-                  learned. We publish the results that didn&apos;t work out too.
+                  {series.description}
                 </p>
               </FadeUpText>
               <div style={{ marginTop: "32px" }}>
@@ -60,26 +75,19 @@ export default function ResearchPage() {
 
         <section className="section">
           <div className="container" style={{ display: "grid", gap: "28px" }}>
-            {researchPosts.map((post) => (
+            {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card"
+                className="card series-post-card"
                 style={{ padding: 0, overflow: "hidden", textDecoration: "none", color: "inherit" }}
               >
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    aspectRatio: "16 / 9",
-                    overflow: "hidden",
-                  }}
-                >
+                <div className="series-post-card__image">
                   <Image src={post.image} alt={post.title} fill style={{ objectFit: "cover" }} />
                 </div>
                 <div style={{ padding: "28px", display: "flex", flexDirection: "column", gap: "14px" }}>
                   <span className="mono" style={{ fontSize: "11px", letterSpacing: "0.1em", color: "var(--text-muted)" }}>
-                    RESEARCH NOTE
+                    {post.category.toUpperCase()}
                   </span>
                   <h2
                     style={{

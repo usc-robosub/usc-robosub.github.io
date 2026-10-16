@@ -1,5 +1,6 @@
 export type BlogPost = {
   slug: string;
+  series: string; // blogSeries slug: which series page lists this post
   title: string;
   excerpt: string;
   date: string;
@@ -66,6 +67,7 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "spring-2026-wet-tests",
+    series: "development-2026",
     title: "Spring 2026 Wet Tests: From Dry-Dock to Pool Operations",
     excerpt:
       "A look back at how the team moved from dry-dock development into real pool operations, transforming coordination across software, electrical, and mechanical along the way.",
@@ -172,6 +174,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "robosub-2025-barracuda-build-update",
+    series: "development-2026",
     title: "Barracuda Build Update: What We Changed for RoboSub 2025",
     excerpt:
       "A look at the latest structural, software, and electrical upgrades that are shaping our 2025 vehicle.",
@@ -235,6 +238,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "robosub-2026-competition-log",
+    series: "robosub-2026",
     title: "RoboSub 2026 Competition Log",
     excerpt:
       "Five days at the Woollett Aquatics Center in Irvine became the culmination of an entire year of work, the story of how Barracuda and the USC AUV team diagnosed problems, made engineering calls on the pool deck, rebuilt the entire vehicle overnight, and swam into the Autonomy Challenge semi-finals.",
@@ -408,6 +412,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "vlm-vs-yolo-underwater",
+    series: "software-research",
     title: "Can a Vision-Language Model See the RoboSub Course Better Than YOLO?",
     excerpt:
       "We put two open AI models in front of 397 simulated camera frames from Barracuda's course and checked what they could actually see once we stopped showing them YOLO's answers.",
@@ -415,7 +420,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     category: "Research",
     author: "USC AUV Software Team",
-    image: "/research-vlm-isaac-scene.webp",
+    image: "/research-vlm-gate-sign.jpg",
     headline: ["VLM", "VS", "YOLO"],
     summary:
       "Vision-language models can look at a photo and answer questions about it in plain language, and recent research has put one in charge of an underwater robot. Before building anything like that into Barracuda, we asked a narrower question: does a VLM tell us anything about the course that our YOLO object detector doesn't? For the models our hardware can run, the answer is no, not yet. This post covers how we tested it, what the models got wrong, and what we learned along the way.",
@@ -442,13 +447,6 @@ export const blogPosts: BlogPost[] = [
           "**Models.** We tested Qwen3-VL at two sizes, both compressed to 4-bit so they fit on the team's RTX 4090: an 8-billion-parameter model (6 GB) and a 30-billion-parameter mixture-of-experts model that uses about 3 billion parameters per answer (19 GB).",
           "**The question we asked.** For every frame, the model answered in a strict JSON format: which course objects are visible, whether each is partly hidden or out of reach, what hazards are nearby, and whether the vehicle is approaching the wrong side of the gate. Answers that broke the format counted as unusable.",
           "**Two conditions.** Each model ran twice on the same frames. Once with YOLO's detections written into the prompt, the way you would deploy it. Once blind, with YOLO's list removed, so the model has to find things itself. The blind runs turned out to matter most.",
-        ],
-        inlineImages: [
-          {
-            after: 3,
-            src: "/research-vlm-gate-sign.jpg",
-            alt: "Simulated frame near the gate: a red and black gate leg with an SOS role sign above it. YOLO found both; the 30B model, running blind, reported neither.",
-          },
         ],
       },
       {
@@ -543,4 +541,43 @@ export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
 }
 
-export const researchPosts = blogPosts.filter((post) => post.category === "Research");
+export type BlogSeries = {
+  slug: string;
+  label: string; // small caps label on the blog index card
+  title: string;
+  description: string; // card excerpt and series page intro; keep the three similar in length
+};
+
+// One card on /blog and one page at /blog/series/<slug> per series. Add a post by
+// giving it one of these slugs as its `series`.
+export const blogSeries: BlogSeries[] = [
+  {
+    slug: "development-2026",
+    label: "DEVELOPMENT BLOG 2026",
+    title: "Development Blog 2026",
+    description:
+      "Milestone-by-milestone from dry-dock to full-system pool operations: how software, electrical, and mechanical came together across the spring wet tests.",
+  },
+  {
+    slug: "robosub-2026",
+    label: "ROBOSUB 2026 COMPETITION",
+    title: "RoboSub 2026 Competition Blog",
+    description:
+      "Five days at the Woollett Aquatics Center in Irvine: pool-deck problem-solving, an overnight rebuild, and a run into the Autonomy Challenge semi-finals.",
+  },
+  {
+    slug: "software-research",
+    label: "SOFTWARE RESEARCH",
+    title: "Software Research",
+    description:
+      "Experiments from the software subteam, measured and written up. First up: can an open vision-language model see the RoboSub course better than our YOLO detector?",
+  },
+];
+
+export function getSeries(slug: string): BlogSeries | undefined {
+  return blogSeries.find((series) => series.slug === slug);
+}
+
+export function postsInSeries(slug: string): BlogPost[] {
+  return blogPosts.filter((post) => post.series === slug);
+}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPostArticle } from "@/components/blog/BlogPostArticle";
-import { blogPosts, getBlogPost } from "@/lib/blog";
+import { blogPosts, getBlogPost, getSeries } from "@/lib/blog";
 
 type PageProps = {
   params: Promise<{
@@ -35,17 +35,15 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  if (post.category === "Research") {
-    return (
-      <BlogPostArticle
-        post={post}
-        headlineWords={post.headline}
-        sectionLabel="BLOG / SOFTWARE RESEARCH"
-        backHref="/blog/research"
-        backLabel="BACK TO RESEARCH"
-      />
-    );
-  }
+  const series = getSeries(post.series);
 
-  return <BlogPostArticle post={post} headlineWords={post.headline} />;
+  return (
+    <BlogPostArticle
+      post={post}
+      headlineWords={post.headline}
+      sectionLabel={series ? `BLOG / ${series.label}` : undefined}
+      backHref={series ? `/blog/series/${series.slug}` : undefined}
+      backLabel={series ? `BACK TO ${series.title.toUpperCase()}` : undefined}
+    />
+  );
 }
