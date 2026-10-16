@@ -316,6 +316,20 @@ export function BlogPostArticle({
                   {post.title}
                 </h2>
 
+                {post.byline ? (
+                  <p
+                    className="mono"
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: "12px",
+                      letterSpacing: "0.06em",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    {post.byline}
+                  </p>
+                ) : null}
+
                 <p
                   style={{
                     color: "var(--text-secondary)",

@@ -9,6 +9,7 @@ export type BlogPost = {
   author: string;
   image: string;
   summary: string;
+  byline?: string; // e.g. "Written by ...", shown above the summary
   headline?: string[]; // override the big hero headline words
   details: {
     label: string;
@@ -431,6 +432,7 @@ export const blogPosts: BlogPost[] = [
     author: "Isabella Wu",
     image: "/research-vlm-gate-sign.jpg",
     headline: ["VLM", "VS", "YOLO"],
+    byline: "Written by Isabella Wu, USC AUV Software Co-lead, October 15, 2026.",
     summary:
       "Vision-language models (VLMs) can describe a camera image in plain language, and recent research has used them to plan for underwater robots. We asked whether one could add information that our YOLO detector can't express, such as occlusion, which side of the gate the vehicle is approaching, or whether a task was actually completed. Across four runs over the same 397 simulated frames, neither an 8-billion nor a 30-billion-parameter open model found the course objects reliably without being shown YOLO's detections, and the larger model did not close the gap.",
     details: [
@@ -558,7 +560,6 @@ export const blogPosts: BlogPost[] = [
           "At the model sizes that run on our hardware, a general-purpose VLM does not add reliable scene information to Barracuda's perception, and scaling from 8 to 30 billion parameters did not change that. Barracuda's perception stays with YOLO and the behavior tree for now.",
           "Two lessons carry beyond this study. Any model shown a hint has to be tested without it, or agreement will be overstated. And confidence scores from these models were not informative: we saw 95% on answers that were wrong.",
           "This was a simulation-only study of one mission, scored against YOLO rather than hand-labeled ground truth, with two quantized models from one family. We plan to repeat it against labeled frames and real pool footage, and to revisit it as models trained on underwater imagery become available.",
-          "Written by Isabella Wu, USC AUV Software Co-lead, October 15, 2026.",
         ],
       },
     ],
