@@ -557,9 +557,12 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Conclusion",
         body: [
-          "So, did the VLM pass? No. On its own, neither model could reliably find the gate and its signs, and the 30-billion-parameter model did no better than the 8-billion one. Barracuda will keep using YOLO to find objects and the behavior tree to make decisions.",
-          "We learned two things that apply to any AI model, not just this one. First, if you give a model a hint (here, YOLO's list of what it found), also test it without the hint. Otherwise you can't tell whether it is seeing or just copying. Second, don't trust how sure the model says it is: it said 95% on answers that were wrong.",
-          "This was a small first test. We ran one mission in simulation, and we compared the VLM to YOLO instead of to answers checked by a person. Both models also came from the same family, Qwen3-VL. Next, we want to check the frames by hand, repeat the test on real pool footage, and try again when models trained on underwater images become available.",
+          "**What we found.** On its own, a VLM that fits on our hardware could not reliably find the gate and its signs, and going from 8 to 30 billion parameters did not help. It mostly agreed with YOLO when we showed it YOLO's answers, and it was 95% sure of answers that were wrong. Recording the mission did surface one real problem, though: our mission planner reported a task as finished when it wasn't.",
+          "**How we're using it.** Four changes come out of this study:",
+          "**1. YOLO stays Barracuda's eyes.** Instead of adding a VLM, we're putting that effort into YOLO itself, starting with more training images of the gate from behind, which the vehicle sees on its way home.",
+          "**2. Missions get a second check from the camera.** The recorder we built saves every camera frame with YOLO's detections, so after a run we can see what the vehicle actually saw. That is how we caught the false \"finished\", and we're now changing how the planner decides a task is done.",
+          "**3. Every new AI model takes the same test.** The recorded frames, the scoring, and the blind runs are reusable. Any model we consider in the future gets tested on the same frames, with and without hints, before it goes anywhere near the vehicle.",
+          "**4. The next round uses real water.** We will check frames by hand instead of comparing against YOLO, repeat the test on real pool footage, and try again when models trained on underwater images become available.",
         ],
       },
       {
