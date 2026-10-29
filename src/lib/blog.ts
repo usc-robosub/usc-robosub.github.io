@@ -594,6 +594,151 @@ export const blogPosts: BlogPost[] = [
     quickNote:
       "Software Research notes share what our software team tests on Barracuda, including the ideas that don't work out.",
   },
+  {
+    slug: "ai-supervisor-rules-vs-llm",
+    series: "software-research",
+    title: "Can a Small Language Model Debug Our Sub Faster Than a Rule?",
+    excerpt:
+      "We built an AI supervisor that watches Barracuda's ROS 2 stack during a wet test and injected fourteen rounds of sensor faults into replayed pool data. The rules found every one in under ten seconds. Here is what the language model added, and what it didn't.",
+    date: "October 2026",
+    readTime: "9 min read",
+    category: "Research",
+    author: "Isabella Wu",
+    image: "/research-supervisor-terminal.png",
+    headline: ["RULES", "VS", "LLM"],
+    byline: "Written by Isabella Wu, Software Co-lead, October 29, 2026.",
+    summary:
+      "Pool time is the scarcest thing we have, and most of it goes to one person squinting at terminal output while the sub drifts. Recent work has put large language models in that chair: an agent that reads the robot's topics and logs and tells you what broke. I wanted to know whether a model small enough to run without internet could do that for Barracuda, so we built the supervisor, replayed real wet-test data with faults injected on top, and scored a local 8-billion-parameter model against a page of plain rules. The rules caught every fault in 7 to 10 seconds with no false alarms. The model caught none on its own. Once pointed at the fault it explained it well, and the work of getting it there taught us more about our own sensors than about the model.",
+    details: [
+      { label: "Runs", value: "14 (replayed pool data)" },
+      { label: "Model", value: "Qwen3 8B, local" },
+      { label: "Rule detection", value: "7 to 10 s" },
+    ],
+    sections: [
+      {
+        heading: "Backstory",
+        body: [
+          "A wet test looks like this. The sub is in the water, the mission is armed, and something is off: the estimate drifts, the depth hold hunts, a task times out. One of us opens a terminal and starts the ritual. `ros2 topic hz` on the DVL. `ros2 topic echo` on the IMU. Scroll the estimator log. Check whether the Jetson's disk filled up again. Ten minutes later we know it was the DVL driver hanging, which it has done before, and which is written down in a Notion page nobody opened poolside.",
+          "That ritual is the job we wanted to automate. Not the driving: Barracuda already plans and controls itself with a behavior tree and an MPPI controller. The watching. Projects like NASA JPL's ROSA [1] wrap a language model around the ROS 2 command line so you can ask the robot what is wrong in plain English. The pitch is appealing: an agent that reads the live graph, remembers every past failure, and names the fix before the operator finishes typing.",
+          "Two constraints shaped our version. At competition the vehicle is untethered, so anything that runs during a mission has to fit onboard and work without internet. And during a wet test the operator has a laptop and maybe a weak hotspot, so a local model is the realistic fallback. Before promising either, we wanted the same thing we wanted from the vision-language model study: a test the model could fail.",
+        ],
+      },
+      {
+        heading: "Project Description",
+        body: [
+          "The supervisor is a small Python program with four layers. A **snapshot** probes the running stack with read-only ROS 2 commands: which topics exist, how fast each sensor publishes, what the health flags say, the last lines of the launch log, free disk. A page of **rules** turns a snapshot into findings, each with its evidence and a one-line next step. A **playbook** of past failures, written as plain Markdown, is searched for entries that match. And an optional **model** gets all of that and writes a paragraph: what it thinks happened, what to do, and which playbook entry it believes applies.",
+          "A fifth piece exists but was not under test: a short list of recovery actions the supervisor is allowed to suggest, like resuming a paused driver or bringing the DVL's network link up. Every one is dry-run by default and needs a typed yes. Nothing in the program can reach a thruster, a wrench topic, or the kill switch, and a unit test checks that stays true.",
+          "To earn a place in the loop, the model had to pass three tests, the same shape as last time:",
+          "**1. It finds a fault on its own.** Shown a snapshot with the rule layer blinded, it should notice what is wrong.",
+          "**2. What it adds is true and useful.** When the rules have already named the fault, its explanation and recommended action should point at the sensor that failed, not at whatever is loudest.",
+          "**3. It answers in time.** A pool slot is measured in minutes. A diagnosis that arrives after the operator has already found the problem is a paragraph, not a diagnosis.",
+        ],
+      },
+      {
+        heading: "Method",
+        body: [
+          "**1. Build a bench from real data.** We replayed a recording from our July 12 wet test (IMU, DVL, and the ping altimeter) into a throwaway ROS 2 container on the team's desktop, with Barracuda's real state estimator running on top. The supervisor watched that container exactly as it would watch the vehicle's.",
+          "**2. Inject faults you can grade.** Three kinds, each with a known answer. Pause the DVL replay so the topic goes silent. Capture one sensor message and republish it at full rate while the real stream is paused, so the topic looks alive but every value is frozen. Freeze two sensors at once, which on a real vehicle points at shared power or a shared bus rather than one driver. Each fault was injected while the supervisor ran, and we logged the second it reported.",
+          "**3. Score the rules and the model separately.** For the rules: time from injection to the correct finding, and the number of false reports before and after. For the model (Qwen3 at 8 billion parameters [2], served locally with Ollama [3]): did it notice the fault with the rules blinded; once the rules named it, did it name the same sensor, did it recommend acting on that sensor or on something else, and did it pick the right playbook entry. Three attempts per fault, each logged with the exact snapshot the model saw, because a verdict about a model is worthless without the evidence it had.",
+          "**4. Change one thing per run.** Fourteen runs, each fixing one problem the previous run exposed, from a probe that missed live publishers to a prompt that let the model ignore a critical finding. The run records are the real output of this project; the headline numbers below are their summary.",
+          "**Nothing here touched the vehicle.** The model answered questions about a replay. The bench never published to a control topic, and the running simulation our teammates use on the same machine was left alone.",
+        ],
+      },
+      {
+        heading: "Results",
+        body: [
+          "Each row is one fault family. Rule time is injection to printed finding, including a two-snapshot confirmation that we added after the second run.",
+          "**The rules became the detector by run three.** The first snapshot took 37 seconds because it probed topics one at a time; running every probe in one parallel call brought that to about a second, and that speed produced a new problem: a three-second rate window sometimes missed a live publisher and the supervisor cried wolf four times on a healthy IMU. A four-second window and a rule that nothing is reported until two snapshots agree fixed it. From then on, every injected fault was caught in 7 to 10 seconds with no false reports.",
+          "**The model detected nothing on its own.** With the rules blinded, we handed it the frozen DVL sample six times. It never mentioned it. Each time it anchored on the estimator's health flag, which was already reading false for an unrelated bench reason, and explained that instead. This is the same habit the vision study found: a model shown a loud, true, irrelevant signal will explain the loud signal.",
+          "**As an explainer it went from useless to reliable, in two steps.** With the fault named in its prompt, the model still ignored or denied a frozen depth sensor three times out of three (run 09). Ordering findings by severity and stating plainly that a frozen payload means the sensor has failed brought that to three of three named (run 11), but it kept recommending we look at the estimator rather than restart the sensor driver. The second step was not a prompt change at all. Our playbook search matched entries on single shared words, so the model was being handed pages about ZED depth cameras and phantom landmarks because they contained the word \"depth\". Requiring two shared keywords put the frozen-sensor page first, and the model copied its fix: eight of nine attempts recommended restarting the right driver (run 13). For a small model, retrieval quality is action quality.",
+          "**It is slow, and that is the whole story for the control loop.** 40 to 85 seconds per answer, because the desktop's GPU was busy with teammates' jobs and inference fell back to the CPU. The rule that already printed the answer took under ten. On the vehicle's embedded computer, under the full stack, it would be slower still.",
+        ],
+        table: {
+          after: 0,
+          columns: ["Fault", "Rule time", "False reports", "Model found it alone", "Model named it once told"],
+          rows: [
+            ["DVL silent (driver paused)", "63 s, then 9 s", "4, then 0", "Not tested", "Yes"],
+            ["DVL frozen at full rate", "8 s", "0", "0 of 6", "4 of 4"],
+            ["IMU frozen at full rate", "7 s", "0", "Not tested", "4 of 4"],
+            ["Depth frozen at full rate", "7 s", "1, see below", "Not tested", "0 of 3, later 9 of 9"],
+            ["DVL and IMU frozen together", "7 s", "0", "Not tested", "4 of 5, shared cause"],
+          ],
+          highlightRow: 3,
+          caption: "Rule times are from the run records; \"then\" and \"later\" entries show the value before and after a fix.",
+        },
+        chart: {
+          after: 3,
+          title: "Frozen depth sensor: what the model said once the rule had named it",
+          max: 100,
+          series: [
+            { name: "Named the frozen sensor (%)", color: "var(--text-secondary)" },
+            { name: "Recommended acting on that sensor (%)", color: "var(--terminal-amber)" },
+          ],
+          groups: [
+            { label: "Run 09", values: [0, 0] },
+            { label: "Run 12", values: [100, 33] },
+            { label: "Run 13", values: [100, 89] },
+          ],
+        },
+      },
+      {
+        heading: "What the False Positive Really Was",
+        body: [
+          "One finding kept coming back that we could not explain. Twice, with only the DVL frozen, the supervisor reported the depth sensor frozen too. We tightened the detector (every message in the window identical, at least five of them) and it still happened. So we stopped guessing and read the recording itself.",
+          "It is worth pausing on what was hiding in plain sight. Our ping altimeter holds one reading for a long time. In the July 12 bag, the longest run of identical depth messages is 1,237 in a row, about 41 seconds, and 14% of all five-message windows are identical. The sub was sitting over a flat pool floor. There is nothing wrong with the sensor; a stuck altimeter and a stationary sub look exactly the same from the outside. We had walked past that fact for ten runs because our earlier belief, that the altimeter \"never repeats more than two readings\", had been measured on a moving stretch. It was wrong.",
+          "The honest fix was to stop judging depth by its payload alone. Then we asked what would make it judgeable, and the answer was already in the snapshot: the DVL's vertical velocity. If the DVL says the sub moved five centimeters up or down in a two-second window and the altimeter reading did not change at all, the altimeter is stuck. Checked offline against 439 windows of the real recording, that rule fired zero times on healthy data at 3, 5, and 10 centimeters, and 31% of windows carried enough motion to judge. One more exclusion was needed: readings pinned at the sensor's minimum range (13% of the bag, the sub hugging the floor) are saturation, not a fault.",
+          "On the bench the cross-check reported a frozen altimeter 30 and 69 seconds after injection, each time at the first descent, held the finding until the real reading moved again, and cleared 20 seconds after it did. The limit is stated rather than hidden: a sub holding depth gives the rule nothing to check against, and it says nothing rather than guess. On a mission, the descent at the start of every run is the natural test.",
+        ],
+      },
+      {
+        heading: "Can It Pick the Right Page in the Playbook?",
+        body: [
+          "The playbook is the part of this project with the most reuse: a Markdown file, one entry per failure we have actually had, with symptoms, cause, fix, and where it happened. The model is asked to name which entry applies. For most of the fourteen runs it named the wrong one, and the logs showed why. Our search was keyword overlap, and a frozen-depth finding pulled in three unrelated entries on the word \"depth\". The model then echoed one of them. Retrieval noise became model noise.",
+          "Two changes fixed what could be fixed. Retrieval now needs two shared keywords, which kept the genuine matches and dropped the one-word accidents. And the model's answer is checked in code: a title it was never shown is moved to a rejected field and the match set to null, so the field can be wrong but it can no longer invent. The last run showed the ceiling of that check. For two frozen sensors the model twice picked \"DVL topic silent\", an entry that was legitimately among the candidates because it shares the words \"power\" and \"bring-up\". The validator accepted it, correctly. That is a judgment error, and the right place for it is in plain view, not patched over.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        body: [
+          "**What we found.** For the faults we can inject, a page of deterministic rules is the detector: 7 to 10 seconds, zero false alarms after the second run, and every finding comes with its evidence and a next step. A local 8-billion-parameter model found nothing on its own and answered 40 to 85 seconds after the rule had. Once the rule named the fault and retrieval handed it the right page, it explained the fault well and recommended the right action eight times in nine, and it reasoned to a shared cause for two frozen sensors unprompted. The thing we learned most from was neither: it was our own altimeter, which repeats readings for 40 seconds at a time, and the cross-check that fact forced us to build.",
+          "**How we're using it.** Four changes come out of this study:",
+          "**1. The rules go in the loop at the next wet test.** The supervisor runs on the operator's laptop against the vehicle's container for the whole session, logging every snapshot. The first thing we learn is what a healthy mission reads as; the second is what a real fault reads as.",
+          "**2. The model stays optional, and off the detection path.** It is the paragraph under the finding, not the finding. Whether a stronger model changes that is the next experiment, and it runs on the recorded snapshots without any hardware.",
+          "**3. Every fault we see becomes a playbook entry and a replayable test.** The injected faults from this study are scripts now. A real failure at the pool gets written up the same day and injected on the bench the same week.",
+          "**4. Sensors get cross-checked against each other, not just against themselves.** The depth-versus-DVL rule is the first. The estimator's own logs, which say in words why it is withholding output, are the next source we will read.",
+          "The principle underneath all four is the one we keep relearning: put the model where it can be checked, not where it has to be trusted. A rule that fires in ten seconds with its evidence attached can be wrong in a way you can see. A paragraph that arrives a minute later can be wrong in a way you cannot, unless the finding it explains is already on the screen. Detect with what you can read. Explain with what you can verify.",
+        ],
+      },
+      {
+        heading: "References",
+        body: [
+          "[1] NASA Jet Propulsion Laboratory, ROSA: the Robot Operating System Agent. [github.com/nasa-jpl/rosa](https://github.com/nasa-jpl/rosa)",
+          "[2] Qwen Team, Qwen3 and Qwen3-VL open models. [github.com/QwenLM/Qwen3-VL](https://github.com/QwenLM/Qwen3-VL)",
+          "[3] Ollama, local model serving. [github.com/ollama/ollama](https://github.com/ollama/ollama)",
+          "[4] RoboNation, RoboSub 2026 Team Handbook. [robonation.org/programs/robosub](https://robonation.org/programs/robosub/)",
+        ],
+      },
+    ],
+    highlights: [
+      "Rules caught every injected fault in 7 to 10 seconds, zero false alarms after run two",
+      "The local model found nothing on its own and took 40 to 85 seconds to answer",
+      "Pointed at the fault, it named the right sensor 9 of 9 times",
+      "Fixing the playbook search did more for its advice than any prompt change",
+      "Our altimeter repeats one reading for 41 seconds; the sub was just sitting still",
+    ],
+    quote: "The rule finds it in ten seconds. The model writes the paragraph. Read the paragraph later.",
+    statusLabel: "AT A GLANCE",
+    statusItems: [
+      "14 runs on replayed July 12 pool data",
+      "5 fault families, 3 model attempts each",
+      "7 to 10 seconds from fault to finding",
+      "0 false fires on 439 windows for the depth cross-check",
+    ],
+    readNote:
+      "More research notes from the USC AUV software team are on the way, from perception and state estimation to autonomy.",
+    quickNote:
+      "Software Research notes share what our software team tests on Barracuda, including the ideas that don't work out.",
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
